@@ -77,15 +77,15 @@ public class PlayerBomberman : MonoBehaviour
     }
     public void MovePlayerLeft(GameObject obj)
     {    
-<<<<<<< HEAD
+
         obj.transform.rotation = Quaternion.Euler(0,0,0);
         obj.transform.Translate(new Vector3(-speed,0,0) * Time.deltaTime);
-=======
+
         model.transform.rotation = new Quaternion(0,0,0,0);
         var dir = new Vector3(0, 0, -speed) * Time.deltaTime;
         if(!collisionPlayer(obj.transform.position+dir))
             obj.transform.Translate(dir);
->>>>>>> e6a7751bee88048d471688e1e46bb5f7a9671cc1
+
     }
     
     public bool collisionPlayer(Vector3 checkPos)
