@@ -51,27 +51,31 @@ public class PlayerBomberman : MonoBehaviour
 
     public void MovePlayer(Rigidbody rb)
     {
-        if (Input.GetKey(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             rb.velocity = new Vector3(0, 0, speed);
         }
 
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S))
         {
             rb.velocity = new Vector3(0, 0, -speed);
         }
 
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             rb.velocity = new Vector3(-speed, 0, 0);
         }
 
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.D))
         {
             rb.velocity = new Vector3(speed, 0, 0);
         }
-
         
+       
+        
+        
+
+
     }
 }
 
