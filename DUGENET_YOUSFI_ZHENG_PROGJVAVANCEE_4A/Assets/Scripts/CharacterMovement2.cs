@@ -7,7 +7,8 @@ public class CharacterMovement2 : MonoBehaviour
 {
     public int speed;
     public GameObject bomb;
-    private Rigidbody _rb;
+    public Transform model2;
+    
 
 
     public Map map;
@@ -22,6 +23,7 @@ public class CharacterMovement2 : MonoBehaviour
     {
        Player = FindObjectOfType<PlayerBomberman>();
        randomControls = Random.Range(0, 5);
+       
        //AgentMode = ChooseMode.instance.CM2;
     }
 
@@ -36,19 +38,19 @@ public class CharacterMovement2 : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.O))
             {
-                Player.MovePlayerUp(Player.gameObject);
+                Player.MovePlayerUp(gameObject,model2);
             }
             else if (Input.GetKey(KeyCode.L))
             {
-                Player.MovePlayerDown(Player.gameObject);
+                Player.MovePlayerDown(gameObject,model2);
             }
             else if (Input.GetKey(KeyCode.K))
             {
-                Player.MovePlayerLeft(Player.gameObject);
+                Player.MovePlayerLeft(gameObject,model2);
             }
             else if (Input.GetKey(KeyCode.M))
             {
-                Player.MovePlayerRight(Player.gameObject);
+                Player.MovePlayerRight(gameObject,model2);
             }
             else if (Input.GetKey(KeyCode.KeypadEnter))
             {
@@ -85,19 +87,19 @@ public class CharacterMovement2 : MonoBehaviour
         {
             case 0 :
                 
-                Player.MovePlayerUp(Player.gameObject);
+                Player.MovePlayerUp(gameObject,model2);
                 break;
             case 1 :
                 
-                Player.MovePlayerDown(Player.gameObject);
+                Player.MovePlayerDown(gameObject,model2);
                 break;
             case 2 : 
                 
-                Player.MovePlayerLeft(Player.gameObject);
+                Player.MovePlayerLeft(gameObject,model2);
                 break;
             case 3 :
                
-                Player.MovePlayerRight(Player.gameObject);
+                Player.MovePlayerRight(gameObject,model2);
                 break;
             case 4 :
                 

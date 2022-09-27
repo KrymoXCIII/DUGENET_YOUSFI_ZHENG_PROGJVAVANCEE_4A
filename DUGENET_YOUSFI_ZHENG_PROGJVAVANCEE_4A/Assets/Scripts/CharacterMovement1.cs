@@ -7,7 +7,8 @@ public class CharacterMovement1 : MonoBehaviour
 {
     public int speed;
     public GameObject bomb;
-    private Rigidbody _rb;
+    public Transform model1;
+    
 
 
     public Map map;
@@ -36,19 +37,19 @@ public class CharacterMovement1 : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Z))
             {
-                Player.MovePlayerUp(Player.gameObject);
+                Player.MovePlayerUp(gameObject,model1);
             }
             else if (Input.GetKey(KeyCode.S))
             {
-                Player.MovePlayerDown(Player.gameObject);
+                Player.MovePlayerDown(gameObject,model1);
             }
             else if (Input.GetKey(KeyCode.Q))
             {
-                Player.MovePlayerLeft(Player.gameObject);
+                Player.MovePlayerLeft(gameObject,model1);
             }
             else if (Input.GetKey(KeyCode.D))
             {
-                Player.MovePlayerRight(Player.gameObject);
+                Player.MovePlayerRight(gameObject,model1);
             }
             else if (Input.GetKey(KeyCode.Space))
             {
@@ -85,19 +86,19 @@ public class CharacterMovement1 : MonoBehaviour
         {
             case 0 :
                 
-                Player.MovePlayerUp(Player.gameObject);
+                Player.MovePlayerUp(gameObject,model1);
                 break;
             case 1 :
                 
-                Player.MovePlayerDown(Player.gameObject);
+                Player.MovePlayerDown(gameObject,model1);
                 break;
             case 2 : 
                 
-                Player.MovePlayerLeft(Player.gameObject);
+                Player.MovePlayerLeft(gameObject,model1);
                 break;
             case 3 :
                
-                Player.MovePlayerRight(Player.gameObject);
+                Player.MovePlayerRight(gameObject,model1);
                 break;
             case 4 :
                 
