@@ -18,7 +18,7 @@ public class CharacterMovement : MonoBehaviour
     void Start()
     {
         Player = FindObjectOfType<PlayerBomberman>();
-        _rb = GetComponent<Rigidbody>();
+        
 
     }
 

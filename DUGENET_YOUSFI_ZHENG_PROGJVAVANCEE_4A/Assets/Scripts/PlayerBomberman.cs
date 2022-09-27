@@ -55,22 +55,26 @@ public class PlayerBomberman : MonoBehaviour
 
     public void MovePlayerUp(GameObject obj)
     {    
+        obj.transform.rotation = Quaternion.Euler(0,90,0);
         obj.transform.Translate(new Vector3(-speed,0,0) * Time.deltaTime);
-
+        
     }
     public void MovePlayerDown(GameObject obj)
     {    
-        obj.transform.Translate(new Vector3(speed,0,0) * Time.deltaTime);
+        obj.transform.rotation = Quaternion.Euler(0,-90,0);
+        obj.transform.Translate(new Vector3(-speed,0,0) * Time.deltaTime);
 
     }
     public void MovePlayerRight(GameObject obj)
     {    
-        obj.transform.Translate(new Vector3(0,0,speed) * Time.deltaTime);
+        obj.transform.rotation = Quaternion.Euler(0,180,0);
+        obj.transform.Translate(new Vector3(-speed,0,0) * Time.deltaTime);
 
     }
     public void MovePlayerLeft(GameObject obj)
     {    
-        obj.transform.Translate(new Vector3(0,0,-speed) * Time.deltaTime);
+        obj.transform.rotation = new Quaternion(0,0,0,0);
+        obj.transform.Translate(new Vector3(-speed,0,0) * Time.deltaTime);
 
     }
 
