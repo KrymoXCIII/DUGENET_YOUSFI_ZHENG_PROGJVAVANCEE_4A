@@ -11,13 +11,13 @@ public class CharacterMovement : MonoBehaviour
         
 
     public Map map;
-    PlayerBomberman Player;
+    public PlayerBomberman Player;
     public int AgentMode;
     
     // Start is called before the first frame update
     void Start()
     {
-        Player = FindObjectOfType<PlayerBomberman>();
+       // Player = FindObjectOfType<PlayerBomberman>();
         
 
     }
