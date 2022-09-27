@@ -8,7 +8,7 @@ public class CharacterMovement : MonoBehaviour
     public int speed;
     public GameObject bomb;
     private Rigidbody rb;
-
+    public Map map;
     PlayerBomberman Player;
     
 
@@ -25,12 +25,10 @@ public class CharacterMovement : MonoBehaviour
     void Update()
     {
         Player.MovePlayer(gameObject);
-        
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Player.PlantBomb(bomb,gameObject);
-
+            Player.PlantBomb(gameObject, map);
         }
-        
     }
 }

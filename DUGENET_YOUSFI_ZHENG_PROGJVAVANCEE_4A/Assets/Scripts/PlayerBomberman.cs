@@ -6,13 +6,15 @@ public class PlayerBomberman : MonoBehaviour
 {
     float speed = 1;
     int nbBombes = 1;
-    private int bombPower = 1;
+    private int bombPower = 2;
     bool isAlive = true;
     
     private bool _bombReady;
     private float _countDown;
     private Rigidbody _rb;
 
+    public Bomb playerBomb;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -27,17 +29,18 @@ public class PlayerBomberman : MonoBehaviour
 
     }
 
-    public void PlantBomb(GameObject bomb, GameObject player)
+    public void PlantBomb(GameObject player, Map map)
     {
         
         if (_bombReady)
         {
             _countDown = Time.time;
 
-            bomb.transform.position = new Vector3(player.transform.position.x, player.transform.position.y,player.transform.position.z);
-            Instantiate(bomb);
+            playerBomb.transform.position = new Vector3(player.transform.position.x, player.transform.position.y,player.transform.position.z);
+            var bomb = Instantiate(playerBomb).gameObject.GetComponent<Bomb>();
+            bomb.setPower(bombPower);
+            bomb.setMap(map);
             _bombReady = false;
-
         }
             
         // Compte à rebours
