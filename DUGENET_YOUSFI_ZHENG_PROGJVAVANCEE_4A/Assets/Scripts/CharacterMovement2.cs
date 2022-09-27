@@ -11,7 +11,7 @@ public class CharacterMovement2 : MonoBehaviour
 
 
     public Map map;
-    PlayerBomberman Player;
+    public PlayerBomberman Player;
     public int AgentMode;
     private int randomControls;
     private float randomTimer;

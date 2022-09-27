@@ -11,7 +11,7 @@ public class CharacterMovement1 : MonoBehaviour
 
 
     public Map map;
-    PlayerBomberman Player;
+    public PlayerBomberman Player;
     public int AgentMode;
     private int randomControls;
     private float randomTimer;
@@ -20,9 +20,9 @@ public class CharacterMovement1 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       Player = FindObjectOfType<PlayerBomberman>();
+        //Player = FindObjectOfType<PlayerBomberman>();
        randomControls = Random.Range(0, 5);
-       AgentMode = ChooseMode.instance.CM2;
+       //AgentMode = ChooseMode.instance.CM2;
     }
 
     // Update is called once per frame

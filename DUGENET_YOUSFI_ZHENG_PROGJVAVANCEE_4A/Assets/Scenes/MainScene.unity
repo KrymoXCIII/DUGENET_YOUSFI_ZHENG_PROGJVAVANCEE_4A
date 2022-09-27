@@ -5440,6 +5440,7 @@ MonoBehaviour:
   speed: 10
   bomb: {fileID: 2417536319458271139, guid: 6527725b3463d874d85aa1c89681166b, type: 3}
   map: {fileID: 32910460}
+  Player: {fileID: 790353721}
   AgentMode: 0
 --- !u!1001 &796736814
 PrefabInstance:
@@ -9175,6 +9176,7 @@ MonoBehaviour:
   speed: 10
   bomb: {fileID: 2417536319458271139, guid: 6527725b3463d874d85aa1c89681166b, type: 3}
   map: {fileID: 32910460}
+  Player: {fileID: 1466354080}
   AgentMode: 1
 --- !u!4 &1466354077 stripped
 Transform:
