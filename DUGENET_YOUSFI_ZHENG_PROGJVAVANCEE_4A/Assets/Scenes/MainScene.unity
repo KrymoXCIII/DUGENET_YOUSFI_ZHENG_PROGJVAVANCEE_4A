@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.1748449, g: 0.21871418, b: 0.3009954, a: 1}
+  m_IndirectSpecularColor: {r: 0.17484549, g: 0.21871477, b: 0.30099645, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4239,6 +4239,7 @@ MonoBehaviour:
   speed: 0
   bomb: {fileID: 2417536319458271139, guid: 6527725b3463d874d85aa1c89681166b, type: 3}
   map: {fileID: 32910460}
+  Player: {fileID: 0}
   AgentMode: 0
 --- !u!1001 &810702554
 PrefabInstance:
@@ -4553,7 +4554,7 @@ Transform:
   m_GameObject: {fileID: 864371958}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 1, z: 2}
+  m_LocalScale: {x: 5, y: 1, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -7153,6 +7154,7 @@ MonoBehaviour:
   speed: 10
   bomb: {fileID: 2417536319458271139, guid: 6527725b3463d874d85aa1c89681166b, type: 3}
   map: {fileID: 32910460}
+  Player: {fileID: 1466354080}
   AgentMode: 0
 --- !u!114 &1466354080
 MonoBehaviour:

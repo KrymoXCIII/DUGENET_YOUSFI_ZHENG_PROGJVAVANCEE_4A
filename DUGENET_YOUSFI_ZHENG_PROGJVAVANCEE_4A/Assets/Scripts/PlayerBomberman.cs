@@ -68,7 +68,7 @@ public class PlayerBomberman : MonoBehaviour
     }
     public void MovePlayerLeft(GameObject obj)
     {    
-        obj.transform.rotation = new Quaternion(0,0,0,0);
+        obj.transform.rotation = Quaternion.Euler(0,0,0);
         obj.transform.Translate(new Vector3(-speed,0,0) * Time.deltaTime);
     }
     
