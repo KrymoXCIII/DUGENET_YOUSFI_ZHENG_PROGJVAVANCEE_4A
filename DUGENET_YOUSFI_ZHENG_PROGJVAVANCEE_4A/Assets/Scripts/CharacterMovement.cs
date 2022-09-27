@@ -8,44 +8,93 @@ public class CharacterMovement : MonoBehaviour
     public int speed;
     public GameObject bomb;
     private Rigidbody _rb;
-        
+
 
     public Map map;
-    public PlayerBomberman Player;
+    PlayerBomberman Player;
     public int AgentMode;
+    private int randomControls;
+    private float randomTimer;
+    private bool randomReady;
     
     // Start is called before the first frame update
     void Start()
     {
-       // Player = FindObjectOfType<PlayerBomberman>();
-        
+       Player = FindObjectOfType<PlayerBomberman>();
+       randomControls = Random.Range(0, 5);
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Z))
+        
+        if (AgentMode == 0) // Random
         {
-            Player.MovePlayerUp(Player.gameObject);
+            RandomController();
+
         }
-        else if (Input.GetKey(KeyCode.S))
+        else if (AgentMode == 1) // Humain
         {
-            Player.MovePlayerDown(Player.gameObject);
+
+
+            if (Input.GetKey(KeyCode.Z))
+            {
+                Player.MovePlayerUp(Player.gameObject);
+            }
+            else if (Input.GetKey(KeyCode.S))
+            {
+                Player.MovePlayerDown(Player.gameObject);
+            }
+            else if (Input.GetKey(KeyCode.Q))
+            {
+                Player.MovePlayerLeft(Player.gameObject);
+            }
+            else if (Input.GetKey(KeyCode.D))
+            {
+                Player.MovePlayerRight(Player.gameObject);
+            }
+            else if (Input.GetKey(KeyCode.Space))
+            {
+                Player.PlantBomb(map);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Player.PlantBomb(map);
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Player.PlantBomb(map);
+            }
         }
-        else if (Input.GetKey(KeyCode.Q))
+        else if (AgentMode == 2) // MCTS
         {
-            Player.MovePlayerLeft(Player.gameObject);
+            
         }
-        else if (Input.GetKey(KeyCode.D))
+        
+    }
+
+    void RandomController()
+    {
+        if (randomReady)
         {
-            Player.MovePlayerRight(Player.gameObject);
+            randomTimer = Time.time;
+
+            randomControls = Random.Range(0, 5);
+            randomReady = false;
         }
-        else if (Input.GetKey(KeyCode.Space))
+        
+        if (Time.time - randomTimer >= 2)
         {
-            Player.PlantBomb(map);
+
+            
+            randomReady = true;
+
         }
 
+<<<<<<< HEAD
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Player.PlantBomb(map);
@@ -55,5 +104,33 @@ public class CharacterMovement : MonoBehaviour
         {
             Player.PlantBomb(map);
         }
+=======
+        switch (randomControls)
+        {
+            case 0 :
+                
+                Player.MovePlayerUp(Player.gameObject);
+                break;
+            case 1 :
+                
+                Player.MovePlayerDown(Player.gameObject);
+                break;
+            case 2 : 
+                
+                Player.MovePlayerLeft(Player.gameObject);
+                break;
+            case 3 :
+               
+                Player.MovePlayerRight(Player.gameObject);
+                break;
+            case 4 :
+                
+                Player.PlantBomb(map);
+                break;
+
+
+        }
+        
+>>>>>>> 25e50277d36be6e1883a449ed537c68ef333381a
     }
 }
