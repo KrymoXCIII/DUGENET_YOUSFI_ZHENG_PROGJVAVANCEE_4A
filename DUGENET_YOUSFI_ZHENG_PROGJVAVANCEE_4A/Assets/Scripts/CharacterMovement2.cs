@@ -23,12 +23,12 @@ public class CharacterMovement2 : MonoBehaviour
     {
        Player = FindObjectOfType<PlayerBomberman>();
        randomControls = Random.Range(0, 5);
-<<<<<<< HEAD
+
        
        //AgentMode = ChooseMode.instance.CM2;
-=======
+
        AgentMode = ChooseMode.instance.CM2;
->>>>>>> 5507ccb97df334002edaf077eaadb1ea1d1b9fad
+
     }
 
     // Update is called once per frame
