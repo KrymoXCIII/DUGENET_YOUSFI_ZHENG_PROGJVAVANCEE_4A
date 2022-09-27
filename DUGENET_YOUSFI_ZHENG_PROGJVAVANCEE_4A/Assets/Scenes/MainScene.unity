@@ -472,7 +472,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bfb7b213e6a45846813bd909f9cc4f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  players: []
+  players:
+  - {fileID: 1466354080}
+  - {fileID: 790353721}
   bombs: []
   walls:
   - {fileID: 1693033093}
@@ -4227,6 +4229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3365d51810e36b478398901d42d29e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAlive: 1
   map: {fileID: 32910460}
   playerBomb: {fileID: 9085898028459726454, guid: 6527725b3463d874d85aa1c89681166b, type: 3}
   model: {fileID: 790353719}
@@ -7183,6 +7186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3365d51810e36b478398901d42d29e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAlive: 1
   map: {fileID: 32910460}
   playerBomb: {fileID: 9085898028459726454, guid: 6527725b3463d874d85aa1c89681166b, type: 3}
   model: {fileID: 1466354077}

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerBomberman : MonoBehaviour
@@ -8,7 +9,7 @@ public class PlayerBomberman : MonoBehaviour
     
     int nbBombes = 1;
     private int bombPower = 2;
-    bool isAlive = true;
+    public bool isAlive = true;
     
     private bool _bombReady;
     private float _countDown;

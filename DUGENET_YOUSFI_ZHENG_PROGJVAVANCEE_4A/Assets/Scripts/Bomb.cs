@@ -50,6 +50,14 @@ public class Bomb : MonoBehaviour
             }
         }
 
+        foreach (var player in map.players)
+        {
+            if (checkCollision(player.transform.position, pos))
+            {
+                player.isAlive = false;
+            }
+        }
+
         for (int i = 1; i < power; i++)
         {
             var delta = +i * radius;
@@ -93,8 +101,31 @@ public class Bomb : MonoBehaviour
                     }
                 }
             }
+            foreach (var player in map.players)
+            {
+                var newPos = new Vector3(pos.x, pos.y, pos.z);
+                newPos.Set(pos.x+delta, pos.y, pos.z);
+                if (checkCollision(player.transform.position, newPos))
+                {
+                    player.isAlive = false;
+                }
+                newPos.Set(pos.x, pos.y, pos.z+delta);
+                if (checkCollision(player.transform.position, newPos))
+                {
+                    player.isAlive = false;
+                }
+                newPos.Set(pos.x, pos.y, pos.z-delta);
+                if (checkCollision(player.transform.position, newPos))
+                {
+                    player.isAlive = false;
+                }
+                newPos.Set(pos.x-delta, pos.y, pos.z);
+                if (checkCollision(player.transform.position, newPos))
+                {
+                    player.isAlive = false;
+                }
+            }
         }
-
         Debug.Log(wallToRemove.Count);
         map.removeWalls(wallToRemove);
 
