@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerBomberman : MonoBehaviour
 {
-    float speed = 50;
-    private float maxSpeed = 5;
+    float speed = 5;
+    
     int nbBombes = 1;
     private int bombPower = 2;
     bool isAlive = true;
@@ -53,24 +53,24 @@ public class PlayerBomberman : MonoBehaviour
         }
     }
 
-    public void MovePlayerUp(Rigidbody rb)
-    {    if (rb.velocity.magnitude <= maxSpeed)
-        rb.AddForce(transform.right * speed);
+    public void MovePlayerUp(GameObject obj)
+    {    
+        obj.transform.Translate(new Vector3(-speed,0,0) * Time.deltaTime);
 
     }
-    public void MovePlayerDown(Rigidbody rb)
-    {    if (rb.velocity.magnitude <= maxSpeed)
-        rb.AddForce(-transform.right * speed);
+    public void MovePlayerDown(GameObject obj)
+    {    
+        obj.transform.Translate(new Vector3(speed,0,0) * Time.deltaTime);
 
     }
-    public void MovePlayerRight(Rigidbody rb)
-    {    if (rb.velocity.magnitude <= maxSpeed)
-        rb.AddForce(transform.forward * speed);
+    public void MovePlayerRight(GameObject obj)
+    {    
+        obj.transform.Translate(new Vector3(0,0,speed) * Time.deltaTime);
 
     }
-    public void MovePlayerLeft(Rigidbody rb)
-    {    if (rb.velocity.magnitude <= maxSpeed)
-        rb.AddForce(-transform.forward * speed);
+    public void MovePlayerLeft(GameObject obj)
+    {    
+        obj.transform.Translate(new Vector3(0,0,-speed) * Time.deltaTime);
 
     }
 

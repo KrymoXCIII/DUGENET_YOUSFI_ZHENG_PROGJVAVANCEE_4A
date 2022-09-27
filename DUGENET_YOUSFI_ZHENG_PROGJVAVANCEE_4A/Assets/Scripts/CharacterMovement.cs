@@ -25,23 +25,23 @@ public class CharacterMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKey(KeyCode.Z))
         {
-            Player.MovePlayerUp(_rb);
+            Player.MovePlayerUp(gameObject);
         }
-        else if (Input.GetKeyDown(KeyCode.S))
+        else if (Input.GetKey(KeyCode.S))
         {
-            Player.MovePlayerDown(_rb);
+            Player.MovePlayerDown(gameObject);
         }
-        else if (Input.GetKeyDown(KeyCode.Q))
+        else if (Input.GetKey(KeyCode.Q))
         {
-            Player.MovePlayerLeft(_rb);
+            Player.MovePlayerLeft(gameObject);
         }
-        else if (Input.GetKeyDown(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D))
         {
-            Player.MovePlayerRight(_rb);
+            Player.MovePlayerRight(gameObject);
         }
-        else if (Input.GetKeyDown(KeyCode.Space))
+        else if (Input.GetKey(KeyCode.Space))
         {
             Player.PlantBomb(map);
         }
