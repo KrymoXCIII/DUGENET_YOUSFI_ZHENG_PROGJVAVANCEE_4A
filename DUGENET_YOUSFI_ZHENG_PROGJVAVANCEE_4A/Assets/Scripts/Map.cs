@@ -19,4 +19,13 @@ public class Map : MonoBehaviour
     {
         
     }
+
+    public void removeWalls(List<Wall> list)
+    {
+        foreach (var wall in list)
+        {
+            walls.Remove(wall);
+            Destroy(wall.gameObject);
+        }
+    }
 }
