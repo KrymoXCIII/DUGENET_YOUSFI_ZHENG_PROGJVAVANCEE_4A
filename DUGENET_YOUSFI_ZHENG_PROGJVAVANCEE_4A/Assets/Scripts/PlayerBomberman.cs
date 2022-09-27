@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerBomberman : MonoBehaviour
@@ -8,7 +9,7 @@ public class PlayerBomberman : MonoBehaviour
     
     int nbBombes = 1;
     private int bombPower = 2;
-    bool isAlive = true;
+    public bool isAlive = true;
     
     private bool _bombReady;
     private float _countDown;
@@ -16,6 +17,8 @@ public class PlayerBomberman : MonoBehaviour
     public Map map;
 
     public Bomb playerBomb;
+
+    public Transform model;
     
     // Start is called before the first frame update
     void Start()
@@ -53,30 +56,43 @@ public class PlayerBomberman : MonoBehaviour
 
     public void MovePlayerUp(GameObject obj)
     {    
-        obj.transform.rotation = Quaternion.Euler(0,90,0);
-        obj.transform.Translate(new Vector3(-speed,0,0) * Time.deltaTime);
+        model.transform.rotation = Quaternion.Euler(0,90,0);
+        var dir = new Vector3(-speed, 0, 0) * Time.deltaTime;
+        if(!collisionPlayer(obj.transform.position+dir))
+            obj.transform.Translate(dir);
     }
     public void MovePlayerDown(GameObject obj)
     {    
-        obj.transform.rotation = Quaternion.Euler(0,-90,0);
-        obj.transform.Translate(new Vector3(-speed,0,0) * Time.deltaTime);
+        model.transform.rotation = Quaternion.Euler(0,-90,0);
+        var dir = new Vector3(speed,0,0) * Time.deltaTime;
+        if(!collisionPlayer(obj.transform.position+dir))
+            obj.transform.Translate(dir);
     }
     public void MovePlayerRight(GameObject obj)
     {
-        obj.transform.rotation = Quaternion.Euler(0,180,0);
-        obj.transform.Translate(new Vector3(-speed,0,0) * Time.deltaTime);
+        model.transform.rotation = Quaternion.Euler(0,180,0);
+        var dir = new Vector3(0, 0, speed) * Time.deltaTime;
+        if(!collisionPlayer(obj.transform.position+dir))
+            obj.transform.Translate(dir);
     }
     public void MovePlayerLeft(GameObject obj)
     {    
+<<<<<<< HEAD
         obj.transform.rotation = Quaternion.Euler(0,0,0);
         obj.transform.Translate(new Vector3(-speed,0,0) * Time.deltaTime);
+=======
+        model.transform.rotation = new Quaternion(0,0,0,0);
+        var dir = new Vector3(0, 0, -speed) * Time.deltaTime;
+        if(!collisionPlayer(obj.transform.position+dir))
+            obj.transform.Translate(dir);
+>>>>>>> e6a7751bee88048d471688e1e46bb5f7a9671cc1
     }
     
     public bool collisionPlayer(Vector3 checkPos)
     {
         foreach (var wall in map.walls)
         {
-            if (Mathf.Pow(wall.transform.position.x - checkPos.x, 2) + Mathf.Pow(wall.transform.position.z - checkPos.z, 2) < .1)
+            if (Mathf.Pow(wall.transform.position.x - checkPos.x, 2) + Mathf.Pow(wall.transform.position.z - checkPos.z, 2) < 1)
                 return true;
         }
         return false;
