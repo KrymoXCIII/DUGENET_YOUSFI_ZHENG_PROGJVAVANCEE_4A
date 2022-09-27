@@ -19,7 +19,7 @@ public class Bomb : MonoBehaviour
     void Update()
     {
         timer -= Time.deltaTime;
-        //Debug.Log(timer);
+        Debug.Log(timer);
         if(timer<0)
             explode();
     }
@@ -36,6 +36,7 @@ public class Bomb : MonoBehaviour
 
     public void explode()
     {
+        Debug.Log("exploding");
         List<Wall> wallToRemove = new List<Wall>();
         var pos = transform.position;
         foreach (var wall in (map.walls))
@@ -47,14 +48,6 @@ public class Bomb : MonoBehaviour
                     wallToRemove.Add(wall);
                     wall.destructible = false;
                 }
-            }
-        }
-
-        foreach (var player in map.players)
-        {
-            if (checkCollision(player.transform.position, pos))
-            {
-                player.isAlive = false;
             }
         }
 
@@ -101,31 +94,8 @@ public class Bomb : MonoBehaviour
                     }
                 }
             }
-            foreach (var player in map.players)
-            {
-                var newPos = new Vector3(pos.x, pos.y, pos.z);
-                newPos.Set(pos.x+delta, pos.y, pos.z);
-                if (checkCollision(player.transform.position, newPos))
-                {
-                    player.isAlive = false;
-                }
-                newPos.Set(pos.x, pos.y, pos.z+delta);
-                if (checkCollision(player.transform.position, newPos))
-                {
-                    player.isAlive = false;
-                }
-                newPos.Set(pos.x, pos.y, pos.z-delta);
-                if (checkCollision(player.transform.position, newPos))
-                {
-                    player.isAlive = false;
-                }
-                newPos.Set(pos.x-delta, pos.y, pos.z);
-                if (checkCollision(player.transform.position, newPos))
-                {
-                    player.isAlive = false;
-                }
-            }
         }
+
         Debug.Log(wallToRemove.Count);
         map.removeWalls(wallToRemove);
 

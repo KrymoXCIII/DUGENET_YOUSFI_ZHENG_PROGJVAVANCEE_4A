@@ -45,5 +45,15 @@ public class CharacterMovement : MonoBehaviour
         {
             Player.PlantBomb(map);
         }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Player.PlantBomb(map);
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Player.PlantBomb(map);
+        }
     }
 }
