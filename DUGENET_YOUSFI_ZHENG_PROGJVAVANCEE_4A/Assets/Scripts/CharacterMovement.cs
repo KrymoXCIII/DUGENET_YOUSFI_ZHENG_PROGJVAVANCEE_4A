@@ -17,7 +17,7 @@ public class CharacterMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Player = GetComponent<PlayerBomberman>();
+        Player = FindObjectOfType<PlayerBomberman>();
         _rb = GetComponent<Rigidbody>();
 
     }
@@ -42,6 +42,11 @@ public class CharacterMovement : MonoBehaviour
             Player.MovePlayerRight(_rb);
         }
         else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Player.PlantBomb(map);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             Player.PlantBomb(map);
         }

@@ -47,7 +47,9 @@ public class PlayerBomberman : MonoBehaviour
         // Compte à rebours
         if (Time.time - _countDown >= 5)
         {
+
             _bombReady = true;
+
         }
     }
 
