@@ -98,7 +98,6 @@ public class Bomb : MonoBehaviour
 
         Debug.Log(wallToRemove.Count);
         map.removeWalls(wallToRemove);
-
         Destroy(gameObject);
     }
 
