@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class CharacterMovement : MonoBehaviour
+public class CharacterMovement2 : MonoBehaviour
 {
     public int speed;
     public GameObject bomb;
@@ -22,49 +22,35 @@ public class CharacterMovement : MonoBehaviour
     {
        Player = FindObjectOfType<PlayerBomberman>();
        randomControls = Random.Range(0, 5);
-
+       //AgentMode = ChooseMode.instance.CM2;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
         if (AgentMode == 0) // Random
         {
             RandomController();
-
         }
         else if (AgentMode == 1) // Humain
         {
-
-
-            if (Input.GetKey(KeyCode.Z))
+            if (Input.GetKey(KeyCode.O))
             {
                 Player.MovePlayerUp(Player.gameObject);
             }
-            else if (Input.GetKey(KeyCode.S))
+            else if (Input.GetKey(KeyCode.L))
             {
                 Player.MovePlayerDown(Player.gameObject);
             }
-            else if (Input.GetKey(KeyCode.Q))
+            else if (Input.GetKey(KeyCode.K))
             {
                 Player.MovePlayerLeft(Player.gameObject);
             }
-            else if (Input.GetKey(KeyCode.D))
+            else if (Input.GetKey(KeyCode.M))
             {
                 Player.MovePlayerRight(Player.gameObject);
             }
-            else if (Input.GetKey(KeyCode.Space))
-            {
-                Player.PlantBomb(map);
-            }
-
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Player.PlantBomb(map);
-            }
-
-            if (Input.GetKeyDown(KeyCode.Space))
+            else if (Input.GetKey(KeyCode.KeypadEnter))
             {
                 Player.PlantBomb(map);
             }
@@ -117,10 +103,6 @@ public class CharacterMovement : MonoBehaviour
                 
                 Player.PlantBomb(map);
                 break;
-
-
         }
-        
-
     }
 }
