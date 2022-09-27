@@ -9,7 +9,7 @@ public class ChooseMode : MonoBehaviour
 
     private void Awake()
     {
-        if (instance == null)
+        if (instance != null)
         {
             return;
         }
