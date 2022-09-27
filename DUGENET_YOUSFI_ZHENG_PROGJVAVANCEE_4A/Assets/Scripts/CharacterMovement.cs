@@ -31,7 +31,6 @@ public class CharacterMovement : MonoBehaviour
         
         if (AgentMode == 0) // Random
         {
-<<<<<<< HEAD
             RandomController();
 
         }
@@ -121,25 +120,5 @@ public class CharacterMovement : MonoBehaviour
 
         }
         
-=======
-            Player.MovePlayerUp(Player.gameObject);
-        }
-        else if (Input.GetKey(KeyCode.S))
-        {
-            Player.MovePlayerDown(Player.gameObject);
-        }
-        else if (Input.GetKey(KeyCode.Q))
-        {
-            Player.MovePlayerLeft(Player.gameObject);
-        }
-        else if (Input.GetKey(KeyCode.D))
-        {
-            Player.MovePlayerRight(Player.gameObject);
-        }
-        else if (Input.GetKey(KeyCode.Space))
-        {
-            Player.PlantBomb(map);
-        }
->>>>>>> e6a7751bee88048d471688e1e46bb5f7a9671cc1
     }
 }

@@ -1,45 +1,22 @@
-using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ChooseMode : MonoBehaviour
 {
-    public static ChooseMode instance;
-    public int CM1;
-    public int CM2;
-
-    private void Awake()
+    public CharacterMovement CM1;
+    public CharacterMovement CM2;
+    
+    public void chooseRandom()
     {
-        if (instance != null)
-        {
-            return;
-        }
-
-        instance = this;
-        DontDestroyOnLoad(instance);
+        CM1.AgentMode = 0;
     }
-
-    public void choose1Random()
+    public void choosePlayer()
     {
-        CM1= 0;
+        CM1.AgentMode = 1;
     }
-    public void choose1Player()
+    public void chooseMCTS()
     {
-        CM1 = 1;
-    }
-    public void choose1MCTS()
-    {
-        CM1= 2;
-    }
-    public void choose2Random()
-    {
-        CM2= 0;
-    }
-    public void choose2Player()
-    {
-        CM2= 1;
-    }
-    public void choose2MCTS()
-    {
-        CM2= 2;
+        CM1.AgentMode = 2;
     }
 }

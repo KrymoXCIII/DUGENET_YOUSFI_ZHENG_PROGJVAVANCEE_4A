@@ -472,9 +472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bfb7b213e6a45846813bd909f9cc4f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  players:
-  - {fileID: 1466354080}
-  - {fileID: 790353721}
+  players: []
   bombs: []
   walls:
   - {fileID: 1693033093}
@@ -4212,11 +4210,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1746360349181696155, guid: 03a369cdb4b06b646914f1abf11d2ffa, type: 3}
   m_PrefabInstance: {fileID: 790353717}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &790353719 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3534953235113681834, guid: 03a369cdb4b06b646914f1abf11d2ffa, type: 3}
-  m_PrefabInstance: {fileID: 790353717}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &790353721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4229,10 +4222,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3365d51810e36b478398901d42d29e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isAlive: 1
   map: {fileID: 32910460}
   playerBomb: {fileID: 9085898028459726454, guid: 6527725b3463d874d85aa1c89681166b, type: 3}
-  model: {fileID: 790353719}
 --- !u!114 &790353722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4248,11 +4239,7 @@ MonoBehaviour:
   speed: 0
   bomb: {fileID: 2417536319458271139, guid: 6527725b3463d874d85aa1c89681166b, type: 3}
   map: {fileID: 32910460}
-<<<<<<< HEAD
   Player: {fileID: 0}
-=======
-  Player: {fileID: 790353721}
->>>>>>> e6a7751bee88048d471688e1e46bb5f7a9671cc1
   AgentMode: 0
 --- !u!1001 &810702554
 PrefabInstance:
@@ -7145,10 +7132,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CharacterBomberman
       objectReference: {fileID: 0}
-    - target: {fileID: 3534953235113681834, guid: 03a369cdb4b06b646914f1abf11d2ffa, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03a369cdb4b06b646914f1abf11d2ffa, type: 3}
 --- !u!1 &1466354075 stripped
@@ -7173,11 +7156,6 @@ MonoBehaviour:
   map: {fileID: 32910460}
   Player: {fileID: 1466354080}
   AgentMode: 0
---- !u!4 &1466354077 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3534953235113681834, guid: 03a369cdb4b06b646914f1abf11d2ffa, type: 3}
-  m_PrefabInstance: {fileID: 1466354074}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1466354080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7190,10 +7168,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3365d51810e36b478398901d42d29e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isAlive: 1
   map: {fileID: 32910460}
   playerBomb: {fileID: 9085898028459726454, guid: 6527725b3463d874d85aa1c89681166b, type: 3}
-  model: {fileID: 1466354077}
 --- !u!1001 &1492989979
 PrefabInstance:
   m_ObjectHideFlags: 0
