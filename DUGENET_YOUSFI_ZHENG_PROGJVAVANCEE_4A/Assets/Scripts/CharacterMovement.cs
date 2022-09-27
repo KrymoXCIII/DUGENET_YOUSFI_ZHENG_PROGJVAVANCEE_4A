@@ -94,17 +94,7 @@ public class CharacterMovement : MonoBehaviour
 
         }
 
-<<<<<<< HEAD
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Player.PlantBomb(map);
-        }
-        
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Player.PlantBomb(map);
-        }
-=======
+
         switch (randomControls)
         {
             case 0 :
@@ -131,6 +121,6 @@ public class CharacterMovement : MonoBehaviour
 
         }
         
->>>>>>> 25e50277d36be6e1883a449ed537c68ef333381a
+
     }
 }
