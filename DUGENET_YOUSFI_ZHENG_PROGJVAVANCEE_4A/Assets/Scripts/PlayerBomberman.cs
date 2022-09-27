@@ -56,66 +56,86 @@ public class PlayerBomberman : MonoBehaviour
 
     public void MovePlayerUp(GameObject obj, Transform model)
     {
+        model.transform.rotation = Quaternion.Euler(0, 90, 0);
         if (gameObject.name == "EnemyBomberman")
         {
-            model.transform.rotation = Quaternion.Euler(0, 90, 0);
+            
+            var dir = new Vector3(speed, 0, 0) * Time.deltaTime;
+            if(!collisionPlayer(obj.transform.position+dir))
+                obj.transform.Translate(dir);
         }
         else if (gameObject.name == "CharacterBomberman")
         {
-            model.transform.rotation = Quaternion.Euler(0, -90, 0);
+           
+            var dir = new Vector3(-speed, 0, 0) * Time.deltaTime;
+            if(!collisionPlayer(obj.transform.position+dir))
+                obj.transform.Translate(dir);
         }
 
-        var dir = new Vector3(speed, 0, 0) * Time.deltaTime;
-        if(!collisionPlayer(obj.transform.position+dir))
-            obj.transform.Translate(dir);
+        
         
     }
     public void MovePlayerDown(GameObject obj, Transform model)
     {
+        model.transform.rotation = Quaternion.Euler(0,-90,0);
         if (gameObject.name == "EnemyBomberman")
         {
-            model.transform.rotation = Quaternion.Euler(0,-90,0);
+            
+            var dir = new Vector3(-speed,0,0) * Time.deltaTime;
+            if(!collisionPlayer(obj.transform.position+dir))
+                obj.transform.Translate(dir);
         }
         else if (gameObject.name == "CharacterBomberman")
         {
-            model.transform.rotation = Quaternion.Euler(0, 90, 0);
+            
+            var dir = new Vector3(speed,0,0) * Time.deltaTime;
+            if(!collisionPlayer(obj.transform.position+dir))
+                obj.transform.Translate(dir);
         }
         
-        var dir = new Vector3(-speed,0,0) * Time.deltaTime;
-        if(!collisionPlayer(obj.transform.position+dir))
-            obj.transform.Translate(dir);
+        
         
     }
     public void MovePlayerRight(GameObject obj, Transform model)
     {
+        model.transform.rotation = Quaternion.Euler(0, 180, 0);
         if (gameObject.name == "EnemyBomberman")
         {
-            model.transform.rotation = Quaternion.Euler(0, 180, 0);
+           
+            var dir = new Vector3(0, 0, -speed) * Time.deltaTime;
+            if(!collisionPlayer(obj.transform.position+dir))
+                obj.transform.Translate(dir);
         }
         else if (gameObject.name == "CharacterBomberman")
         {
-            model.transform.rotation = Quaternion.Euler(0, 0, 0);
+            
+            var dir = new Vector3(0, 0, speed) * Time.deltaTime;
+            if(!collisionPlayer(obj.transform.position+dir))
+                obj.transform.Translate(dir);
         }
 
-        var dir = new Vector3(0, 0, -speed) * Time.deltaTime;
-        if(!collisionPlayer(obj.transform.position+dir))
-            obj.transform.Translate(dir);
+        
         
     }
     public void MovePlayerLeft(GameObject obj, Transform model)
     {
+        model.transform.rotation = Quaternion.Euler(0, 0, 0);
         if (gameObject.name == "EnemyBomberman")
         {
-            model.transform.rotation = Quaternion.Euler(0, 0, 0);
+            
+            var dir = new Vector3(0, 0, speed) * Time.deltaTime;
+            if(!collisionPlayer(obj.transform.position+dir))
+                obj.transform.Translate(dir);
         }
         else if (gameObject.name == "CharacterBomberman")
         {
-            model.transform.rotation = Quaternion.Euler(0, 180, 0);
+            
+            var dir = new Vector3(0, 0, -speed) * Time.deltaTime;
+            if(!collisionPlayer(obj.transform.position+dir))
+                obj.transform.Translate(dir);
         }
 
-        var dir = new Vector3(0, 0, speed) * Time.deltaTime;
-        if(!collisionPlayer(obj.transform.position+dir))
-            obj.transform.Translate(dir);
+        
         
     }
     
