@@ -7,6 +7,7 @@ public class CharacterMovement : MonoBehaviour
 {
     public int speed;
     public GameObject bomb;
+    private Rigidbody rb;
 
     PlayerBomberman Player;
 
@@ -16,6 +17,7 @@ public class CharacterMovement : MonoBehaviour
     void Start()
     {
         Player = FindObjectOfType<PlayerBomberman>();
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -23,22 +25,22 @@ public class CharacterMovement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Z))
         {
-            gameObject.transform.Translate(new Vector3(-speed, 0, 0) * Time.deltaTime);
+            rb.transform.Translate(new Vector3(-speed, 0, 0) * Time.deltaTime);
         }
 
         if (Input.GetKey(KeyCode.S))
         {
-            gameObject.transform.Translate(new Vector3(speed, 0, 0) * Time.deltaTime);
+            rb.transform.Translate(new Vector3(speed, 0, 0) * Time.deltaTime);
         }
 
         if (Input.GetKey(KeyCode.Q))
         {
-            gameObject.transform.Translate(new Vector3(0, 0, -speed) * Time.deltaTime);
+            rb.transform.Translate(new Vector3(0, 0, -speed) * Time.deltaTime);
         }
 
         if (Input.GetKey(KeyCode.D))
         {
-            gameObject.transform.Translate(new Vector3(-0, 0, speed) * Time.deltaTime);
+            rb.transform.Translate(new Vector3(-0, 0, speed) * Time.deltaTime);
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
