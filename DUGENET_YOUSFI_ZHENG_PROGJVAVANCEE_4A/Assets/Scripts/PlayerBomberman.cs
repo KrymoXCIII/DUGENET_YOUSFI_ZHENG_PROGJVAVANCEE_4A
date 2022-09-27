@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class PlayerBomberman : MonoBehaviour
 {
-    float speed = 10;
+    float speed = 50;
+    private float maxSpeed = 5;
     int nbBombes = 1;
     private int bombPower = 1;
     bool isAlive = true;
@@ -51,26 +52,30 @@ public class PlayerBomberman : MonoBehaviour
 
     public void MovePlayer(Rigidbody rb)
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (rb.velocity.magnitude <= maxSpeed)
         {
-            rb.velocity = new Vector3(0, 0, speed);
-        }
+            if (Input.GetKey(KeyCode.Z))
+            {
+                rb.AddForce(transform.right * speed);
+            }
 
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            rb.velocity = new Vector3(0, 0, -speed);
-        }
+            if (Input.GetKey(KeyCode.S))
+            {
+                rb.AddForce(transform.right * -speed);
+            }
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            rb.velocity = new Vector3(-speed, 0, 0);
-        }
+            if (Input.GetKey(KeyCode.Q))
+            {
+                rb.AddForce(transform.forward * speed);
+            }
 
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            rb.velocity = new Vector3(speed, 0, 0);
+            if (Input.GetKey(KeyCode.D))
+            {
+                rb.AddForce(transform.forward * -speed);
+            }
+
         }
-        
+       
        
         
         
