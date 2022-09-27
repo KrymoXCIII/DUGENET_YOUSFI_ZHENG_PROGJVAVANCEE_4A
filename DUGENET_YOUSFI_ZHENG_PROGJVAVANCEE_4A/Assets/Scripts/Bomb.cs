@@ -19,7 +19,7 @@ public class Bomb : MonoBehaviour
     void Update()
     {
         timer -= Time.deltaTime;
-        Debug.Log(timer);
+        //Debug.Log(timer);
         if(timer<0)
             explode();
     }
@@ -36,7 +36,6 @@ public class Bomb : MonoBehaviour
 
     public void explode()
     {
-        Debug.Log("exploding");
         List<Wall> wallToRemove = new List<Wall>();
         var pos = transform.position;
         foreach (var wall in (map.walls))
