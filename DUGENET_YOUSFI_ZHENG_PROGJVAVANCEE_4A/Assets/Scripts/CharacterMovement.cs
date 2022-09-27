@@ -8,7 +8,7 @@ public class CharacterMovement : MonoBehaviour
     public int speed;
     public GameObject bomb;
     private Rigidbody _rb;
-
+    public Map map;
     PlayerBomberman Player;
     
 
@@ -26,13 +26,25 @@ public class CharacterMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Player.MovePlayer(_rb);
-        
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Z))
         {
-            Player.PlantBomb(bomb,gameObject);
-
+            Player.MovePlayerUp(_rb);
         }
-        
+        else if (Input.GetKey(KeyCode.S))
+        {
+            Player.MovePlayerUp(_rb);
+        }
+        else if (Input.GetKey(KeyCode.Q))
+        {
+            Player.MovePlayerUp(_rb);
+        }
+        else if (Input.GetKey(KeyCode.D))
+        {
+            Player.MovePlayerUp(_rb);
+        }
+        else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Player.PlantBomb(map);
+        }
     }
 }

@@ -30,15 +30,14 @@ public class PlayerBomberman : MonoBehaviour
 
     }
 
-    public void PlantBomb(GameObject player, Map map)
+    public void PlantBomb(Map map)
     {
         
         if (_bombReady)
         {
             _countDown = Time.time;
-
-            playerBomb.transform.position = new Vector3(player.transform.position.x, player.transform.position.y,player.transform.position.z);
             var bomb = Instantiate(playerBomb).gameObject.GetComponent<Bomb>();
+            playerBomb.transform.position = new Vector3(transform.position.x, transform.position.y,transform.position.z);
             bomb.setPower(bombPower);
             bomb.setMap(map);
             _bombReady = false;
@@ -53,37 +52,25 @@ public class PlayerBomberman : MonoBehaviour
         }
     }
 
-    public void MovePlayer(Rigidbody rb)
+    public void MovePlayerUp(Rigidbody rb)
+    {    
+        if (rb.velocity.magnitude <= maxSpeed)
+            rb.AddForce(transform.right * speed);
+    }
+    public void MovePlayerDown(Rigidbody rb)
     {
         if (rb.velocity.magnitude <= maxSpeed)
-        {
-            if (Input.GetKey(KeyCode.Z))
-            {
-                rb.AddForce(transform.right * speed);
-            }
-
-            if (Input.GetKey(KeyCode.S))
-            {
-                rb.AddForce(transform.right * -speed);
-            }
-
-            if (Input.GetKey(KeyCode.Q))
-            {
-                rb.AddForce(transform.forward * speed);
-            }
-
-            if (Input.GetKey(KeyCode.D))
-            {
-                rb.AddForce(transform.forward * -speed);
-            }
-
-        }
-       
-       
-        
-        
-
-
+            rb.AddForce(-transform.right * speed);
+    }
+    public void MovePlayerLeft(Rigidbody rb)
+    {
+        if (rb.velocity.magnitude <= maxSpeed)
+            rb.AddForce(transform.forward * speed);
+    }
+    public void MovePlayerRight(Rigidbody rb)
+    {        
+        if (rb.velocity.magnitude <= maxSpeed)
+            rb.AddForce(-transform.forward * speed);
     }
 }
 
