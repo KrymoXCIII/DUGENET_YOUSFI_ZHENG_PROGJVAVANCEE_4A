@@ -53,22 +53,22 @@ public class PlayerBomberman : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Z))
         {
-            rb.transform.Translate(new Vector3(-speed, 0, 0) * Time.deltaTime);
+            rb.velocity = new Vector3(0, 0, speed);
         }
 
         if (Input.GetKey(KeyCode.S))
         {
-            rb.transform.Translate(new Vector3(speed, 0, 0) * Time.deltaTime);
+            rb.velocity = new Vector3(0, 0, -speed);
         }
 
         if (Input.GetKey(KeyCode.Q))
         {
-            rb.transform.Translate(new Vector3(0, 0, -speed) * Time.deltaTime);
+            rb.velocity = new Vector3(-speed, 0, 0);
         }
 
         if (Input.GetKey(KeyCode.D))
         {
-            rb.transform.Translate(new Vector3(-0, 0, speed) * Time.deltaTime);
+            rb.velocity = new Vector3(speed, 0, 0);
         }
 
         

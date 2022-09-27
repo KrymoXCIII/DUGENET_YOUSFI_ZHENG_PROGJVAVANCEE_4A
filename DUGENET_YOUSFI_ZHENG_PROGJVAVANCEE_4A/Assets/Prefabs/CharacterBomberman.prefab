@@ -135,10 +135,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 1.5369495
-  m_Height: 3.909559
+  m_Radius: 0.7692947
+  m_Height: 3.857832
   m_Direction: 1
-  m_Center: {x: -0.029546022, y: -0.073093295, z: 0.043270588}
+  m_Center: {x: -0.007316828, y: -0.047229767, z: 0.00014412403}
 --- !u!54 &479854979887577546
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -152,9 +152,9 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_Constraints: 116
-  m_CollisionDetection: 1
+  m_CollisionDetection: 0
 --- !u!1 &2096116792563503975
 GameObject:
   m_ObjectHideFlags: 0
