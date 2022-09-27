@@ -7,8 +7,8 @@ public class CharacterMovement : MonoBehaviour
 {
     public int speed;
     public GameObject bomb;
-    private Rigidbody rb;
-    public Map map;
+    private Rigidbody _rb;
+
     PlayerBomberman Player;
     
 
@@ -18,17 +18,21 @@ public class CharacterMovement : MonoBehaviour
     void Start()
     {
         Player = FindObjectOfType<PlayerBomberman>();
-        
+        _rb = GetComponent<Rigidbody>();
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        Player.MovePlayer(gameObject);
-
+        Player.MovePlayer(_rb);
+        
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Player.PlantBomb(gameObject, map);
+            Player.PlantBomb(bomb,gameObject);
+
         }
+        
     }
 }

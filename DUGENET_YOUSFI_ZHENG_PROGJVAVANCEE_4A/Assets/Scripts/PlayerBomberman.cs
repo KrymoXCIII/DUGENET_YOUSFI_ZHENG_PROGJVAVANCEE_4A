@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class PlayerBomberman : MonoBehaviour
 {
-    float speed = 1;
+    float speed = 10;
     int nbBombes = 1;
     private int bombPower = 2;
     bool isAlive = true;
     
     private bool _bombReady;
     private float _countDown;
-    private Rigidbody _rb;
+   
 
     public Bomb playerBomb;
     
@@ -19,7 +19,7 @@ public class PlayerBomberman : MonoBehaviour
     void Start()
     {
         _bombReady = true;
-        _rb = GetComponent<Rigidbody>();
+        
         
     }
 
@@ -52,29 +52,33 @@ public class PlayerBomberman : MonoBehaviour
         }
     }
 
-    public void MovePlayer(GameObject player)
+    public void MovePlayer(Rigidbody rb)
     {
-        if (Input.GetKey(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
-            _rb.transform.Translate(new Vector3(-speed, 0, 0) * Time.deltaTime);
+            rb.velocity = new Vector3(0, 0, speed);
         }
 
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S))
         {
-            _rb.transform.Translate(new Vector3(speed, 0, 0) * Time.deltaTime);
+            rb.velocity = new Vector3(0, 0, -speed);
         }
 
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            _rb.transform.Translate(new Vector3(0, 0, -speed) * Time.deltaTime);
+            rb.velocity = new Vector3(-speed, 0, 0);
         }
 
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.D))
         {
-            _rb.transform.Translate(new Vector3(-0, 0, speed) * Time.deltaTime);
+            rb.velocity = new Vector3(speed, 0, 0);
         }
-
         
+       
+        
+        
+
+
     }
 }
 
