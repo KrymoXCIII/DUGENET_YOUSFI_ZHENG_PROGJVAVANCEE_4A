@@ -10,6 +10,7 @@ public class CharacterMovement : MonoBehaviour
     private Rigidbody rb;
 
     PlayerBomberman Player;
+    
 
 
 
@@ -17,36 +18,19 @@ public class CharacterMovement : MonoBehaviour
     void Start()
     {
         Player = FindObjectOfType<PlayerBomberman>();
-        rb = GetComponent<Rigidbody>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.Z))
-        {
-            rb.transform.Translate(new Vector3(-speed, 0, 0) * Time.deltaTime);
-        }
-
-        if (Input.GetKey(KeyCode.S))
-        {
-            rb.transform.Translate(new Vector3(speed, 0, 0) * Time.deltaTime);
-        }
-
-        if (Input.GetKey(KeyCode.Q))
-        {
-            rb.transform.Translate(new Vector3(0, 0, -speed) * Time.deltaTime);
-        }
-
-        if (Input.GetKey(KeyCode.D))
-        {
-            rb.transform.Translate(new Vector3(-0, 0, speed) * Time.deltaTime);
-        }
-
+        Player.MovePlayer(gameObject);
+        
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Player.PlantBomb(bomb, gameObject);
+            Player.PlantBomb(bomb,gameObject);
 
         }
+        
     }
 }
