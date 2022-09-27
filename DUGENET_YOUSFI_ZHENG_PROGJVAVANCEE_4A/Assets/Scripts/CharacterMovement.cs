@@ -27,19 +27,19 @@ public class CharacterMovement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Z))
         {
-            Player.MovePlayerUp(gameObject);
+            Player.MovePlayerUp(Player.gameObject);
         }
         else if (Input.GetKey(KeyCode.S))
         {
-            Player.MovePlayerDown(gameObject);
+            Player.MovePlayerDown(Player.gameObject);
         }
         else if (Input.GetKey(KeyCode.Q))
         {
-            Player.MovePlayerLeft(gameObject);
+            Player.MovePlayerLeft(Player.gameObject);
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            Player.MovePlayerRight(gameObject);
+            Player.MovePlayerRight(Player.gameObject);
         }
         else if (Input.GetKey(KeyCode.Space))
         {

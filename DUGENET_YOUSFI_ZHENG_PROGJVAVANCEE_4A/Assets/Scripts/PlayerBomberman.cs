@@ -12,7 +12,8 @@ public class PlayerBomberman : MonoBehaviour
     
     private bool _bombReady;
     private float _countDown;
-   
+
+    public Map map;
 
     public Bomb playerBomb;
     
@@ -20,8 +21,6 @@ public class PlayerBomberman : MonoBehaviour
     void Start()
     {
         _bombReady = true;
-        
-        
     }
 
     // Update is called once per frame
@@ -32,7 +31,6 @@ public class PlayerBomberman : MonoBehaviour
 
     public void PlantBomb(Map map)
     {
-        
         if (_bombReady)
         {
             _countDown = Time.time;
@@ -57,26 +55,31 @@ public class PlayerBomberman : MonoBehaviour
     {    
         obj.transform.rotation = Quaternion.Euler(0,90,0);
         obj.transform.Translate(new Vector3(-speed,0,0) * Time.deltaTime);
-        
     }
     public void MovePlayerDown(GameObject obj)
     {    
         obj.transform.rotation = Quaternion.Euler(0,-90,0);
         obj.transform.Translate(new Vector3(-speed,0,0) * Time.deltaTime);
-
     }
     public void MovePlayerRight(GameObject obj)
-    {    
+    {
         obj.transform.rotation = Quaternion.Euler(0,180,0);
         obj.transform.Translate(new Vector3(-speed,0,0) * Time.deltaTime);
-
     }
     public void MovePlayerLeft(GameObject obj)
     {    
         obj.transform.rotation = new Quaternion(0,0,0,0);
         obj.transform.Translate(new Vector3(-speed,0,0) * Time.deltaTime);
-
     }
-
+    
+    public bool collisionPlayer(Vector3 checkPos)
+    {
+        foreach (var wall in map.walls)
+        {
+            if (Mathf.Pow(wall.transform.position.x - checkPos.x, 2) + Mathf.Pow(wall.transform.position.z - checkPos.z, 2) < .1)
+                return true;
+        }
+        return false;
+    }
 }
 
