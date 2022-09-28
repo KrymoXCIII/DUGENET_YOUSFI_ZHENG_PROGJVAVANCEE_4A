@@ -18,7 +18,8 @@ public class PlayerBomberman : MonoBehaviour
 
     public Bomb playerBomb;
 
-    
+    public float collisionRadius =.1f;
+
     
     // Start is called before the first frame update
     void Start()
@@ -32,7 +33,7 @@ public class PlayerBomberman : MonoBehaviour
 
     }
 
-    public void PlantBomb(Map map)
+    public void PlantBomb()
     {
         if (_bombReady)
         {
@@ -80,70 +81,58 @@ public class PlayerBomberman : MonoBehaviour
         model.transform.rotation = Quaternion.Euler(0,-90,0);
         if (gameObject.name == "EnemyBomberman")
         {
-            
             var dir = new Vector3(-speed,0,0) * Time.deltaTime;
             if(!collisionPlayer(obj.transform.position+dir))
                 obj.transform.Translate(dir);
         }
         else if (gameObject.name == "CharacterBomberman")
         {
-            
             var dir = new Vector3(speed,0,0) * Time.deltaTime;
             if(!collisionPlayer(obj.transform.position+dir))
                 obj.transform.Translate(dir);
         }
-        
-        
-        
     }
     public void MovePlayerRight(GameObject obj, Transform model)
     {
         model.transform.rotation = Quaternion.Euler(0, 180, 0);
         if (gameObject.name == "EnemyBomberman")
         {
-           
             var dir = new Vector3(0, 0, -speed) * Time.deltaTime;
             if(!collisionPlayer(obj.transform.position+dir))
                 obj.transform.Translate(dir);
         }
         else if (gameObject.name == "CharacterBomberman")
         {
-            
             var dir = new Vector3(0, 0, speed) * Time.deltaTime;
             if(!collisionPlayer(obj.transform.position+dir))
                 obj.transform.Translate(dir);
         }
-
-        
-        
     }
     public void MovePlayerLeft(GameObject obj, Transform model)
     {
         model.transform.rotation = Quaternion.Euler(0, 0, 0);
         if (gameObject.name == "EnemyBomberman")
         {
-            
             var dir = new Vector3(0, 0, speed) * Time.deltaTime;
             if(!collisionPlayer(obj.transform.position+dir))
                 obj.transform.Translate(dir);
         }
         else if (gameObject.name == "CharacterBomberman")
         {
-            
             var dir = new Vector3(0, 0, -speed) * Time.deltaTime;
             if(!collisionPlayer(obj.transform.position+dir))
                 obj.transform.Translate(dir);
         }
-
-        
-        
     }
     
     public bool collisionPlayer(Vector3 checkPos)
     {
         foreach (var wall in map.walls)
         {
-            if (Mathf.Pow(wall.transform.position.x - checkPos.x, 2) + Mathf.Pow(wall.transform.position.z - checkPos.z, 2) < 1)
+            if (wall.transform.position.x + collisionRadius > checkPos.x - collisionRadius &&
+                wall.transform.position.x - collisionRadius < checkPos.x + collisionRadius &&
+                wall.transform.position.z + collisionRadius > checkPos.z - collisionRadius &&
+                wall.transform.position.z - collisionRadius < checkPos.z + collisionRadius)
                 return true;
         }
         return false;

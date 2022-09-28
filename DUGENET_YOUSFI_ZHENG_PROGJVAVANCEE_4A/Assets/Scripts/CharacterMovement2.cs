@@ -23,12 +23,7 @@ public class CharacterMovement2 : MonoBehaviour
     {
        Player = FindObjectOfType<PlayerBomberman>();
        randomControls = Random.Range(0, 5);
-
-       
        //AgentMode = ChooseMode.instance.CM2;
-
-       AgentMode = ChooseMode.instance.CM2;
-
     }
 
     // Update is called once per frame
@@ -58,7 +53,7 @@ public class CharacterMovement2 : MonoBehaviour
             }
             else if (Input.GetKey(KeyCode.KeypadEnter))
             {
-                Player.PlantBomb(map);
+                Player.PlantBomb();
             }
         }
         else if (AgentMode == 2) // MCTS
@@ -107,7 +102,7 @@ public class CharacterMovement2 : MonoBehaviour
                 break;
             case 4 :
                 
-                Player.PlantBomb(map);
+                Player.PlantBomb();
                 break;
         }
     }
