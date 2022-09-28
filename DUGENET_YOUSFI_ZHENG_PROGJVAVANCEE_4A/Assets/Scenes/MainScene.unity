@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.17484549, g: 0.21871477, b: 0.30099645, a: 1}
+  m_IndirectSpecularColor: {r: 0.1748449, g: 0.21871418, b: 0.3009954, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5444,7 +5444,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1402732542464688673, guid: 03a369cdb4b06b646914f1abf11d2ffa, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1402732542464688673, guid: 03a369cdb4b06b646914f1abf11d2ffa, type: 3}
       propertyPath: m_LocalRotation.x
@@ -5452,7 +5452,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1402732542464688673, guid: 03a369cdb4b06b646914f1abf11d2ffa, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.7071068
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1402732542464688673, guid: 03a369cdb4b06b646914f1abf11d2ffa, type: 3}
       propertyPath: m_LocalRotation.z
@@ -5464,7 +5464,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1402732542464688673, guid: 03a369cdb4b06b646914f1abf11d2ffa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1402732542464688673, guid: 03a369cdb4b06b646914f1abf11d2ffa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -5473,6 +5473,18 @@ PrefabInstance:
     - target: {fileID: 1746360349181696155, guid: 03a369cdb4b06b646914f1abf11d2ffa, type: 3}
       propertyPath: m_Name
       value: EnemyBomberman
+      objectReference: {fileID: 0}
+    - target: {fileID: 3534953235113681834, guid: 03a369cdb4b06b646914f1abf11d2ffa, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3534953235113681834, guid: 03a369cdb4b06b646914f1abf11d2ffa, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3534953235113681834, guid: 03a369cdb4b06b646914f1abf11d2ffa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03a369cdb4b06b646914f1abf11d2ffa, type: 3}
@@ -5501,8 +5513,8 @@ MonoBehaviour:
   isAlive: 1
   map: {fileID: 32910460}
   playerBomb: {fileID: 9085898028459726454, guid: 6527725b3463d874d85aa1c89681166b, type: 3}
-  collisionRadius: 0.1
   ScoreBoard: {fileID: 1942223659}
+  collisionRadius: 1
 --- !u!114 &790353724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5520,7 +5532,7 @@ MonoBehaviour:
   model2: {fileID: 790353719}
   map: {fileID: 32910460}
   Player: {fileID: 790353721}
-  AgentMode: 1
+  AgentMode: 0
 --- !u!1001 &796736814
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9199,7 +9211,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1402732542464688673, guid: 03a369cdb4b06b646914f1abf11d2ffa, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1402732542464688673, guid: 03a369cdb4b06b646914f1abf11d2ffa, type: 3}
       propertyPath: m_LocalRotation.x
@@ -9207,7 +9219,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1402732542464688673, guid: 03a369cdb4b06b646914f1abf11d2ffa, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.7071068
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1402732542464688673, guid: 03a369cdb4b06b646914f1abf11d2ffa, type: 3}
       propertyPath: m_LocalRotation.z
@@ -9219,7 +9231,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1402732542464688673, guid: 03a369cdb4b06b646914f1abf11d2ffa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1402732542464688673, guid: 03a369cdb4b06b646914f1abf11d2ffa, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -9231,7 +9243,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3534953235113681834, guid: 03a369cdb4b06b646914f1abf11d2ffa, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3534953235113681834, guid: 03a369cdb4b06b646914f1abf11d2ffa, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3534953235113681834, guid: 03a369cdb4b06b646914f1abf11d2ffa, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3534953235113681834, guid: 03a369cdb4b06b646914f1abf11d2ffa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03a369cdb4b06b646914f1abf11d2ffa, type: 3}
@@ -9278,8 +9302,8 @@ MonoBehaviour:
   isAlive: 1
   map: {fileID: 32910460}
   playerBomb: {fileID: 9085898028459726454, guid: 6527725b3463d874d85aa1c89681166b, type: 3}
-  collisionRadius: 0.1
   ScoreBoard: {fileID: 1942223659}
+  collisionRadius: 1
 --- !u!1001 &1473674002
 PrefabInstance:
   m_ObjectHideFlags: 0
