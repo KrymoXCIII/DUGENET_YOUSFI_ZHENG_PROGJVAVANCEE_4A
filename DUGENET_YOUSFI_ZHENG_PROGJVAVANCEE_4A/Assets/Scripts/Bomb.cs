@@ -9,13 +9,11 @@ public class Bomb : MonoBehaviour
     private float timer;
     public Map map;
     private float radius = 1.5f;
-    [SerializeField] GameObject ScoreBoard;
-
-    private string Agent = "";
     // Start is called before the first frame update
     void Start()
     {
         timer = 3;
+        
     }
 
     void Update()
@@ -36,10 +34,7 @@ public class Bomb : MonoBehaviour
         map = m;
     }
 
-    public void setAgentBomb(string j)
-    {
-        Agent = j;
-    }
+
 
     public void explode()
     {
@@ -62,8 +57,7 @@ public class Bomb : MonoBehaviour
             if (checkCollision(player.transform.position, pos))
             {
                 player.isAlive = false;
-                Time.timeScale = 0f;
-                ScoreBoard.SetActive(true);
+
             }
         }
 
@@ -117,29 +111,25 @@ public class Bomb : MonoBehaviour
                 if (checkCollision(player.transform.position, newPos))
                 {
                     player.isAlive = false;
-                    Time.timeScale = 0f;
-                    ScoreBoard.SetActive(true);
+
                 }
                 newPos.Set(pos.x, pos.y, pos.z+delta);
                 if (checkCollision(player.transform.position, newPos))
                 {
                     player.isAlive = false;
-                    Time.timeScale = 0f;
-                    ScoreBoard.SetActive(true);
+
                 }
                 newPos.Set(pos.x, pos.y, pos.z-delta);
                 if (checkCollision(player.transform.position, newPos))
                 {
                     player.isAlive = false;
-                    Time.timeScale = 0f;
-                    ScoreBoard.SetActive(true);
+
                 }
                 newPos.Set(pos.x-delta, pos.y, pos.z);
                 if (checkCollision(player.transform.position, newPos))
                 {
                     player.isAlive = false;
-                    Time.timeScale = 0f;
-                    ScoreBoard.SetActive(true);
+
                 }
             }
         }

@@ -19,7 +19,7 @@ public class PlayerBomberman : MonoBehaviour
     public Bomb playerBomb;
 
     public float collisionRadius =.1f;
-
+    [SerializeField]public GameObject ScoreBoard;
     
     // Start is called before the first frame update
     void Start()
@@ -30,7 +30,11 @@ public class PlayerBomberman : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (isAlive == false)
+        {
+            Time.timeScale = 0f;
+            ScoreBoard.SetActive(true);
+        }
     }
 
     public void PlantBomb()
@@ -44,11 +48,11 @@ public class PlayerBomberman : MonoBehaviour
             bomb.setPower(bombPower);
             bomb.setMap(map);
             _bombReady = false;
-            nbBombes--;
+
         }
             
         // Compte à rebours
-        if (nbBombes>0)
+        if (Time.time - _countDown>=3)
         {
 
             _bombReady = true;
