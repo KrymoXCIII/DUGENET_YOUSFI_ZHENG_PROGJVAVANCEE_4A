@@ -9,7 +9,8 @@ public class Bomb : MonoBehaviour
     private float timer;
     public Map map;
     private float radius = 1.5f;
-    
+
+    private string Agent = "";
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +32,11 @@ public class Bomb : MonoBehaviour
     public void setMap(Map m)
     {
         map = m;
+    }
+
+    public void setAgentBomb(string j)
+    {
+        Agent = j;
     }
 
     public void explode()

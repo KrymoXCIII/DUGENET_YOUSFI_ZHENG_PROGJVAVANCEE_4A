@@ -44,10 +44,11 @@ public class PlayerBomberman : MonoBehaviour
             bomb.setPower(bombPower);
             bomb.setMap(map);
             _bombReady = false;
+            nbBombes--;
         }
             
         // Compte à rebours
-        if (Time.time - _countDown >= 5)
+        if (nbBombes>0)
         {
 
             _bombReady = true;
