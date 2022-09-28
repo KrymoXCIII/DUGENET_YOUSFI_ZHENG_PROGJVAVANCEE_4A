@@ -9255,7 +9255,7 @@ MonoBehaviour:
   model1: {fileID: 1466354077}
   map: {fileID: 32910460}
   Player: {fileID: 1466354080}
-  AgentMode: 1
+  AgentMode: 0
 --- !u!4 &1466354077 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3534953235113681834, guid: 03a369cdb4b06b646914f1abf11d2ffa, type: 3}
