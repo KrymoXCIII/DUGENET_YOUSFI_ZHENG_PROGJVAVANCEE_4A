@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bomb : //MonoBehaviour
+public class Bomb : MonoBehaviour
 {
-    private int power = 2;
+    public int power = 2;
     private float timer;
     public Map map;
     private float radius = 1.5f;

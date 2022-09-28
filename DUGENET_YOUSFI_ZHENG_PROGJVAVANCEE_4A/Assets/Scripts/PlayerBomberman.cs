@@ -5,15 +5,15 @@ using UnityEngine;
 
 public class PlayerBomberman : MonoBehaviour
 {
-    float speed = 5;
+    public float speed = 5;
     
-    int nbBombes = 1;
-    private int bombPower = 2;
+    public int nbBombes = 1;
+    public int bombPower = 2;
     public bool isAlive = true;
     
     private bool _bombReady;
     private float _countDown;
-
+    
     public Map map;
 
     public Bomb playerBomb;
