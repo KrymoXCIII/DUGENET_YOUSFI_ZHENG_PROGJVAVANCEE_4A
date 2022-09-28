@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bomb : MonoBehaviour
+public class Bomb : //MonoBehaviour
 {
     private int power = 2;
     private float timer;

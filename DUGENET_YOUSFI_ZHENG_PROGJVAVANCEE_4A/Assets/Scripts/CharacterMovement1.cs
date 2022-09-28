@@ -11,7 +11,7 @@ public class CharacterMovement1 : MonoBehaviour
     
 
 
-    public Map map;
+    //public Map map;
     public PlayerBomberman Player;
     public int AgentMode;
     private int randomControls;

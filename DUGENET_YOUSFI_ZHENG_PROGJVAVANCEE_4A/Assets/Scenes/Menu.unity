@@ -5408,6 +5408,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CM1: 0
   CM2: 0
+  Text1: {fileID: 2046221376}
+  Text2: {fileID: 1038520706}
 --- !u!4 &1420703594
 Transform:
   m_ObjectHideFlags: 0
