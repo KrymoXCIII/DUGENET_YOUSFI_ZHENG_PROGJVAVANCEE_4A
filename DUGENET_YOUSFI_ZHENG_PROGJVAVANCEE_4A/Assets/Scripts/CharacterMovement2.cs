@@ -11,7 +11,7 @@ public class CharacterMovement2 : MonoBehaviour
     
 
 
-   // public Map map;
+    public Map map;
     public PlayerBomberman Player;
     public int AgentMode;
     private int randomControls;
@@ -58,7 +58,7 @@ public class CharacterMovement2 : MonoBehaviour
         }
         else if (AgentMode == 2) // MCTS
         {
-            
+            MCTS ia = new MCTS(map, Player);  
         }
         
     }
@@ -86,19 +86,19 @@ public class CharacterMovement2 : MonoBehaviour
         {
             case 0 :
                 
-                Player.MovePlayerUp(gameObject,model2);
+                transform.position += Player.MovePlayerUp(gameObject,model2);
                 break;
             case 1 :
                 
-                Player.MovePlayerDown(gameObject,model2);
+                transform.position += Player.MovePlayerDown(gameObject,model2);
                 break;
             case 2 : 
                 
-                Player.MovePlayerLeft(gameObject,model2);
+                transform.position += Player.MovePlayerLeft(gameObject,model2);
                 break;
             case 3 :
                
-                Player.MovePlayerRight(gameObject,model2);
+                transform.position += Player.MovePlayerRight(gameObject,model2);
                 break;
             case 4 :
                 

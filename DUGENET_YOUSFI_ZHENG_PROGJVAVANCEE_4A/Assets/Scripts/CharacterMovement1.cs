@@ -59,9 +59,10 @@ public class CharacterMovement1 : MonoBehaviour
         else if (AgentMode == 2) // MCTS
         {
 
-            
-            
-            Player.transform.position = map.players[0].transform.position;
+           MCTS ia = new MCTS(map, Player);
+
+
+
         }
     }
 
@@ -87,19 +88,19 @@ public class CharacterMovement1 : MonoBehaviour
         {
             case 0 :
                 
-                Player.MovePlayerUp(gameObject,model1);
+                transform.position += Player.MovePlayerUp(gameObject,model1);
                 break;
             case 1 :
                 
-                Player.MovePlayerDown(gameObject,model1);
+                transform.position += Player.MovePlayerDown(gameObject,model1);
                 break;
             case 2 : 
                 
-                Player.MovePlayerLeft(gameObject,model1);
+                transform.position += Player.MovePlayerLeft(gameObject,model1);
                 break;
             case 3 :
                
-                Player.MovePlayerRight(gameObject,model1);
+                transform.position += Player.MovePlayerRight(gameObject,model1);
                 break;
             case 4 :
                 
