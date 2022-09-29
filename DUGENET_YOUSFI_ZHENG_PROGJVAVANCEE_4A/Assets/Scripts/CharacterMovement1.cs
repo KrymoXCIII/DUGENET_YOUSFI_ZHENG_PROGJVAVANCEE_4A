@@ -5,12 +5,6 @@ using UnityEngine;
 
 public class CharacterMovement1 : MonoBehaviour
 {
-    public int speed;
-    public GameObject bomb;
-    public Transform model1;
-    
-
-
     public Map map;
     public PlayerBomberman Player;
     public int AgentMode;
@@ -55,6 +49,9 @@ public class CharacterMovement1 : MonoBehaviour
             {
                 map.updateMap(Player, move.BOMB);
             }
+            else
+                map.updateMap(Player, move.NOMOVE);
+
         }
         else if (AgentMode == 2) // MCTS
         {

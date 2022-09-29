@@ -10,8 +10,6 @@ public class PlayerBomberman : MonoBehaviour
     public int bombPower = 2;
     public bool isAlive = true;
     
-    private bool _bombReady = true;
-    
     public Map map;
 
     public Bomb playerBomb;
@@ -19,7 +17,6 @@ public class PlayerBomberman : MonoBehaviour
 
     public int playerNb;
     
-    [SerializeField]public GameObject ScoreBoard;
     public float collisionRadius =1f;
 
     public Bomb PlantBomb()
@@ -27,7 +24,6 @@ public class PlayerBomberman : MonoBehaviour
         playerBomb.transform.position = new Vector3(transform.position.x, transform.position.y,transform.position.z);
         var bomb = Instantiate(playerBomb).gameObject.GetComponent<Bomb>();
         bomb.setPower(bombPower);
-        //bomb.setMap(map);
         return bomb;
     }
 
@@ -74,8 +70,6 @@ public class PlayerBomberman : MonoBehaviour
 
     }
     
-    
-    
     public bool collisionPlayer(Vector3 checkPos)
     {
         foreach (var wall in map.walls)
@@ -85,9 +79,6 @@ public class PlayerBomberman : MonoBehaviour
                 wall.transform.position.z + collisionRadius > checkPos.z &&
                 wall.transform.position.z - collisionRadius < checkPos.z)
                 return true;
-            /*
-            if (Mathf.Pow(wall.transform.position.x - checkPos.x, 2) + Mathf.Pow(wall.transform.position.z - checkPos.z, 2) < collisionRadius)
-                return true;*/
         }
         return false;
     }

@@ -5651,7 +5651,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  nbBombes: 1
+  nbBombes: 0
   bombPower: 2
   isAlive: 1
   map: {fileID: 32910460}

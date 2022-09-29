@@ -11,11 +11,9 @@ public class Bomb : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        timer = 3*60;
+        timer = 4*60;
     }
 
-    
-    
     public bool decreaseTimer()
     {
         timer -= 1;
@@ -25,12 +23,5 @@ public class Bomb : MonoBehaviour
     public void setPower(int i)
     {
         power = i;
-    }
-
-    public bool checkCollision(Vector3 wallPos, Vector3 checkPos)
-    {
-        if (Mathf.Pow(wallPos.x - checkPos.x, 2) + Mathf.Pow(wallPos.z - checkPos.z, 2) < 1)
-            return true;
-        return false;
     }
 }

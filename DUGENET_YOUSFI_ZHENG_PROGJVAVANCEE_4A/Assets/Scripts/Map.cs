@@ -24,38 +24,7 @@ public class Map : MonoBehaviour
 
     public Map updateMap(PlayerBomberman player,move m)
     {
-        List<Bomb> bombToRemove = new List<Bomb>();
-        foreach (var b in bombs1)
-        {
-            if (b.decreaseTimer())
-            {
-                explode(b);
-                player.nbBombes++;
-                bombToRemove.Add(b);
-            }
-        }
-        foreach (var b in bombToRemove)
-        {
-            bombs1.Remove(b);
-            Destroy(b.gameObject);
-        }
-        bombToRemove.Clear();
-
-        foreach (var b in bombs2)
-        {
-            if (b.decreaseTimer())
-            {
-                explode(b);
-                player.nbBombes++;
-                bombToRemove.Add(b);
-            }
-        }
-        foreach (var b in bombToRemove)
-        {
-            bombs2.Remove(b);
-            Destroy(b.gameObject);
-        }
-
+        
         switch (m)
         {
             case move.UP:
@@ -81,6 +50,40 @@ public class Map : MonoBehaviour
                         bombs2.Add(bomb);
                 }
                 break;
+        }
+
+        List<Bomb> bombToRemove = new List<Bomb>();
+        foreach (var b in bombs1)
+        {
+            if (b.decreaseTimer())
+            {
+                explode(b);
+                if(player.playerNb == 1)
+                    player.nbBombes++;
+                bombToRemove.Add(b);
+            }
+        }
+        foreach (var b in bombToRemove)
+        {
+            bombs1.Remove(b);
+            Destroy(b.gameObject);
+        }
+        bombToRemove.Clear();
+
+        foreach (var b in bombs2)
+        {
+            if (b.decreaseTimer())
+            {
+                explode(b);
+                if(player.playerNb == 2)
+                    player.nbBombes++;
+                bombToRemove.Add(b);
+            }
+        }
+        foreach (var b in bombToRemove)
+        {
+            bombs2.Remove(b);
+            Destroy(b.gameObject);
         }
 
         if (player.isAlive == false)
