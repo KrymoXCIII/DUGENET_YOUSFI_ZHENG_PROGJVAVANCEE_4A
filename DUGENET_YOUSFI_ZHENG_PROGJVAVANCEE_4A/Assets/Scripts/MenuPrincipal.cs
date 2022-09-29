@@ -4,9 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MeniPrincipal : MonoBehaviour
+public class MenuPrincipal : MonoBehaviour
 {
-
     public void PlayGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
@@ -17,10 +16,4 @@ public class MeniPrincipal : MonoBehaviour
     {
         Application.Quit();
     }
-
-    void Update()
-    {
-        
-    }
-    
 }

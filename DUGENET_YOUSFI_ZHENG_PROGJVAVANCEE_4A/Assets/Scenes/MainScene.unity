@@ -5658,7 +5658,6 @@ MonoBehaviour:
   playerBomb: {fileID: 9085898028459726454, guid: 6527725b3463d874d85aa1c89681166b, type: 3}
   model: {fileID: 790353719}
   playerNb: 2
-  ScoreBoard: {fileID: 1942223659}
   collisionRadius: 1
 --- !u!114 &790353724
 MonoBehaviour:
@@ -5672,12 +5671,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ce1668d1679bde45832fc6f7867c263, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  bomb: {fileID: 2417536319458271139, guid: 6527725b3463d874d85aa1c89681166b, type: 3}
-  model2: {fileID: 790353719}
   map: {fileID: 32910460}
   Player: {fileID: 790353721}
-  AgentMode: 0
+  AgentMode: 2
 --- !u!1001 &796736814
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9421,9 +9417,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 089bafa87db6efe44bf6a05d5892d29f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  bomb: {fileID: 2417536319458271139, guid: 6527725b3463d874d85aa1c89681166b, type: 3}
-  model1: {fileID: 1466354077}
   map: {fileID: 32910460}
   Player: {fileID: 1466354080}
   AgentMode: 1
@@ -9452,7 +9445,6 @@ MonoBehaviour:
   playerBomb: {fileID: 9085898028459726454, guid: 6527725b3463d874d85aa1c89681166b, type: 3}
   model: {fileID: 1466354077}
   playerNb: 1
-  ScoreBoard: {fileID: 1942223659}
   collisionRadius: 1
 --- !u!1001 &1473674002
 PrefabInstance:

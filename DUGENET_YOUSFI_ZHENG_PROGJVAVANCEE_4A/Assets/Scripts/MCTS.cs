@@ -30,6 +30,8 @@ public class MCTS
         for (int i = 0; i < nbTest; i++)
         {
             NodeMCTS selectedNode = selection();
+            if (selectedNode == null)
+                break;
             NodeMCTS newNode = expansion(selectedNode);
 
             simulation(newNode, nbTest);
@@ -53,12 +55,16 @@ public class MCTS
         {
             int rand = Random.Range(0, listNode.Count); //  aléatoire un nombre entre le nombre de node
             var node = listNode.GetRange(rand, 1).First(); //Choisi le node aléatoire
-            while (!node.end) // tant que le node n'est pas une feuille
+            int nodeCount = listNode.Count();
+            while (!node.end && nodeCount != 0) // tant que le node n'est pas une feuille
             {
                 rand = Random.Range(0, listNode.Count); //aléatoire un nombre entre le nombre de node
                 node = listNode.GetRange(rand, 1).First(); //Choisi le node aléatoire
+                nodeCount--;
             }
 
+            if (nodeCount == 0)
+                return null;
             return node; // return la feuille de l'arbre
         }
         else //20% explotation

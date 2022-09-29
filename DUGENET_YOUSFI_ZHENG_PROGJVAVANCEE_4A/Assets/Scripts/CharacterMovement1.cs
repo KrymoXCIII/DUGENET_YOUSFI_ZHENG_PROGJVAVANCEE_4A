@@ -17,7 +17,7 @@ public class CharacterMovement1 : MonoBehaviour
     {
         //Player = FindObjectOfType<PlayerBomberman>();
        randomControls = Random.Range(0, 5);
-       AgentMode = ChooseMode.instance.CM1;
+       //AgentMode = ChooseMode.instance.CM1;
     }
 
     // Update is called once per frame
@@ -55,6 +55,7 @@ public class CharacterMovement1 : MonoBehaviour
         }
         else if (AgentMode == 2) // MCTS
         {
+            Debug.Log("okkkkkkk");
             MCTS mcts = new MCTS(map, Player);
             var listMoves = mcts.computeMCTS(50);
             float bestRate = 0;
@@ -67,6 +68,8 @@ public class CharacterMovement1 : MonoBehaviour
                     bestMove = move.moveP1;
                 }
             }
+            Debug.Log("mmmmmmmh");
+
             map.updateMap(Player, bestMove);
         }
     }

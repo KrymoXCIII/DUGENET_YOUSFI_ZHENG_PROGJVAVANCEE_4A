@@ -15,9 +15,9 @@ public class CharacterMovement2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       Player = FindObjectOfType<PlayerBomberman>();
+       //Player = FindObjectOfType<PlayerBomberman>();
        randomControls = Random.Range(0, 5);
-       AgentMode = ChooseMode.instance.CM2;
+       //AgentMode = ChooseMode.instance.CM2;
     }
 
     // Update is called once per frame
