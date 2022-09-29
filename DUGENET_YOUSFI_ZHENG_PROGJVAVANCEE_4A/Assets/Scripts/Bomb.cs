@@ -8,7 +8,7 @@ public class Bomb : MonoBehaviour
     public int power = 2;
     private float timer;
     public Map map;
-    private float radius = 1.5f;
+    public float radius = 1.5f;
     // Start is called before the first frame update
     void Start()
     {
