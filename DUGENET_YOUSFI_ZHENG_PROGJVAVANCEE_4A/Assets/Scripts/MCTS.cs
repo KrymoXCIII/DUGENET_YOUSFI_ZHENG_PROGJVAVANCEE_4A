@@ -111,11 +111,12 @@ public class MCTS
     {
         int nbWin = 0; // initialise le nombre de win
         for (int i = 0; i < itération; i++) //pour chaque test 
-
         {
+            int step = 10000;
             var curMap = node.currrentGameState; // Temporaire Map
-            while (curMap.checkWinner() == null) //tant que il y a pas de victoire
+            while (curMap.checkWinner() == null && step > 0) //tant que il y a pas de victoire
             {
+                step--;
                 var listMove =
                     node.currrentGameState.getPossibleMove(firstPlayer, secondPlayer); // liste de move posible
                 int rand = Random.Range(0, listMove.Count); //random dans la liste de move possible

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.17484549, g: 0.21871477, b: 0.30099645, a: 1}
+  m_IndirectSpecularColor: {r: 0.1748449, g: 0.21871418, b: 0.3009954, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -606,6 +606,10 @@ MonoBehaviour:
   - {fileID: 1132819889}
   collisionRadius: 1
   deltaTime: 0.1
+<<<<<<< HEAD
+=======
+  ScoreBoard: {fileID: 1942223659}
+>>>>>>> 0681fc21070ed45913795429db098eb3227789ff
 --- !u!1001 &33986476
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5654,7 +5658,11 @@ MonoBehaviour:
   isAlive: 1
   map: {fileID: 32910460}
   playerBomb: {fileID: 9085898028459726454, guid: 6527725b3463d874d85aa1c89681166b, type: 3}
+<<<<<<< HEAD
   model: {fileID: 0}
+=======
+  model: {fileID: 790353719}
+>>>>>>> 0681fc21070ed45913795429db098eb3227789ff
   ScoreBoard: {fileID: 1942223659}
   collisionRadius: 1
 --- !u!114 &790353724
@@ -9446,7 +9454,11 @@ MonoBehaviour:
   isAlive: 1
   map: {fileID: 32910460}
   playerBomb: {fileID: 9085898028459726454, guid: 6527725b3463d874d85aa1c89681166b, type: 3}
+<<<<<<< HEAD
   model: {fileID: 0}
+=======
+  model: {fileID: 1466354077}
+>>>>>>> 0681fc21070ed45913795429db098eb3227789ff
   ScoreBoard: {fileID: 1942223659}
   collisionRadius: 1
 --- !u!1001 &1473674002
