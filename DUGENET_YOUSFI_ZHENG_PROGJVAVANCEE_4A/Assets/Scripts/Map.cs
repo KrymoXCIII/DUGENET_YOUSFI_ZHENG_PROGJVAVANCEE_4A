@@ -11,7 +11,8 @@ public class Map : MonoBehaviour
     public float collisionRadius = 1f;
     public float deltaTime = .1f;
     [SerializeField]public GameObject ScoreBoard;
-    
+    public ParticleSystem explosionanimation;
+
     public void removeWalls(List<Wall> list)
     {
         foreach (var wall in list)
@@ -23,24 +24,36 @@ public class Map : MonoBehaviour
 
     public Map updateMap(PlayerBomberman player,move m)
     {
+        List<Bomb> bombToRemove = new List<Bomb>();
         foreach (var b in bombs1)
         {
             if (b.decreaseTimer())
             {
                 explode(b);
                 player.nbBombes++;
-                bombs1.Remove(b);
+                bombToRemove.Add(b);
             }
         }
-        
+        foreach (var b in bombToRemove)
+        {
+            bombs1.Remove(b);
+            Destroy(b.gameObject);
+        }
+        bombToRemove.Clear();
+
         foreach (var b in bombs2)
         {
             if (b.decreaseTimer())
             {
                 explode(b);
                 player.nbBombes++;
-                bombs2.Remove(b);
+                bombToRemove.Add(b);
             }
+        }
+        foreach (var b in bombToRemove)
+        {
+            bombs2.Remove(b);
+            Destroy(b.gameObject);
         }
 
         switch (m)
@@ -58,8 +71,15 @@ public class Map : MonoBehaviour
                 player.transform.position += player.MovePlayerLeft(player.gameObject,player.model);
                 break;
             case move.BOMB:
-                var bomb = player.PlantBomb();
-                bombs1.Add(bomb);
+                if (player.nbBombes > 0)
+                {
+                    var bomb = player.PlantBomb();
+                    player.nbBombes--;
+                    if (player.playerNb == 1)
+                        bombs1.Add(bomb);
+                    else if (player.playerNb == 2)
+                        bombs2.Add(bomb);
+                }
                 break;
         }
 
@@ -76,8 +96,9 @@ public class Map : MonoBehaviour
     public void explode(Bomb b)
     {
         List<Wall> wallToRemove = new List<Wall>();
-        var pos = transform.position;
-        foreach (var wall in (this.walls))
+        var pos = b.transform.position;
+        createExplosion(pos);
+        foreach (var wall in (walls))
         {
             if (checkCollision(wall.transform.position, pos))
             {
@@ -89,12 +110,11 @@ public class Map : MonoBehaviour
             }
         }
         
-        foreach(var player in this.players) 
+        foreach(var player in players) 
         {
             if (checkCollision(player.transform.position, pos))
             {
                 player.isAlive = false;
-
             }
         }
 
@@ -105,6 +125,7 @@ public class Map : MonoBehaviour
             {
                 var newPos = new Vector3(pos.x, pos.y, pos.z);
                 newPos.Set(pos.x+delta, pos.y, pos.z);
+                createExplosion(pos);
                 if (checkCollision(wall.transform.position, newPos))
                 {
                     if (wall.destructible)
@@ -114,6 +135,8 @@ public class Map : MonoBehaviour
                     }
                 }
                 newPos.Set(pos.x, pos.y, pos.z+delta);
+                createExplosion(newPos);
+
                 if (checkCollision(wall.transform.position, newPos))
                 {
                     if (wall.destructible)
@@ -123,6 +146,8 @@ public class Map : MonoBehaviour
                     }
                 }
                 newPos.Set(pos.x, pos.y, pos.z-delta);
+                createExplosion(newPos);
+
                 if (checkCollision(wall.transform.position, newPos))
                 {
                     if (wall.destructible)
@@ -132,6 +157,8 @@ public class Map : MonoBehaviour
                     }
                 }
                 newPos.Set(pos.x-delta, pos.y, pos.z);
+                createExplosion(newPos);
+
                 if (checkCollision(wall.transform.position, newPos))
                 {
                     if (wall.destructible)
@@ -170,10 +197,7 @@ public class Map : MonoBehaviour
                 }
             }
         }
-
-        this.removeWalls(wallToRemove);
-
-        Destroy(gameObject);
+        removeWalls(wallToRemove);
     }
     
     public bool checkCollision(Vector3 wallPos, Vector3 checkPos)
@@ -181,5 +205,12 @@ public class Map : MonoBehaviour
         if (Mathf.Pow(wallPos.x - checkPos.x, 2) + Mathf.Pow(wallPos.z - checkPos.z, 2) < 1)
             return true;
         return false;
+    }
+    
+    private void createExplosion(Vector3 pos)
+    {
+        //explosionanimation = GetComponent<ParticleSystem>();
+        ParticleSystem.ShapeModule _editableShape = explosionanimation.shape;
+        _editableShape.position = new Vector3(pos.x, pos.y, pos.z);
     }
 }

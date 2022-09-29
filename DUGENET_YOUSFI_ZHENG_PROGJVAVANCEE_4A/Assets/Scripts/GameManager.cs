@@ -135,15 +135,22 @@ public class mapSimulation
         PlayerSim ps1 = players.GetRange(0, 1).First();
         PlayerSim ps2 = players.GetRange(1, 1).First();
 
+        List<BombSim> bombToDelete = new List<BombSim>();
         foreach (var b in bombs1)
         {
             if (b.decreaseTimer())
             {
                 explodeBomb(b);
                 ps1.nbBomb++;
-                bombs1.Remove(b);
+                bombToDelete.Add(b);
             }
         }
+
+        foreach (var b in bombToDelete)
+        {
+            bombs1.Remove(b);
+        }
+        bombToDelete.Clear();
         
         foreach (var b in bombs2)
         {
@@ -151,8 +158,12 @@ public class mapSimulation
             {
                 explodeBomb(b);
                 ps2.nbBomb++;
-                bombs1.Remove(b);
+                bombToDelete.Add(b);
             }
+        }
+        foreach (var b in bombToDelete)
+        {
+            bombs2.Remove(b);
         }
         
         switch (m1)

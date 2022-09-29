@@ -607,6 +607,7 @@ MonoBehaviour:
   collisionRadius: 1
   deltaTime: 0.1
   ScoreBoard: {fileID: 1942223659}
+  explosionanimation: {fileID: 1178755095409489815}
 --- !u!1001 &33986476
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5656,6 +5657,7 @@ MonoBehaviour:
   map: {fileID: 32910460}
   playerBomb: {fileID: 9085898028459726454, guid: 6527725b3463d874d85aa1c89681166b, type: 3}
   model: {fileID: 790353719}
+  playerNb: 2
   ScoreBoard: {fileID: 1942223659}
   collisionRadius: 1
 --- !u!114 &790353724
@@ -9449,6 +9451,7 @@ MonoBehaviour:
   map: {fileID: 32910460}
   playerBomb: {fileID: 9085898028459726454, guid: 6527725b3463d874d85aa1c89681166b, type: 3}
   model: {fileID: 1466354077}
+  playerNb: 1
   ScoreBoard: {fileID: 1942223659}
   collisionRadius: 1
 --- !u!1001 &1473674002
@@ -14816,3 +14819,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9503bd3f32d1fb14eaa28021bf2ab755, type: 3}
+--- !u!198 &1178755095409489815 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7899607689449087841, guid: 9503bd3f32d1fb14eaa28021bf2ab755, type: 3}
+  m_PrefabInstance: {fileID: 1178755095409489814}
+  m_PrefabAsset: {fileID: 0}

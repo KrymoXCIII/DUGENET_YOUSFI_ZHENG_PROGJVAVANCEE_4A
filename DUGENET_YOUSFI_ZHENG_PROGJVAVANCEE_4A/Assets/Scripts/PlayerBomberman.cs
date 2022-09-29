@@ -11,28 +11,24 @@ public class PlayerBomberman : MonoBehaviour
     public bool isAlive = true;
     
     private bool _bombReady = true;
-    private float _countDown;
     
     public Map map;
 
     public Bomb playerBomb;
     public Transform model;
 
-
+    public int playerNb;
+    
     [SerializeField]public GameObject ScoreBoard;
     public float collisionRadius =1f;
 
     public Bomb PlantBomb()
     {
-        if (_bombReady)
-        {
-            _countDown = Time.time;
-            playerBomb.transform.position = new Vector3(transform.position.x, transform.position.y,transform.position.z);
-            var bomb = Instantiate(playerBomb).gameObject.GetComponent<Bomb>();
-            bomb.setPower(bombPower);
-            bomb.setMap(map);
-        }
-        return playerBomb;
+        playerBomb.transform.position = new Vector3(transform.position.x, transform.position.y,transform.position.z);
+        var bomb = Instantiate(playerBomb).gameObject.GetComponent<Bomb>();
+        bomb.setPower(bombPower);
+        //bomb.setMap(map);
+        return bomb;
     }
 
     public Vector3 MovePlayerUp(GameObject obj, Transform model)
