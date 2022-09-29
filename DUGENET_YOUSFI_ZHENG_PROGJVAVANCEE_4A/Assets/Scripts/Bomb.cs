@@ -156,7 +156,7 @@ public class Bomb : MonoBehaviour
     {
         explosionanimation = GetComponent<ParticleSystem>();
         ParticleSystem.ShapeModule _editableShape = explosionanimation.shape;
-        _editableShape.position = new Vector3(pos.x,pos.y,pos.z);
-        
+        _editableShape.position = new Vector3(pos.x, pos.y, pos.z);
+
     }
 }

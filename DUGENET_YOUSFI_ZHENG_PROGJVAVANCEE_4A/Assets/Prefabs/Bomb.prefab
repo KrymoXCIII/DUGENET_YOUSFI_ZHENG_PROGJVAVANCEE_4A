@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2417536319458271139}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.0021396, y: 1, z: 4.01468}
+  m_LocalPosition: {x: 7.47, y: 1, z: 7.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -100,6 +100,7 @@ MonoBehaviour:
   explosionanimation: {fileID: 7899607689449087841, guid: 9503bd3f32d1fb14eaa28021bf2ab755, type: 3}
   power: 2
   map: {fileID: 0}
+  radius: 1.5
 --- !u!1001 &3322390530360799743
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -117,7 +118,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6876940028810356488, guid: 9503bd3f32d1fb14eaa28021bf2ab755, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.23
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6876940028810356488, guid: 9503bd3f32d1fb14eaa28021bf2ab755, type: 3}
       propertyPath: m_LocalPosition.y
@@ -125,7 +126,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6876940028810356488, guid: 9503bd3f32d1fb14eaa28021bf2ab755, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.61
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6876940028810356488, guid: 9503bd3f32d1fb14eaa28021bf2ab755, type: 3}
       propertyPath: m_LocalRotation.w
