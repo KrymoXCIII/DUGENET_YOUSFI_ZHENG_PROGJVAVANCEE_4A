@@ -100,7 +100,7 @@ public class MCTS
     }
 
 
-    float simulation(NodeMCTS node, int itération, PlayerSim ps) // Simulation itération = nombre de test ; ps = joueur
+    void simulation(NodeMCTS node, int itération, PlayerSim ps) // Simulation itération = nombre de test ; ps = joueur
     {
         int nbWin = 0; // initialise le nombre de win
         for (int i = 0; i < itération; i++) //pour chaque test 
@@ -109,7 +109,7 @@ public class MCTS
             var curMap = node.currrentGameState; // Temporaire Map
             while (curMap.checkWinner() == null) //tant que il y a pas de victoire
             {
-                var listMove = node.currrentGameState.getPossibleMove(); // liste de move posible
+                var listMove = node.currrentGameState.getPossibleMove(firstPlayer,secondPlayer); // liste de move posible
                 int rand = Random.Range(0, listMove.Count); //random dans la liste de move possible
                 curMap = curMap.updateMap(listMove[rand].Item1, listMove[rand].Item2); //Map avec un aléatoire move possible
             }
