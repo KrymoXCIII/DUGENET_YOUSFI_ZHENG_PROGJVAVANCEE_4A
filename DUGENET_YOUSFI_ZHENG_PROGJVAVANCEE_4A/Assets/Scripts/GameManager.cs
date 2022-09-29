@@ -19,7 +19,7 @@ public class GameManager
 
 public class PlayerSim
 {
-    public Vector2 pos;
+    public Vector3 pos;
     public bool isAlive;
     public int nbBomb;
     public float speed;
@@ -27,28 +27,28 @@ public class PlayerSim
 
     public PlayerSim(PlayerBomberman pb)
     {
-        pos = new Vector2(pb.transform.position.x, pb.transform.position.z);
+        pos = new Vector3(pb.transform.position.x, pb.transform.position.y,pb.transform.position.z);
         isAlive = pb.isAlive;
         nbBomb = pb.nbBombes;
         speed = pb.speed;
         power = pb.bombPower;
     }
     
-    public Vector2 MovePlayerUp()
+    public Vector3 MovePlayerUp()
     {
-        return new Vector2(speed, 0);
+        return new Vector3(speed, 0,0);
     }
-    public Vector2 MovePlayerDown()
+    public Vector3 MovePlayerDown()
     {
-        return new Vector2(-speed, 0);
+        return new Vector3(-speed, 0,0);
     }
-    public Vector2 MovePlayerRight()
+    public Vector3 MovePlayerRight()
     {
-        return new Vector2(0, speed);
+        return new Vector3(0,0, speed);
     }
-    public Vector2 MovePlayerLeft()
+    public Vector3 MovePlayerLeft()
     {
-        return new Vector2(0, -speed);
+        return new Vector3(0,0, -speed);
     }
     public BombSim PlantBomb()
     {
@@ -60,18 +60,18 @@ public class PlayerSim
 
 public class BombSim
 {
-    public Vector2 pos;
+    public Vector3 pos;
     public int power;
     public int timer = 10;
     //private float radius = 1.5f;
     
     public BombSim(Bomb b)
     {
-        pos = new Vector2(b.transform.position.x, b.transform.position.z);
+        pos = new Vector3(b.transform.position.x,b.transform.position.y, b.transform.position.z);
         power = b.power;
     }
     
-    public BombSim(Vector2 position, int pow)
+    public BombSim(Vector3 position, int pow)
     {
         pos = position;
         power = pow;
@@ -86,13 +86,13 @@ public class BombSim
 
 public class WallSim
 {
-    public Vector2 pos;
+    public Vector3 pos;
     public bool destructible;
     public float percentItem = 0.5f;
     
     public WallSim(Wall w)
     {
-        pos = new Vector2(w.transform.position.x, w.transform.position.z);
+        pos = new Vector3(w.transform.position.x, w.transform.position.y,w.transform.position.z);
         destructible = w.destructible;
         percentItem = w.percentItem;
     }
@@ -199,7 +199,7 @@ public class mapSimulation
 
     public bool checkPossibleMove(move m, PlayerSim ps)
     {
-        Vector2 dir;
+        Vector3 dir;
         switch (m)
         {
             case move.UP:
@@ -224,14 +224,14 @@ public class mapSimulation
         return false;
     }
     
-    public bool collisionPlayerWalls(Vector2 checkPos)
+    public bool collisionPlayerWalls(Vector3 checkPos)
     {
         foreach (var wall in walls)
         {
             if (wall.pos.x + collisionRadius > checkPos.x &&
                 wall.pos.x - collisionRadius < checkPos.x &&
-                wall.pos.y + collisionRadius > checkPos.y &&
-                wall.pos.y - collisionRadius < checkPos.y)
+                wall.pos.z + collisionRadius > checkPos.z &&
+                wall.pos.z - collisionRadius < checkPos.z)
                 return true;
         }
         return false;
@@ -343,9 +343,9 @@ public class mapSimulation
         }
     }
     
-    public bool collisionBomb(Vector2 targetPos, Vector2 checkPos)
+    public bool collisionBomb(Vector3 targetPos, Vector3 checkPos)
     {
-        if (Mathf.Pow(targetPos.x - checkPos.x, 2) + Mathf.Pow(targetPos.x - checkPos.x, 2) < 1)
+        if (Mathf.Pow(targetPos.x - checkPos.x, 2) + Mathf.Pow(targetPos.z - checkPos.z, 2) < 1)
             return true;
         return false;
     }
@@ -382,7 +382,6 @@ public class mapSimulation
                 }
             }
         }
-
         return returnList;
     }
  }
