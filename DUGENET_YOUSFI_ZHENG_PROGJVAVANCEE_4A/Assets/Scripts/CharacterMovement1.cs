@@ -37,23 +37,23 @@ public class CharacterMovement1 : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Z))
             {
-                transform.position += Player.MovePlayerUp(gameObject,model1);
+                map.updateMap(Player, move.UP);
             }
             else if (Input.GetKey(KeyCode.S))
             {
-                transform.position += Player.MovePlayerDown(gameObject,model1);
+                map.updateMap(Player, move.DOWN);
             }
             else if (Input.GetKey(KeyCode.Q))
             {
-                transform.position += Player.MovePlayerLeft(gameObject,model1);
+                map.updateMap(Player, move.LEFT);
             }
             else if (Input.GetKey(KeyCode.D))
             {
-                transform.position += Player.MovePlayerRight(gameObject,model1);
+                map.updateMap(Player, move.RIGHT);
             }
             else if (Input.GetKey(KeyCode.Space))
             {
-                Player.PlantBomb();
+                map.updateMap(Player, move.BOMB);
             }
         }
         else if (AgentMode == 2) // MCTS
@@ -71,40 +71,31 @@ public class CharacterMovement1 : MonoBehaviour
         if (randomReady)
         {
             randomTimer = Time.time;
-
             randomControls = Random.Range(0, 5);
             randomReady = false;
         }
         
         if (Time.time - randomTimer >= 2)
         {
-            
             randomReady = true;
-
         }
-
-
+        
         switch (randomControls)
         {
             case 0 :
-                
-                transform.position += Player.MovePlayerUp(gameObject,model1);
+                map.updateMap(Player, move.UP);
                 break;
             case 1 :
-                
-                transform.position += Player.MovePlayerDown(gameObject,model1);
+                map.updateMap(Player, move.DOWN);
                 break;
-            case 2 : 
-                
-                transform.position += Player.MovePlayerLeft(gameObject,model1);
+            case 2 :
+                map.updateMap(Player, move.LEFT);
                 break;
             case 3 :
-               
-                transform.position += Player.MovePlayerRight(gameObject,model1);
+                map.updateMap(Player, move.RIGHT);
                 break;
             case 4 :
-                
-                Player.PlantBomb();
+                map.updateMap(Player, move.BOMB);
                 break;
         }
     }

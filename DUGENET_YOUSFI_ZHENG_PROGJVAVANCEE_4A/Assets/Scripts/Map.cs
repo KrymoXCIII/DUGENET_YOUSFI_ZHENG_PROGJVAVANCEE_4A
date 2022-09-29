@@ -10,10 +10,8 @@ public class Map : MonoBehaviour
     public List<Wall> walls = new List<Wall>();
     public float collisionRadius = 1f;
     public float deltaTime = .1f;
+    [SerializeField]public GameObject ScoreBoard;
     
-
-    
-
     public void removeWalls(List<Wall> list)
     {
         foreach (var wall in list)
@@ -25,8 +23,6 @@ public class Map : MonoBehaviour
 
     public Map updateMap(PlayerBomberman player,move m)
     {
-        
-
         foreach (var b in bombs1)
         {
             if (b.decreaseTimer())
@@ -46,9 +42,7 @@ public class Map : MonoBehaviour
                 bombs2.Remove(b);
             }
         }
-        
-        
-        
+
         switch (m)
         {
             case move.UP:
@@ -69,7 +63,11 @@ public class Map : MonoBehaviour
                 break;
         }
 
-        
+        if (player.isAlive == false)
+        {
+            Time.timeScale = 0f;
+            ScoreBoard.SetActive(true);
+        }
         
         return this;
     }

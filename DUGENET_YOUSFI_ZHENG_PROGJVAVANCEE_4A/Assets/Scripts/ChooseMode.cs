@@ -18,7 +18,6 @@ public class ChooseMode : MonoBehaviour
         {
             return;
         }
-
         instance = this;
         DontDestroyOnLoad(instance);
     }
