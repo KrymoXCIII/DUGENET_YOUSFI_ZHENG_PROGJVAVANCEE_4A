@@ -55,11 +55,19 @@ public class CharacterMovement1 : MonoBehaviour
         }
         else if (AgentMode == 2) // MCTS
         {
-
-           MCTS ia = new MCTS(map, Player);
-
-
-
+            MCTS mcts = new MCTS(map, Player);
+            var listMoves = mcts.computeMCTS(50);
+            float bestRate = 0;
+            move bestMove = move.NULL;
+            foreach (var move in listMoves)
+            {
+                if (move.nbWin / (float) move.nbWin > bestRate)
+                {
+                    bestRate = move.nbWin / (float) move.nbWin;
+                    bestMove = move.moveP1;
+                }
+            }
+            map.updateMap(Player, bestMove);
         }
     }
 
