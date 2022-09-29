@@ -17,6 +17,15 @@ public class MCTS
         curPlayer = new PlayerSim(pb);
     }
 
+    public void computeMCTS(int itération)
+    {
+        NodeMCTS root = listNode.First();
+        for (int i = 0; i < itération; i++)
+        {
+            NodeMCTS selecNode = selection();
+        }
+    }
+    
     NodeMCTS selection()  // Selection
     {
         float explo = Random.Range(0, 1); // Random (0,1)
@@ -24,7 +33,7 @@ public class MCTS
         {
             int rand = Random.Range(0, listNode.Count); //  aléatoire un nombre entre le nombre de node
             var node = listNode.GetRange(rand, 1).First(); //Choisi le node aléatoire
-            while (node.end) // tant que le node n'est pas une feuille
+            while (!node.end) // tant que le node n'est pas une feuille
             {
                 rand = Random.Range(0, listNode.Count); //aléatoire un nombre entre le nombre de node
                 node = listNode.GetRange(rand, 1).First(); //Choisi le node aléatoire
@@ -45,7 +54,6 @@ public class MCTS
                     maxWinRate = winRate; // on afecte le maxwinrate par celui-ci
                 }
             }
-
             return returnNode; // return le NODE qui a le max win rate
         }
     }
@@ -53,6 +61,14 @@ public class MCTS
     {
         var possibleMoves = node.currrentGameState.getPossibleMove();
         var rand = Random.Range(0, possibleMoves.Count);
+        int n = listNode.Where(t =>
+            t.parent == node && t.moveP1 == possibleMoves[rand].Item1 && t.moveP1 == possibleMoves[rand].Item1).Count();
+        while (n > 0)
+        {
+            rand = Random.Range(0, possibleMoves.Count);
+            n = listNode.Where(t =>
+                t.parent == node && t.moveP1 == possibleMoves[rand].Item1 && t.moveP1 == possibleMoves[rand].Item1).Count();
+        }
         var newGameState = node.currrentGameState.updateMap(possibleMoves[rand].Item1,possibleMoves[rand].Item2);
         var newNode = new NodeMCTS(newGameState, node, possibleMoves[rand].Item1, possibleMoves[rand].Item2);
         listNode.Add(newNode);
@@ -69,12 +85,12 @@ public class MCTS
             {
                 var listMove = node.currrentGameState.getPossibleMove();
                 int rand = Random.Range(0, listMove.Count);
+                curMap = curMap.updateMap(listMove[rand].Item1, listMove[rand].Item2);
             }
-
             if (curMap.checkWinner() == ps)
                 nbWin++;
         }
-        return nbWin / itération;
+        return nbWin / (float)itération;
     }
 
     void backPropagation(NodeMCTS node)
