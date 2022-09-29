@@ -9,7 +9,7 @@ using UnityEngine.TestTools;
 
 public enum move
 {
-    UP,DOWN,RIGHT,LEFT,BOMB,NULL
+    UP,DOWN,RIGHT,LEFT,BOMB,NOMOVE,NULL
 }
 
 public class GameManager  
@@ -197,9 +197,8 @@ public class mapSimulation
         return this;
     }
 
-    public bool checkPossibleMove(move m, int indexP)
+    public bool checkPossibleMove(move m, PlayerSim ps)
     {
-        PlayerSim ps = players.GetRange(indexP, 1).First();
         Vector2 dir;
         switch (m)
         {
@@ -208,15 +207,19 @@ public class mapSimulation
                 return (!collisionPlayerWalls(ps.pos));
             case move.DOWN:
                 dir = ps.MovePlayerDown()*deltaTime;
-                return (!collisionPlayerWalls(ps.pos));                break;
+                return (!collisionPlayerWalls(ps.pos));                
             case move.RIGHT:
                 dir = ps.MovePlayerRight()*deltaTime;
-                return (!collisionPlayerWalls(ps.pos));                break;
+                return (!collisionPlayerWalls(ps.pos));
             case move.LEFT:
                 dir = ps.MovePlayerLeft()*deltaTime;
-                return (!collisionPlayerWalls(ps.pos));                break;
+                return (!collisionPlayerWalls(ps.pos));
             case move.BOMB:
                 return (ps.nbBomb > 0);
+            case move.NOMOVE:
+                return true;
+            case move.NULL:
+                return false;
         }
         return false;
     }
@@ -357,7 +360,7 @@ public class mapSimulation
         return null;
     }
 
-    public List<Tuple<move, move>> getPossibleMove()
+    public List<Tuple<move, move>> getPossibleMove(PlayerSim first, PlayerSim second)
     {
         List<Tuple<move, move>> returnList = new List<Tuple<move, move>>();
         
@@ -370,11 +373,11 @@ public class mapSimulation
 
         foreach (var m1 in listMove)
         {
-            if (checkPossibleMove(m1, 0))
+            if (checkPossibleMove(m1, first))
             {
                 foreach (var m2 in listMove)
                 {
-                    if (checkPossibleMove(m2, 1))
+                    if (checkPossibleMove(m2, second))
                         returnList.Add(new Tuple<move, move>(m1,m2));
                 }
             }

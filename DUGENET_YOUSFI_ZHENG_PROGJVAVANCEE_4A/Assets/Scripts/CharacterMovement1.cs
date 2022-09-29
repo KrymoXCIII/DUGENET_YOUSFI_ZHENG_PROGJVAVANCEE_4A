@@ -60,7 +60,6 @@ public class CharacterMovement1 : MonoBehaviour
         {
             NodeMCTS node = new NodeMCTS();
         }
-        
     }
 
     void RandomController()

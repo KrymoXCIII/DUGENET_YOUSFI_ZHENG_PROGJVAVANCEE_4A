@@ -6,18 +6,41 @@ using UnityEngine;
 public class MCTS 
 {
     private List<NodeMCTS> listNode;
-    private PlayerSim curPlayer;
+    private PlayerSim firstPlayer;
+    private PlayerSim secondPlayer;
 
-    MCTS(Map map, PlayerBomberman pb)
+    MCTS(Map map, PlayerBomberman pb1, PlayerBomberman pb2)
     {
         mapSimulation mapS = new mapSimulation(map);
         NodeMCTS first = new NodeMCTS(mapS);
         listNode = new List<NodeMCTS>();
         listNode.Add(first);
-        curPlayer = new PlayerSim(pb);
+        firstPlayer = new PlayerSim(pb1);
+        secondPlayer = new PlayerSim(pb2);
+
     }
 
-    
+    List<NodeMCTS> computeMCTS(int nbTest, PlayerSim ps)
+    {
+        NodeMCTS root = listNode.First();
+
+        for (int i = 0; i < nbTest; i++)
+        {
+            NodeMCTS selectedNode = selection();
+            NodeMCTS newNode = expansion(selectedNode);
+            
+            simulation(newNode, nbTest);
+            backPropagation(newNode);
+        }
+
+        List<NodeMCTS> res = new List<NodeMCTS>();
+        foreach (var node in listNode)
+        {
+            if(node.parent == root)
+                res.Add(node);
+        }
+        return res;
+    }
     
     NodeMCTS selection()  // Selection
     {
@@ -40,7 +63,11 @@ public class MCTS
             float maxWinRate = 0; //initialise un valeur de max win rate
             foreach (var node in listNode) //pour chaque node dans la liste
             {
-                float winRate = node.winRate;
+                float winRate;
+                if (node.nbMove == 0)
+                    winRate = 0;
+                else
+                    winRate = node.nbWin / (float)node.nbMove;
                 if (maxWinRate < winRate) // si le winrate est plus grand que le maxwinrate
                 {
                     returnNode = node; //on selectionne le node qui a le maxwinrate 
@@ -52,7 +79,7 @@ public class MCTS
     }
     NodeMCTS expansion(NodeMCTS node)
     {
-        var possibleMoves = node.currrentGameState.getPossibleMove();
+        var possibleMoves = node.currrentGameState.getPossibleMove(firstPlayer, secondPlayer);
         var rand = Random.Range(0, possibleMoves.Count);
         int n = listNode.Where(t =>
             t.parent == node && t.moveP1 == possibleMoves[rand].Item1 && t.moveP1 == possibleMoves[rand].Item1).Count();
@@ -68,52 +95,68 @@ public class MCTS
         return newNode;
     }
 
-
-    float simulation(NodeMCTS node, int itération, PlayerSim ps)
+    void simulation(NodeMCTS node, int itération)
     {
         int nbWin = 0;
+        if (node.currrentGameState.checkWinner() != null)
+        {
+            node.end = true;
+            node.nbMove = itération;
+            if (node.currrentGameState.checkWinner() == firstPlayer)
+            {
+                node.nbWin = itération;
+                return;
+            }
+            else
+            {
+                node.nbWin = 0;
+                return;
+            }
+        }
         for (int i = 0; i < itération; i++)
         {
             var curMap = node.currrentGameState;
             while (curMap.checkWinner() == null)
             {
-                var listMove = node.currrentGameState.getPossibleMove();
+                var listMove = curMap.getPossibleMove(firstPlayer, secondPlayer);
                 int rand = Random.Range(0, listMove.Count);
                 curMap = curMap.updateMap(listMove[rand].Item1, listMove[rand].Item2);
             }
-            if (curMap.checkWinner() == ps)
+            if (curMap.checkWinner() == firstPlayer)
                 nbWin++;
         }
-        return nbWin / (float)itération;
     }
 
     void backPropagation(NodeMCTS node)
     {
         while (node.parent != null)
         {
+            checkNodeEnd(node);
             NodeMCTS parent = node.parent;
-            parent.winRate += node.winRate;
+            parent.nbWin += node.nbWin;
+            parent.nbMove += node.nbMove;
             node = parent;
         }
     }
 
-    void computeMCTS(int nbTest, PlayerSim ps)
+    void checkNodeEnd(NodeMCTS node)
     {
-        NodeMCTS root = listNode.First();
-
-        for (int i = 0; i < nbTest; i++)
+        if (node.end)
+            return;
+        var Tmoves = node.currrentGameState.getPossibleMove(firstPlayer, secondPlayer);
+        var childList = listNode.Where(t => t.parent == node);
+        if (childList.Count() < Tmoves.Count())
+            return;
+        bool isEnd = true;
+        foreach (var childNode in childList)
         {
-            NodeMCTS selectedNode = selection();
-            NodeMCTS newNode = expansion(selectedNode);
-
-            float nbWin = simulation(newNode, nbTest,ps);
-            backPropagation(newNode);
+            if (!childNode.end)
+            {
+                isEnd = false;
+            }
         }
-
-
+        node.end = isEnd;
     }
-
-
     
     void startState()
     {
