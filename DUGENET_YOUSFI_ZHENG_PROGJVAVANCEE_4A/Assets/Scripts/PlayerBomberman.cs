@@ -31,13 +31,6 @@ public class PlayerBomberman : MonoBehaviour
             var bomb = Instantiate(playerBomb).gameObject.GetComponent<Bomb>();
             bomb.setPower(bombPower);
             bomb.setMap(map);
-            _bombReady = false;
-        }
-            
-        // Compte à rebours
-        if (Time.time - _countDown>=3)
-        {
-            _bombReady = true;
         }
         return playerBomb;
     }
@@ -47,20 +40,17 @@ public class PlayerBomberman : MonoBehaviour
         model.transform.rotation = Quaternion.Euler(0, 90, 0);
 
             Vector3 dir = (new Vector3(0, 0, speed)* Time.deltaTime);
-            if (!collisionPlayer(dir))
+            if (!collisionPlayer(transform.position+dir))
                 return dir;
             else
                 return new Vector3(0, 0, 0);
-            
-            
-
     }
     public Vector3 MovePlayerDown(GameObject obj, Transform model)
     {
         model.transform.rotation = Quaternion.Euler(0,-90,0);
    
             var dir = (new Vector3(0, 0, -speed)* Time.deltaTime);
-            if (!collisionPlayer(dir))
+            if (!collisionPlayer(transform.position+dir))
                 return dir;
             else
                 return new Vector3(0, 0, 0);
@@ -70,7 +60,7 @@ public class PlayerBomberman : MonoBehaviour
     {
         model.transform.rotation = Quaternion.Euler(0, 180, 0);
         var dir = (new Vector3(speed, 0, 0)* Time.deltaTime);
-        if (!collisionPlayer(dir))
+        if (!collisionPlayer(transform.position+dir))
             return dir;
         else
             return new Vector3(0, 0, 0);
@@ -81,7 +71,7 @@ public class PlayerBomberman : MonoBehaviour
         model.transform.rotation = Quaternion.Euler(0, 0, 0);
  
             var dir = (new Vector3(-speed, 0, 0)* Time.deltaTime);
-            if (!collisionPlayer(dir))
+            if (!collisionPlayer(transform.position+dir))
                 return dir;
             else
                 return new Vector3(0, 0, 0);

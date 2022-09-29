@@ -46,16 +46,16 @@ public class Map : MonoBehaviour
         switch (m)
         {
             case move.UP:
-                player.transform.position += player.MovePlayerUp(player.gameObject,player.model) * deltaTime;
+                player.transform.position += player.MovePlayerUp(player.gameObject,player.model);
                 break;
             case move.DOWN:
-                player.transform.position += player.MovePlayerDown(player.gameObject,player.model) * deltaTime;
+                player.transform.position += player.MovePlayerDown(player.gameObject,player.model);
                 break;
             case move.RIGHT:
-                player.transform.position += player.MovePlayerRight(player.gameObject,player.model) * deltaTime;
+                player.transform.position += player.MovePlayerRight(player.gameObject,player.model);
                 break;
             case move.LEFT:
-                player.transform.position += player.MovePlayerLeft(player.gameObject,player.model) * deltaTime;
+                player.transform.position += player.MovePlayerLeft(player.gameObject,player.model);
                 break;
             case move.BOMB:
                 var bomb = player.PlantBomb();
