@@ -77,22 +77,26 @@ public class MCTS
             return returnNode; // return le NODE qui a le max win rate
         }
     }
-    NodeMCTS expansion(NodeMCTS node)
+    NodeMCTS expansion(NodeMCTS node) // Expension
     {
-        var possibleMoves = node.currrentGameState.getPossibleMove(firstPlayer, secondPlayer);
-        var rand = Random.Range(0, possibleMoves.Count);
+        var possibleMoves = node.currrentGameState.getPossibleMove(firstPlayer, secondPlayer); //liste de move possible
+        var rand = Random.Range(0, possibleMoves.Count); //aléatoire un node dans la liste de move possible
         int n = listNode.Where(t =>
             t.parent == node && t.moveP1 == possibleMoves[rand].Item1 && t.moveP1 == possibleMoves[rand].Item1).Count();
-        while (n > 0)
+        //passe dans la listeNode où n prend la valeur du nombre de fois on est passer sur le même node
+        while (n > 0) // tant qu'on a déjà passer une fois
         {
-            rand = Random.Range(0, possibleMoves.Count);
+            rand = Random.Range(0, possibleMoves.Count); // choisie une random dans la liste possible move
             n = listNode.Where(t =>
                 t.parent == node && t.moveP1 == possibleMoves[rand].Item1 && t.moveP1 == possibleMoves[rand].Item1).Count();
+            // passe dans la listeNode où n prend la valeur du nombre de fois on est passer sur le même node
         }
-        var newGameState = node.currrentGameState.updateMap(possibleMoves[rand].Item1,possibleMoves[rand].Item2);
+
+        var newGameState = node.currrentGameState.updateMap(possibleMoves[rand].Item1, possibleMoves[rand].Item2);
         var newNode = new NodeMCTS(newGameState, node, possibleMoves[rand].Item1, possibleMoves[rand].Item2);
-        listNode.Add(newNode);
-        return newNode;
+        // créer une nouvelle NODE avec le prochaine étape de mouvement
+        listNode.Add(newNode); //ajout dans la liste de node
+        return newNode; //return le nouveau node
     }
 
     void simulation(NodeMCTS node, int itération)
