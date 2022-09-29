@@ -10,6 +10,7 @@ public class Map : MonoBehaviour
     public List<Wall> walls = new List<Wall>();
     public float collisionRadius = 1f;
     public float deltaTime = .1f;
+    
 
     
 
@@ -30,8 +31,8 @@ public class Map : MonoBehaviour
         {
             if (b.decreaseTimer())
             {
-                bombs1.(b);
-                player.nbBomb++;
+                explode(b);
+                player.nbBombes++;
                 bombs1.Remove(b);
             }
         }
@@ -40,8 +41,8 @@ public class Map : MonoBehaviour
         {
             if (b.decreaseTimer())
             {
-                explodeBomb(b);
-                ps1.nbBomb++;
+                explode(b);
+                player.nbBombes++;
                 bombs2.Remove(b);
             }
         }
@@ -51,19 +52,19 @@ public class Map : MonoBehaviour
         switch (m)
         {
             case move.UP:
-                player.transform.position += new Vector3(player.MovePlayerUp(player.gameObject, player.model) * deltaTime);
+                player.transform.position += player.MovePlayerUp(player.gameObject,player.model) * deltaTime;
                 break;
             case move.DOWN:
-                ps1.pos += ps1.MovePlayerDown() * deltaTime;
+                player.transform.position += player.MovePlayerDown(player.gameObject,player.model) * deltaTime;
                 break;
             case move.RIGHT:
-                ps1.pos += ps1.MovePlayerRight() * deltaTime;
+                player.transform.position += player.MovePlayerRight(player.gameObject,player.model) * deltaTime;
                 break;
             case move.LEFT:
-                ps1.pos += ps1.MovePlayerLeft() * deltaTime;
+                player.transform.position += player.MovePlayerLeft(player.gameObject,player.model) * deltaTime;
                 break;
             case move.BOMB:
-                var bomb = ps1.PlantBomb();
+                var bomb = player.PlantBomb();
                 bombs1.Add(bomb);
                 break;
         }
@@ -74,11 +75,11 @@ public class Map : MonoBehaviour
     }
 
     
-    public void explode()
+    public void explode(Bomb b)
     {
         List<Wall> wallToRemove = new List<Wall>();
         var pos = transform.position;
-        foreach (var wall in (map.walls))
+        foreach (var wall in (this.walls))
         {
             if (checkCollision(wall.transform.position, pos))
             {
@@ -90,7 +91,7 @@ public class Map : MonoBehaviour
             }
         }
         
-        foreach(var player in map.players) 
+        foreach(var player in this.players) 
         {
             if (checkCollision(player.transform.position, pos))
             {
@@ -99,10 +100,10 @@ public class Map : MonoBehaviour
             }
         }
 
-        for (int i = 1; i < power; i++)
+        for (int i = 1; i < b.power; i++)
         {
-            var delta = +i * radius;
-            foreach (var wall in (map.walls))
+            var delta = +i * b.radius;
+            foreach (var wall in (this.walls))
             {
                 var newPos = new Vector3(pos.x, pos.y, pos.z);
                 newPos.Set(pos.x+delta, pos.y, pos.z);
@@ -142,7 +143,7 @@ public class Map : MonoBehaviour
                     }
                 }
             }
-            foreach(var player in map.players) 
+            foreach(var player in this.players) 
             {
                 var newPos = new Vector3(pos.x, pos.y, pos.z);
                 newPos.Set(pos.x+delta, pos.y, pos.z);
@@ -172,8 +173,15 @@ public class Map : MonoBehaviour
             }
         }
 
-        map.removeWalls(wallToRemove);
+        this.removeWalls(wallToRemove);
 
         Destroy(gameObject);
+    }
+    
+    public bool checkCollision(Vector3 wallPos, Vector3 checkPos)
+    {
+        if (Mathf.Pow(wallPos.x - checkPos.x, 2) + Mathf.Pow(wallPos.z - checkPos.z, 2) < 1)
+            return true;
+        return false;
     }
 }

@@ -40,7 +40,7 @@ public class PlayerBomberman : MonoBehaviour
         }
     }
 
-    public void PlantBomb()
+    public Bomb PlantBomb()
     {
         if (_bombReady)
         {
@@ -51,6 +51,8 @@ public class PlayerBomberman : MonoBehaviour
             bomb.setPower(bombPower);
             bomb.setMap(map);
             _bombReady = false;
+            
+            
 
         }
             
@@ -61,43 +63,54 @@ public class PlayerBomberman : MonoBehaviour
             _bombReady = true;
 
         }
+        return playerBomb;
     }
 
-    public void MovePlayerUp(GameObject obj, Transform model)
+    public Vector3 MovePlayerUp(GameObject obj, Transform model)
     {
         model.transform.rotation = Quaternion.Euler(0, 90, 0);
 
-            var dir = (new Vector3(0, 0, speed)* Time.deltaTime)+transform.position;
+            Vector3 dir = (new Vector3(0, 0, speed)* Time.deltaTime)+transform.position;
             if (!collisionPlayer(dir))
-                transform.position = dir;
- 
+                return dir;
+            else
+                return new Vector3(0, 0, 0);
+
     }
-    public void MovePlayerDown(GameObject obj, Transform model)
+    public Vector3 MovePlayerDown(GameObject obj, Transform model)
     {
         model.transform.rotation = Quaternion.Euler(0,-90,0);
    
             var dir = (new Vector3(0, 0, -speed)* Time.deltaTime)+transform.position;
             if (!collisionPlayer(dir))
-                transform.position = dir;
+                return dir;
+            else
+                return new Vector3(0, 0, 0);
 
     }
-    public void MovePlayerRight(GameObject obj, Transform model)
+    public Vector3 MovePlayerRight(GameObject obj, Transform model)
     {
         model.transform.rotation = Quaternion.Euler(0, 180, 0);
         var dir = (new Vector3(speed, 0, 0)* Time.deltaTime)+transform.position;
         if (!collisionPlayer(dir))
-            transform.position = dir;
+            return dir;
+        else
+            return new Vector3(0, 0, 0);
 
     }
-    public void MovePlayerLeft(GameObject obj, Transform model)
+    public Vector3 MovePlayerLeft(GameObject obj, Transform model)
     {
         model.transform.rotation = Quaternion.Euler(0, 0, 0);
  
             var dir = (new Vector3(-speed, 0, 0)* Time.deltaTime)+transform.position;
             if (!collisionPlayer(dir))
-                transform.position = dir;
+                return dir;
+            else
+                return new Vector3(0, 0, 0);
 
     }
+    
+    
     
     public bool collisionPlayer(Vector3 checkPos)
     {
