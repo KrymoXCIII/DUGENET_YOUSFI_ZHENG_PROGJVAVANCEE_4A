@@ -69,18 +69,20 @@ public class PlayerBomberman : MonoBehaviour
     {
         model.transform.rotation = Quaternion.Euler(0, 90, 0);
 
-            Vector3 dir = (new Vector3(0, 0, speed)* Time.deltaTime)+transform.position;
+            Vector3 dir = (new Vector3(0, 0, speed)* Time.deltaTime);
             if (!collisionPlayer(dir))
                 return dir;
             else
                 return new Vector3(0, 0, 0);
+            
+            
 
     }
     public Vector3 MovePlayerDown(GameObject obj, Transform model)
     {
         model.transform.rotation = Quaternion.Euler(0,-90,0);
    
-            var dir = (new Vector3(0, 0, -speed)* Time.deltaTime)+transform.position;
+            var dir = (new Vector3(0, 0, -speed)* Time.deltaTime);
             if (!collisionPlayer(dir))
                 return dir;
             else
@@ -90,7 +92,7 @@ public class PlayerBomberman : MonoBehaviour
     public Vector3 MovePlayerRight(GameObject obj, Transform model)
     {
         model.transform.rotation = Quaternion.Euler(0, 180, 0);
-        var dir = (new Vector3(speed, 0, 0)* Time.deltaTime)+transform.position;
+        var dir = (new Vector3(speed, 0, 0)* Time.deltaTime);
         if (!collisionPlayer(dir))
             return dir;
         else
@@ -101,7 +103,7 @@ public class PlayerBomberman : MonoBehaviour
     {
         model.transform.rotation = Quaternion.Euler(0, 0, 0);
  
-            var dir = (new Vector3(-speed, 0, 0)* Time.deltaTime)+transform.position;
+            var dir = (new Vector3(-speed, 0, 0)* Time.deltaTime);
             if (!collisionPlayer(dir))
                 return dir;
             else
