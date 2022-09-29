@@ -42,8 +42,7 @@ public class Bomb : MonoBehaviour
     }
 
 
-
-<<<<<<< HEAD
+    
     public void explode()
     {
         List<Wall> wallToRemove = new List<Wall>();
@@ -151,9 +150,6 @@ public class Bomb : MonoBehaviour
 
         Destroy(gameObject);
     }
-=======
-    
->>>>>>> 4b5cb0f0e5e4662df25b2b9fefe70fc9131f94f2
 
     public bool checkCollision(Vector3 wallPos, Vector3 checkPos)
     {
@@ -164,7 +160,6 @@ public class Bomb : MonoBehaviour
 
     private void createExplosion(Vector3 pos)
     {
-        if()
         explosionanimation = GetComponent<ParticleSystem>();
         ParticleSystem.ShapeModule _editableShape = explosionanimation.shape;
         _editableShape.position = new Vector3(pos.x,pos.y,pos.z);
