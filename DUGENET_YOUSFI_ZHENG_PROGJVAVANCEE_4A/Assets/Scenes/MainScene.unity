@@ -606,7 +606,7 @@ MonoBehaviour:
   - {fileID: 1132819889}
   collisionRadius: 1
   deltaTime: 0.1
-
+  ScoreBoard: {fileID: 1942223659}
 --- !u!1001 &33986476
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5655,7 +5655,7 @@ MonoBehaviour:
   isAlive: 1
   map: {fileID: 32910460}
   playerBomb: {fileID: 9085898028459726454, guid: 6527725b3463d874d85aa1c89681166b, type: 3}
-
+  model: {fileID: 790353719}
   ScoreBoard: {fileID: 1942223659}
   collisionRadius: 1
 --- !u!114 &790353724
@@ -5673,6 +5673,7 @@ MonoBehaviour:
   speed: 10
   bomb: {fileID: 2417536319458271139, guid: 6527725b3463d874d85aa1c89681166b, type: 3}
   model2: {fileID: 790353719}
+  map: {fileID: 32910460}
   Player: {fileID: 790353721}
   AgentMode: 0
 --- !u!1001 &796736814
@@ -9447,6 +9448,7 @@ MonoBehaviour:
   isAlive: 1
   map: {fileID: 32910460}
   playerBomb: {fileID: 9085898028459726454, guid: 6527725b3463d874d85aa1c89681166b, type: 3}
+  model: {fileID: 1466354077}
   ScoreBoard: {fileID: 1942223659}
   collisionRadius: 1
 --- !u!1001 &1473674002
