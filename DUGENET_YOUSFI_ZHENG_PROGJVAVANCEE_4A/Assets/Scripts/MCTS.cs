@@ -17,19 +17,7 @@ public class MCTS
         curPlayer = new PlayerSim(pb);
     }
 
-    public void computeMCTS(int itération)
-    {
-<<<<<<< Updated upstream
-        NodeMCTS root = listNode.First();
-        for (int i = 0; i < itération; i++)
-=======
-        float explo = Random.Range(0.0f, 1.1f);
-        if (explo < .8)
->>>>>>> Stashed changes
-        {
-            NodeMCTS selecNode = selection();
-        }
-    }
+    
     
     NodeMCTS selection()  // Selection
     {
@@ -80,7 +68,7 @@ public class MCTS
         return newNode;
     }
 
-<<<<<<< Updated upstream
+
     float simulation(NodeMCTS node, int itération, PlayerSim ps)
     {
         int nbWin = 0;
@@ -108,24 +96,24 @@ public class MCTS
             node = parent;
         }
     }
-=======
-    void computeMCTS(int nbTest,mapSimulation currentState)
+
+    void computeMCTS(int nbTest, PlayerSim ps)
     {
-        listNode.First() = currentState;
+        NodeMCTS root = listNode.First();
 
         for (int i = 0; i < nbTest; i++)
         {
             NodeMCTS selectedNode = selection();
             NodeMCTS newNode = expansion(selectedNode);
 
-            int nbWin = simulation(newNode, nbTest);
-            backpropagation(newNode, nbWin, nbTest);
+            float nbWin = simulation(newNode, nbTest,ps);
+            backPropagation(newNode);
         }
 
 
     }
 
->>>>>>> Stashed changes
+
     
     void startState()
     {
