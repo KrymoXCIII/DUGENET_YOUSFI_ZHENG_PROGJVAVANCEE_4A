@@ -9,7 +9,7 @@ public class Bomb : MonoBehaviour
     public int power = 2;
     private float timer;
     public Map map;
-    private float radius = 1.5f;
+    public float radius = 1.5f;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +25,12 @@ public class Bomb : MonoBehaviour
         
     }
     
+    public bool decreaseTimer()
+    {
+        timer -= 1;
+        return (timer == 0);
+    }
+    
     public void setPower(int i)
     {
         power = i;
@@ -37,6 +43,7 @@ public class Bomb : MonoBehaviour
 
 
 
+<<<<<<< HEAD
     public void explode()
     {
         List<Wall> wallToRemove = new List<Wall>();
@@ -144,6 +151,9 @@ public class Bomb : MonoBehaviour
 
         Destroy(gameObject);
     }
+=======
+    
+>>>>>>> 4b5cb0f0e5e4662df25b2b9fefe70fc9131f94f2
 
     public bool checkCollision(Vector3 wallPos, Vector3 checkPos)
     {
