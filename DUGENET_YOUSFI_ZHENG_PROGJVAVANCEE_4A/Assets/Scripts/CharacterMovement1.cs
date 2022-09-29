@@ -58,7 +58,7 @@ public class CharacterMovement1 : MonoBehaviour
         }
         else if (AgentMode == 2) // MCTS
         {
-            
+            NodeMCTS node = new NodeMCTS();
         }
         
     }
