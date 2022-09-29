@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
+    public ParticleSystem explosionanimation;
     public int power = 2;
     private float timer;
     public Map map;
@@ -40,6 +41,7 @@ public class Bomb : MonoBehaviour
     {
         List<Wall> wallToRemove = new List<Wall>();
         var pos = transform.position;
+        createExplosion(pos);
         foreach (var wall in (map.walls))
         {
             if (checkCollision(wall.transform.position, pos))
@@ -68,6 +70,7 @@ public class Bomb : MonoBehaviour
             {
                 var newPos = new Vector3(pos.x, pos.y, pos.z);
                 newPos.Set(pos.x+delta, pos.y, pos.z);
+                createExplosion(newPos);
                 if (checkCollision(wall.transform.position, newPos))
                 {
                     if (wall.destructible)
@@ -77,6 +80,7 @@ public class Bomb : MonoBehaviour
                     }
                 }
                 newPos.Set(pos.x, pos.y, pos.z+delta);
+                createExplosion(newPos);
                 if (checkCollision(wall.transform.position, newPos))
                 {
                     if (wall.destructible)
@@ -86,6 +90,7 @@ public class Bomb : MonoBehaviour
                     }
                 }
                 newPos.Set(pos.x, pos.y, pos.z-delta);
+                createExplosion(newPos);
                 if (checkCollision(wall.transform.position, newPos))
                 {
                     if (wall.destructible)
@@ -95,6 +100,7 @@ public class Bomb : MonoBehaviour
                     }
                 }
                 newPos.Set(pos.x-delta, pos.y, pos.z);
+                createExplosion(newPos);
                 if (checkCollision(wall.transform.position, newPos))
                 {
                     if (wall.destructible)
@@ -144,5 +150,14 @@ public class Bomb : MonoBehaviour
         if (Mathf.Pow(wallPos.x - checkPos.x, 2) + Mathf.Pow(wallPos.z - checkPos.z, 2) < 1)
             return true;
         return false;
+    }
+
+    private void createExplosion(Vector3 pos)
+    {
+        if()
+        explosionanimation = GetComponent<ParticleSystem>();
+        ParticleSystem.ShapeModule _editableShape = explosionanimation.shape;
+        _editableShape.position = new Vector3(pos.x,pos.y,pos.z);
+        
     }
 }

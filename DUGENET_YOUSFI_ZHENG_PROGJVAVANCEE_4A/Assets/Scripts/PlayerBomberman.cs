@@ -6,7 +6,6 @@ using UnityEngine;
 public class PlayerBomberman : MonoBehaviour
 {
     public float speed = 5;
-    
     public int nbBombes = 1;
     public int bombPower = 2;
     public bool isAlive = true;

@@ -58,8 +58,7 @@ public class CharacterMovement1 : MonoBehaviour
         }
         else if (AgentMode == 2) // MCTS
         {
-            MCTS node = new MCTS(map,);
-            node.computeMCTS(50);
+
             
             
             Player.transform.position = map.players[0].transform.position;
@@ -78,7 +77,6 @@ public class CharacterMovement1 : MonoBehaviour
         
         if (Time.time - randomTimer >= 2)
         {
-
             
             randomReady = true;
 
