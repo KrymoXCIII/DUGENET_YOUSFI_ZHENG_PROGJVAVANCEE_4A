@@ -17,13 +17,7 @@ public class Bomb : MonoBehaviour
         
     }
 
-    void Update()
-    {
-        timer -= Time.deltaTime;
-        if(timer<0)
-            explode();
-        
-    }
+    
     
     public bool decreaseTimer()
     {
