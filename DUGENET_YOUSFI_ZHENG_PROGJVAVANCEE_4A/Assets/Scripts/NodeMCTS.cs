@@ -6,8 +6,7 @@ public class NodeMCTS
 {
     public mapSimulation currrentGameState;
 
-    public int nbWin;
-    public int nbMove;
+    public float winRate;
 
     public NodeMCTS parent;
 
@@ -19,8 +18,7 @@ public class NodeMCTS
     {
         currrentGameState = map;
         parent = p;
-        nbWin = 0;
-        nbMove = 0;
+        winRate = 0;
         moveP1 = m1;
         moveP2 = m2;
         end = false;

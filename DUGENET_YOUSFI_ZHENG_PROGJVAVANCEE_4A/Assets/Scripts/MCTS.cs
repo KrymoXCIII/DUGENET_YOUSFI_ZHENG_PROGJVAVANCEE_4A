@@ -6,13 +6,15 @@ using UnityEngine;
 public class MCTS 
 {
     private List<NodeMCTS> listNode;
+    private PlayerSim curPlayer;
 
-    MCTS(Map map)
+    MCTS(Map map, PlayerBomberman pb)
     {
         mapSimulation mapS = new mapSimulation(map);
         NodeMCTS first = new NodeMCTS(mapS);
         listNode = new List<NodeMCTS>();
         listNode.Add(first);
+        curPlayer = new PlayerSim(pb);
     }
 
     NodeMCTS selection()
@@ -56,6 +58,35 @@ public class MCTS
         listNode.Add(newNode);
         return newNode;
     }
+
+    float simulation(NodeMCTS node, int itération, PlayerSim ps)
+    {
+        int nbWin = 0;
+        for (int i = 0; i < itération; i++)
+        {
+            var curMap = node.currrentGameState;
+            while (curMap.checkWinner() == null)
+            {
+                var listMove = node.currrentGameState.getPossibleMove();
+                int rand = Random.Range(0, listMove.Count);
+            }
+
+            if (curMap.checkWinner() == ps)
+                nbWin++;
+        }
+        return nbWin / itération;
+    }
+
+    void backPropagation(NodeMCTS node)
+    {
+        while (node.parent != null)
+        {
+            NodeMCTS parent = node.parent;
+            parent.winRate += node.winRate;
+            node = parent;
+        }
+    }
+    
     void startState()
     {
         
