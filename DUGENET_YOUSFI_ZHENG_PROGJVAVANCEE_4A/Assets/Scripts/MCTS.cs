@@ -9,18 +9,21 @@ public class MCTS
     private PlayerSim firstPlayer;
     private PlayerSim secondPlayer;
 
-    MCTS(Map map, PlayerBomberman pb1, PlayerBomberman pb2)
+    public MCTS(Map map, PlayerBomberman pb1)
     {
         mapSimulation mapS = new mapSimulation(map);
         NodeMCTS first = new NodeMCTS(mapS);
         listNode = new List<NodeMCTS>();
         listNode.Add(first);
         firstPlayer = new PlayerSim(pb1);
-        secondPlayer = new PlayerSim(pb2);
-
+        foreach (var play in map.players)
+        {
+            if (play != pb1)
+                secondPlayer = new PlayerSim(play);
+        }
     }
 
-    List<NodeMCTS> computeMCTS(int nbTest, PlayerSim ps)
+    List<NodeMCTS> computeMCTS(int nbTest)
     {
         NodeMCTS root = listNode.First();
 
