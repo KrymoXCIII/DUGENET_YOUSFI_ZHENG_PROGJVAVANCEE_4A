@@ -117,7 +117,6 @@ public class Bomb : MonoBehaviour
                 if (checkCollision(player.transform.position, newPos))
                 {
                     player.isAlive = false;
-
                 }
                 newPos.Set(pos.x, pos.y, pos.z+delta);
                 if (checkCollision(player.transform.position, newPos))
