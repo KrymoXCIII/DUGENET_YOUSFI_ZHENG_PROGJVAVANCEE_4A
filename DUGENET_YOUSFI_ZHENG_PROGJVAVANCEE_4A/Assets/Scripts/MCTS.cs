@@ -23,7 +23,7 @@ public class MCTS
         }
     }
 
-    List<NodeMCTS> computeMCTS(int nbTest)
+    List<NodeMCTS> computeMCTS(int nbTest) //do the MCTS
     {
         NodeMCTS root = listNode.First();
 
