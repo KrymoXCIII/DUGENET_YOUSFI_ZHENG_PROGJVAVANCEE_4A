@@ -100,7 +100,7 @@ public class MCTS
     }
 
 
-    void simulation(NodeMCTS node, int itération, PlayerSim ps) // Simulation itération = nombre de test ; ps = joueur
+    void simulation(NodeMCTS node, int itération) // Simulation itération = nombre de test 
     {
         int nbWin = 0; // initialise le nombre de win
         for (int i = 0; i < itération; i++) //pour chaque test 
