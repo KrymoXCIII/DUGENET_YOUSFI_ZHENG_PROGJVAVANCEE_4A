@@ -45,7 +45,7 @@ public class MCTS
     NodeMCTS selection()  // Selection
     {
         float explo = Random.Range(0, 1); // Random (0,1)
-        if (explo < .8) //80%
+        if (explo < .8) //80% exploration
         {
             int rand = Random.Range(0, listNode.Count); //  aléatoire un nombre entre le nombre de node
             var node = listNode.GetRange(rand, 1).First(); //Choisi le node aléatoire
@@ -57,7 +57,7 @@ public class MCTS
 
             return node; // return la feuille de l'arbre
         }
-        else //20%
+        else //20% explotation
         {
             NodeMCTS returnNode = null; // créer un NODE null
             float maxWinRate = 0; //initialise un valeur de max win rate
@@ -118,23 +118,22 @@ public class MCTS
         }
     }
 
-    void backPropagation(NodeMCTS node)
+    void backPropagation(NodeMCTS node) // backPropagation
     {
-        while (node.parent != null)
+        while (node.parent != null) // tant que C'est pas le node parent
         {
-            checkNodeEnd(node);
-            NodeMCTS parent = node.parent;
-            parent.nbWin += node.nbWin;
-            parent.nbMove += node.nbMove;
-            node = parent;
-        }
+            checkNodeEnd(node); // check tous les fils sont end et il a tous ces fils
+            NodeMCTS parent = node.parent; // créer un parent
+            parent.nbWin += node.nbWin; // incrémente le nombre de win
+            parent.nbMove += node.nbMove; // incrémente le nombre de sumulation
+            node = parent; 
     }
 
-    void checkNodeEnd(NodeMCTS node)
+    void checkNodeEnd(NodeMCTS node) // check tous les fils sont end et il a tous ces fils
     {
-        if (node.end)
+        if (node.end) // si le node est le feuille alors en return
             return;
-        var Tmoves = node.currrentGameState.getPossibleMove(firstPlayer, secondPlayer);
+        var Tmoves = node.currrentGameState.getPossibleMove(firstPlayer, secondPlayer); 
         var childList = listNode.Where(t => t.parent == node);
         if (childList.Count() < Tmoves.Count())
             return;
@@ -148,25 +147,5 @@ public class MCTS
         }
         node.end = isEnd;
     }
-    
-    void startState()
-    {
-        
-    }
 
-    void nextState()
-    {
-        
-    }
-
-    void possiblePlays()
-    {
-        
-    }
-
-    void winner()
-    {
-        
-    }
-    
 }
