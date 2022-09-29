@@ -47,7 +47,7 @@ public class MCTS
             float maxWinRate = 0; //initialise un valeur de max win rate
             foreach (var node in listNode) //pour chaque node dans la liste
             {
-                float winRate = node.nbWin / (float)node.nbMove; // initialise le winrate par le nombre de win sur le nombe total de simulation
+                float winRate = node.winRate;
                 if (maxWinRate < winRate) // si le winrate est plus grand que le maxwinrate
                 {
                     returnNode = node; //on selectionne le node qui a le maxwinrate 
