@@ -17,36 +17,36 @@ public class MCTS
         curPlayer = new PlayerSim(pb);
     }
 
-    NodeMCTS selection()
+    NodeMCTS selection()  // Selection
     {
-        float explo = Random.Range(0, 1);
-        if (explo < .8)
+        float explo = Random.Range(0, 1); // Random (0,1)
+        if (explo < .8) //80%
         {
-            int rand = Random.Range(0, listNode.Count);
-            var node = listNode.GetRange(rand, 1).First();
-            while (node.end)
+            int rand = Random.Range(0, listNode.Count); //  aléatoire un nombre entre le nombre de node
+            var node = listNode.GetRange(rand, 1).First(); //Choisi le node aléatoire
+            while (node.end) // tant que le node n'est pas une feuille
             {
-                rand = Random.Range(0, listNode.Count);
-                node = listNode.GetRange(rand, 1).First();
+                rand = Random.Range(0, listNode.Count); //aléatoire un nombre entre le nombre de node
+                node = listNode.GetRange(rand, 1).First(); //Choisi le node aléatoire
             }
 
-            return node;
+            return node; // return la feuille de l'arbre
         }
-        else
+        else //20%
         {
-            NodeMCTS returnNode = null;
-            float maxWinRate = 0;
-            foreach (var node in listNode)
+            NodeMCTS returnNode = null; // créer un NODE null
+            float maxWinRate = 0; //initialise un valeur de max win rate
+            foreach (var node in listNode) //pour chaque node dans la liste
             {
-                float winRate = node.nbWin / (float)node.nbMove;
-                if (maxWinRate < winRate)
+                float winRate = node.nbWin / (float)node.nbMove; // initialise le winrate par le nombre de win sur le nombe total de simulation
+                if (maxWinRate < winRate) // si le winrate est plus grand que le maxwinrate
                 {
-                    returnNode = node;
-                    maxWinRate = winRate;
+                    returnNode = node; //on selectionne le node qui a le maxwinrate 
+                    maxWinRate = winRate; // on afecte le maxwinrate par celui-ci
                 }
             }
 
-            return returnNode;
+            return returnNode; // return le NODE qui a le max win rate
         }
     }
     NodeMCTS expansion(NodeMCTS node)
