@@ -105,7 +105,7 @@ public class mapSimulation
     public List<BombSim> bombs2 = new List<BombSim>();
     public List<WallSim> walls = new List<WallSim>();
     public float collisionRadius = 1f;
-    public float deltaTime = .1f;
+    public float deltaTime = .05f;
 
     public mapSimulation(Map map)
     {

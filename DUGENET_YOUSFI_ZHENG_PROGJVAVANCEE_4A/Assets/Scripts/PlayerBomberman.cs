@@ -17,6 +17,7 @@ public class PlayerBomberman : MonoBehaviour
     public Map map;
 
     public Bomb playerBomb;
+    public Transform model;
 
 
     [SerializeField]public GameObject ScoreBoard;

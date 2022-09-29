@@ -24,6 +24,12 @@ public class Bomb : MonoBehaviour
         
     }
     
+    public bool decreaseTimer()
+    {
+        timer -= 1;
+        return (timer == 0);
+    }
+    
     public void setPower(int i)
     {
         power = i;
@@ -36,108 +42,7 @@ public class Bomb : MonoBehaviour
 
 
 
-    public void explode()
-    {
-        List<Wall> wallToRemove = new List<Wall>();
-        var pos = transform.position;
-        foreach (var wall in (map.walls))
-        {
-            if (checkCollision(wall.transform.position, pos))
-            {
-                if (wall.destructible)
-                {
-                    wallToRemove.Add(wall);
-                    wall.destructible = false;
-                }
-            }
-        }
-        
-        foreach(var player in map.players) 
-        {
-            if (checkCollision(player.transform.position, pos))
-            {
-                player.isAlive = false;
-
-            }
-        }
-
-        for (int i = 1; i < power; i++)
-        {
-            var delta = +i * radius;
-            foreach (var wall in (map.walls))
-            {
-                var newPos = new Vector3(pos.x, pos.y, pos.z);
-                newPos.Set(pos.x+delta, pos.y, pos.z);
-                if (checkCollision(wall.transform.position, newPos))
-                {
-                    if (wall.destructible)
-                    {
-                        wallToRemove.Add(wall);
-                        wall.destructible = false;
-                    }
-                }
-                newPos.Set(pos.x, pos.y, pos.z+delta);
-                if (checkCollision(wall.transform.position, newPos))
-                {
-                    if (wall.destructible)
-                    {
-                        wallToRemove.Add(wall);
-                        wall.destructible = false;
-                    }
-                }
-                newPos.Set(pos.x, pos.y, pos.z-delta);
-                if (checkCollision(wall.transform.position, newPos))
-                {
-                    if (wall.destructible)
-                    {
-                        wallToRemove.Add(wall);
-                        wall.destructible = false;
-                    }
-                }
-                newPos.Set(pos.x-delta, pos.y, pos.z);
-                if (checkCollision(wall.transform.position, newPos))
-                {
-                    if (wall.destructible)
-                    {
-                        wallToRemove.Add(wall);
-                        wall.destructible = false;
-                    }
-                }
-            }
-            foreach(var player in map.players) 
-            {
-                var newPos = new Vector3(pos.x, pos.y, pos.z);
-                newPos.Set(pos.x+delta, pos.y, pos.z);
-                if (checkCollision(player.transform.position, newPos))
-                {
-                    player.isAlive = false;
-
-                }
-                newPos.Set(pos.x, pos.y, pos.z+delta);
-                if (checkCollision(player.transform.position, newPos))
-                {
-                    player.isAlive = false;
-
-                }
-                newPos.Set(pos.x, pos.y, pos.z-delta);
-                if (checkCollision(player.transform.position, newPos))
-                {
-                    player.isAlive = false;
-
-                }
-                newPos.Set(pos.x-delta, pos.y, pos.z);
-                if (checkCollision(player.transform.position, newPos))
-                {
-                    player.isAlive = false;
-
-                }
-            }
-        }
-
-        map.removeWalls(wallToRemove);
-
-        Destroy(gameObject);
-    }
+    
 
     public bool checkCollision(Vector3 wallPos, Vector3 checkPos)
     {

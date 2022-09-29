@@ -58,11 +58,12 @@ public class CharacterMovement1 : MonoBehaviour
         }
         else if (AgentMode == 2) // MCTS
         {
-            MCTS node = new MCTS(map,);
+            MCTS node = new MCTS(map,Player);
             node.computeMCTS(50);
             
             
             Player.transform.position = map.players[0].transform.position;
+            
         }
     }
 
