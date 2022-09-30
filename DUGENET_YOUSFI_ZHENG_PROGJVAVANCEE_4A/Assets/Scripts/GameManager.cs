@@ -273,6 +273,7 @@ public class mapSimulation
 
     public void explodeBomb(BombSim b)
     {
+        /*
         List<WallSim> wallToRemove = new List<WallSim>();
         var pos = b.pos;
         foreach (var wall in (walls))
@@ -383,8 +384,135 @@ public class mapSimulation
         {
             walls.Remove(r);
         }
+        */
+
+        List<WallSim> wallToRemove = new List<WallSim>();
+        var pos = b.pos;
+        //createExplosion(pos);
+        foreach (var wall in (walls))
+        {
+            if (collisionBomb(wall.pos, pos))
+            {
+                if (wall.destructible)
+                {
+                    wallToRemove.Add(wall);
+                    wall.destructible = false;
+                }
+            }
+        }
+
+
+        if (collisionBomb(firstPlayer.pos, pos))
+        {
+            firstPlayer.isAlive = false;
+        }
+
+        if (collisionBomb(secondPlayer.pos, pos))
+        {
+            secondPlayer.isAlive = false;
+        }
+
+
+        for (int i = 1; i < b.power; i++)
+        {
+            var delta = +i * 1.5f;
+            foreach (var wall in (this.walls))
+            {
+                var newPos = new Vector3(pos.x, pos.y, pos.z);
+                newPos.Set(pos.x + delta, pos.y, pos.z);
+                //createExplosion(pos);
+                if (collisionBomb(wall.pos, newPos))
+                {
+                    if (wall.destructible)
+                    {
+                        wallToRemove.Add(wall);
+                        wall.destructible = false;
+                    }
+                }
+
+                if (collisionBomb(firstPlayer.pos, newPos))
+                {
+                    firstPlayer.isAlive = false;
+                }
+
+                if (collisionBomb(secondPlayer.pos, newPos))
+                {
+                    secondPlayer.isAlive = false;
+                }
+
+                newPos.Set(pos.x, pos.y, pos.z + delta);
+                //createExplosion(newPos);
+
+                if (collisionBomb(wall.pos, newPos))
+                {
+                    if (wall.destructible)
+                    {
+                        wallToRemove.Add(wall);
+                        wall.destructible = false;
+                    }
+                }
+
+                if (collisionBomb(firstPlayer.pos, newPos))
+                {
+                    firstPlayer.isAlive = false;
+                }
+
+                if (collisionBomb(secondPlayer.pos, newPos))
+                {
+                    secondPlayer.isAlive = false;
+                }
+
+                newPos.Set(pos.x, pos.y, pos.z - delta);
+                //createExplosion(newPos);
+
+                if (collisionBomb(wall.pos, newPos))
+                {
+                    if (wall.destructible)
+                    {
+                        wallToRemove.Add(wall);
+                        wall.destructible = false;
+                    }
+                }
+
+                if (collisionBomb(firstPlayer.pos, newPos))
+                {
+                    firstPlayer.isAlive = false;
+                }
+
+                if (collisionBomb(secondPlayer.pos, newPos))
+                {
+                    secondPlayer.isAlive = false;
+                }
+
+                newPos.Set(pos.x - delta, pos.y, pos.z);
+                //createExplosion(newPos);
+                if (collisionBomb(firstPlayer.pos, newPos))
+                {
+                    firstPlayer.isAlive = false;
+                }
+
+                if (collisionBomb(secondPlayer.pos, newPos))
+                {
+                    secondPlayer.isAlive = false;
+                }
+
+                if (collisionBomb(wall.pos, newPos))
+                {
+                    if (wall.destructible)
+                    {
+                        wallToRemove.Add(wall);
+                        wall.destructible = false;
+                    }
+                }
+            }
+
+            foreach (var r in wallToRemove)
+            {
+                walls.Remove(r);
+            }
+        }
     }
-    
+
     public bool collisionBomb(Vector3 targetPos, Vector3 checkPos)
     {
         if (Mathf.Pow(targetPos.x - checkPos.x, 2) + Mathf.Pow(targetPos.z - checkPos.z, 2) < 1)
