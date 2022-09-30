@@ -157,13 +157,14 @@ public class MCTS
 
     void backPropagation(NodeMCTS node) // backPropagation
     {
-        while (node.parent != null) // tant que C'est pas le node parent
+        var curNode = node;
+        while (curNode.parent != null) // tant que C'est pas le node parent
         {
-            checkNodeEnd(node); // check tous les fils sont end et il a tous ces fils
-            NodeMCTS parent = node.parent; // créer un parent
+            checkNodeEnd(curNode); // check tous les fils sont end et il a tous ces fils
+            NodeMCTS parent = curNode.parent; // créer un parent
             parent.nbWin += node.nbWin; // incrémente le nombre de win
             parent.nbMove += node.nbMove; // incrémente le nombre de sumulation
-            node = parent;
+            curNode = parent;
         }
     }
     

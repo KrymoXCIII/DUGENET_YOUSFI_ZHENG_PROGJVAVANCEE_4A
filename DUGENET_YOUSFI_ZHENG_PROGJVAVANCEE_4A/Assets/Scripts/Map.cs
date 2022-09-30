@@ -213,6 +213,4 @@ public class Map : MonoBehaviour
             return true;
         return false;
     }
-    
-
 }
