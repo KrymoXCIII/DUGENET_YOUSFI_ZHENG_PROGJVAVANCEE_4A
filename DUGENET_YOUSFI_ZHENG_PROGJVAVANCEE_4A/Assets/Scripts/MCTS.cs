@@ -35,7 +35,7 @@ public class MCTS
             if (selectedNode == null)
                 break;
             NodeMCTS newNode = expansion(selectedNode);
-            simulation(newNode, 10);
+            simulation(newNode, 30);
             backPropagation(newNode);
         }
 
@@ -114,8 +114,8 @@ public class MCTS
 
         int rand = Random.Range(0, possibleMoves.Count);
 
-        var newGameState = node.currrentGameState.updateMap(possibleMoves[rand].Item1, possibleMoves[rand].Item2);
-        var newNode = new NodeMCTS(newGameState, node, possibleMoves[rand].Item1, possibleMoves[rand].Item2);
+        node.currrentGameState.updateMap(possibleMoves[rand].Item1, possibleMoves[rand].Item2);
+        var newNode = new NodeMCTS(node.currrentGameState, node, possibleMoves[rand].Item1, possibleMoves[rand].Item2);
         // créer une nouvelle NODE avec le prochaine étape de mouvement
         listNode.Add(newNode); //ajout dans la liste de node
         return newNode; //return le nouveau node
@@ -135,8 +135,17 @@ public class MCTS
                 var listMove =
                     curMap.getPossibleMove(firstPlayer, secondPlayer); // liste de move posible
                 int rand = Random.Range(0, listMove.Count); //random dans la liste de move possible
-                curMap = curMap.updateMap(listMove[rand].Item1,
+                curMap.updateMap(listMove[rand].Item1,
                     listMove[rand].Item2); //Map avec un aléatoire move possible
+            }
+
+            if (curMap.checkWinner() == firstPlayer)
+            {
+                Debug.Log(step + " first");
+            }
+            else
+            {
+                Debug.Log(step + " second");
             }
             if (curMap.checkWinner() == firstPlayer || step == 0) // si il y a un winner
                 nbWin++; // nb de win ++;

@@ -25,6 +25,7 @@ public class PlayerSim
     public int nbBomb;
     public float speed;
     public int power;
+    public int nbPlayer;
 
     public PlayerSim(PlayerBomberman pb)
     {
@@ -33,6 +34,7 @@ public class PlayerSim
         nbBomb = pb.nbBombes;
         speed = pb.speed;
         power = pb.bombPower;
+        nbPlayer = pb.playerNb;
     }
     
     public Vector3 MovePlayerUp()
@@ -153,7 +155,7 @@ public class mapSimulation
         walls = map.walls;
     }
 
-    public mapSimulation updateMap(move m1, move m2)
+    public void updateMap(move m1, move m2)
     {
         switch (m1)
         {
@@ -194,21 +196,8 @@ public class mapSimulation
                 bombs2.Add(bomb);
                 break;
         }
+        
         List<BombSim> bombToDelete = new List<BombSim>();
-        foreach (var b in bombs1)
-        {
-            if (b.decreaseTimer())
-            {
-                explodeBomb(b);
-                firstPlayer.nbBomb++;
-                bombToDelete.Add(b);
-            }
-        }
-        foreach (var b in bombToDelete)
-        {
-            bombs1.Remove(b);
-        }
-        bombToDelete.Clear();
         
         foreach (var b in bombs2)
         {
@@ -224,7 +213,22 @@ public class mapSimulation
         {
             bombs2.Remove(b);
         }
-        return new mapSimulation(this);
+        
+        bombToDelete.Clear();
+
+        foreach (var b in bombs1)
+        {
+            if (b.decreaseTimer())
+            {
+                explodeBomb(b);
+                firstPlayer.nbBomb++;
+                bombToDelete.Add(b);
+            }
+        }
+        foreach (var b in bombToDelete)
+        {
+            bombs1.Remove(b);
+        }
     }
 
     public bool checkPossibleMove(move m, PlayerSim ps)
@@ -290,8 +294,8 @@ public class mapSimulation
             {
                 if (wall.destructible)
                 {
-                    var newPos = new Vector2(pos.x, pos.y);
-                    newPos.Set(pos.x + delta, pos.y);
+                    var newPos = new Vector3(pos.x, pos.y, pos.z);
+                    newPos.Set(pos.x + delta, pos.y, pos.z);
                     if (collisionBomb(wall.pos, newPos))
                     {
 
@@ -299,7 +303,7 @@ public class mapSimulation
                         wall.destructible = false;
                     }
 
-                    newPos.Set(pos.x, pos.y + delta);
+                    newPos.Set(pos.x, pos.y, pos.z + delta);
                     if (collisionBomb(wall.pos, newPos))
                     {
                         if (wall.destructible)
@@ -309,7 +313,7 @@ public class mapSimulation
                         }
                     }
 
-                    newPos.Set(pos.x, pos.y - delta);
+                    newPos.Set(pos.x, pos.y, pos.z - delta);
                     if (collisionBomb(wall.pos, newPos))
                     {
                         if (wall.destructible)
@@ -319,7 +323,7 @@ public class mapSimulation
                         }
                     }
 
-                    newPos.Set(pos.x - delta, pos.y);
+                    newPos.Set(pos.x - delta, pos.y, pos.z);
                     if (collisionBomb(wall.pos, newPos))
                     {
                         if (wall.destructible)
@@ -348,26 +352,26 @@ public class mapSimulation
             float delta = i * 1.5f;
             foreach (var player in players)
             {
-                var newPos = new Vector2(pos.x, pos.y);
-                newPos.Set(pos.x+delta, pos.y);
+                var newPos = new Vector3(pos.x, pos.y, pos.z);
+                newPos.Set(pos.x+delta, pos.y, pos.z);
                 if (collisionBomb(player.pos, newPos))
                 {
                     player.isAlive = false;
                 }
 
-                newPos.Set(pos.x, pos.y+ delta);
+                newPos.Set(pos.x, pos.y, pos.z+delta);
                 if (collisionBomb(player.pos, newPos))
                 {
                     player.isAlive = false;
                 }
 
-                newPos.Set(pos.x, pos.y- delta);
+                newPos.Set(pos.x, pos.y, pos.z-delta);
                 if (collisionBomb(player.pos, newPos))
                 {
                     player.isAlive = false;
                 }
 
-                newPos.Set(pos.x - delta, pos.y);
+                newPos.Set(pos.x-delta, pos.y, pos.z);
                 if (collisionBomb(player.pos, newPos))
                 {
                     player.isAlive = false;
