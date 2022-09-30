@@ -100,7 +100,7 @@ public class Map : MonoBehaviour
     {
         List<Wall> wallToRemove = new List<Wall>();
         var pos = b.transform.position;
-        createExplosion(pos);
+        //createExplosion(pos);
         foreach (var wall in (walls))
         {
             if (checkCollision(wall.transform.position, pos))
@@ -128,7 +128,7 @@ public class Map : MonoBehaviour
             {
                 var newPos = new Vector3(pos.x, pos.y, pos.z);
                 newPos.Set(pos.x+delta, pos.y, pos.z);
-                createExplosion(pos);
+                //createExplosion(pos);
                 if (checkCollision(wall.transform.position, newPos))
                 {
                     if (wall.destructible)
@@ -138,7 +138,7 @@ public class Map : MonoBehaviour
                     }
                 }
                 newPos.Set(pos.x, pos.y, pos.z+delta);
-                createExplosion(newPos);
+                //createExplosion(newPos);
 
                 if (checkCollision(wall.transform.position, newPos))
                 {
@@ -149,7 +149,7 @@ public class Map : MonoBehaviour
                     }
                 }
                 newPos.Set(pos.x, pos.y, pos.z-delta);
-                createExplosion(newPos);
+                //createExplosion(newPos);
 
                 if (checkCollision(wall.transform.position, newPos))
                 {
@@ -160,7 +160,7 @@ public class Map : MonoBehaviour
                     }
                 }
                 newPos.Set(pos.x-delta, pos.y, pos.z);
-                createExplosion(newPos);
+                //createExplosion(newPos);
 
                 if (checkCollision(wall.transform.position, newPos))
                 {
@@ -210,10 +210,5 @@ public class Map : MonoBehaviour
         return false;
     }
     
-    private void createExplosion(Vector3 pos)
-    {
-        //explosionanimation = GetComponent<ParticleSystem>();
-        ParticleSystem.ShapeModule _editableShape = explosionanimation.shape;
-        _editableShape.position = new Vector3(pos.x, pos.y, pos.z);
-    }
+
 }

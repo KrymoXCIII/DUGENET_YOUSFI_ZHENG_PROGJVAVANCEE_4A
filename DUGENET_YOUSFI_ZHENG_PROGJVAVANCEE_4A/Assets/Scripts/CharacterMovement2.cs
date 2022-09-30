@@ -21,7 +21,7 @@ public class CharacterMovement2 : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (AgentMode == 0) // Random
         {
