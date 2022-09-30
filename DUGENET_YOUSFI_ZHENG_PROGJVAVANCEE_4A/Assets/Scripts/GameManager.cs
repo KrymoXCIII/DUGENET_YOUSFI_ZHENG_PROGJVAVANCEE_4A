@@ -221,6 +221,7 @@ public class mapSimulation
             if (b.decreaseTimer())
             {
                 explodeBomb(b);
+                ExplosionSound.ExplosionInstance.Audio.PlayOneShot(ExplosionSound.ExplosionInstance.Click);
                 firstPlayer.nbBomb++;
                 bombToDelete.Add(b);
             }
