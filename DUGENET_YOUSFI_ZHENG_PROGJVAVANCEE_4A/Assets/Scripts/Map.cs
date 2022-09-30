@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,12 @@ public class Map : MonoBehaviour
     public float deltaTime = .1f;
     [SerializeField]public GameObject ScoreBoard;
     public ParticleSystem explosionanimation;
+
+    private void Awake()
+    {
+        //QualitySettings.vSyncCount = 0;
+        //Application.targetFrameRate = 60;
+    }
 
     public void removeWalls(List<Wall> list)
     {
@@ -43,6 +50,7 @@ public class Map : MonoBehaviour
                 if (player.nbBombes > 0)
                 {
                     var bomb = player.PlantBomb();
+                    //Debug.Log(bomb);
                     player.nbBombes--;
                     if (player.playerNb == 1)
                         bombs1.Add(bomb);
@@ -50,17 +58,35 @@ public class Map : MonoBehaviour
                         bombs2.Add(bomb);
                 }
                 break;
+            case move.NOMOVE :
+            case move.NULL :
+                break;
         }
 
         List<Bomb> bombToRemove = new List<Bomb>();
-        foreach (var b in bombs1)
+
+        if (player.playerNb == 1)
         {
-            if (b.decreaseTimer())
+            foreach (var b in bombs1)
             {
-                explode(b);
-                if(player.playerNb == 1)
+                if (b.decreaseTimer())
+                {
+                    explode(b);
                     player.nbBombes++;
-                bombToRemove.Add(b);
+                    bombToRemove.Add(b);
+                }
+            }
+        }
+        else
+        {
+            foreach (var b in bombs2)
+            {
+                if (b.decreaseTimer())
+                {
+                    explode(b);
+                    player.nbBombes++;
+                    bombToRemove.Add(b);
+                }
             }
         }
         foreach (var b in bombToRemove)
@@ -68,30 +94,12 @@ public class Map : MonoBehaviour
             bombs1.Remove(b);
             Destroy(b.gameObject);
         }
-        bombToRemove.Clear();
-
-        foreach (var b in bombs2)
-        {
-            if (b.decreaseTimer())
-            {
-                explode(b);
-                if(player.playerNb == 2)
-                    player.nbBombes++;
-                bombToRemove.Add(b);
-            }
-        }
-        foreach (var b in bombToRemove)
-        {
-            bombs2.Remove(b);
-            Destroy(b.gameObject);
-        }
-
-        if (player.isAlive == false)
-        {
-            Time.timeScale = 0f;
-            ScoreBoard.SetActive(true);
-        }
         
+        if (!player.isAlive)
+        {
+            ScoreBoard.SetActive(true);
+            Time.timeScale = 0f;
+        }   
         return this;
     }
 
@@ -178,25 +186,21 @@ public class Map : MonoBehaviour
                 if (checkCollision(player.transform.position, newPos))
                 {
                     player.isAlive = false;
-
                 }
                 newPos.Set(pos.x, pos.y, pos.z+delta);
                 if (checkCollision(player.transform.position, newPos))
                 {
                     player.isAlive = false;
-
                 }
                 newPos.Set(pos.x, pos.y, pos.z-delta);
                 if (checkCollision(player.transform.position, newPos))
                 {
                     player.isAlive = false;
-
                 }
                 newPos.Set(pos.x-delta, pos.y, pos.z);
                 if (checkCollision(player.transform.position, newPos))
                 {
                     player.isAlive = false;
-
                 }
             }
         }

@@ -55,17 +55,31 @@ public class CharacterMovement2 : MonoBehaviour
         else if (AgentMode == 2) // MCTS
         {
             MCTS mcts = new MCTS(map, Player);
-            var listMoves = mcts.computeMCTS(50);
+            var listMoves = mcts.computeMCTS(10);
+            if (listMoves.Count == 0)
+            {
+                map.updateMap(Player, move.NOMOVE);
+                return;
+            }
+
             float bestRate = 0;
             move bestMove = move.NULL;
             foreach (var move in listMoves)
             {
-                if (move.nbWin / (float) move.nbWin > bestRate)
+                if (move.nbWin / move.nbMove > bestRate)
                 {
-                    bestRate = move.nbWin / (float) move.nbWin;
+                    bestRate = move.nbWin / move.nbMove;
                     bestMove = move.moveP1;
                 }
             }
+            if(bestRate == 0)
+            {
+                //int r = Random.Range(0, listMoves.Count);
+                bestMove = move.NOMOVE;
+            }
+            Debug.Log(bestMove);
+            //Debug.Log("bestrate : " + bestRate);
+            mcts = null;
             map.updateMap(Player, bestMove);
         }
     }

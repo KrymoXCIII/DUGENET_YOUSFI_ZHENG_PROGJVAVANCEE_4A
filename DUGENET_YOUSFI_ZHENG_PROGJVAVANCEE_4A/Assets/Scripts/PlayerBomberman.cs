@@ -21,9 +21,12 @@ public class PlayerBomberman : MonoBehaviour
 
     public Bomb PlantBomb()
     {
+        //Debug.Log("before");
         playerBomb.transform.position = new Vector3(transform.position.x, transform.position.y,transform.position.z);
         var bomb = Instantiate(playerBomb).gameObject.GetComponent<Bomb>();
         bomb.setPower(bombPower);
+        //Debug.Log("After");
+
         return bomb;
     }
 

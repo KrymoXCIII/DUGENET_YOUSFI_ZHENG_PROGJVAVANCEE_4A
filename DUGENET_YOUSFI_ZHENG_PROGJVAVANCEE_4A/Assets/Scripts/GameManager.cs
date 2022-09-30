@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -62,19 +63,21 @@ public class BombSim
 {
     public Vector3 pos;
     public int power;
-    public int timer = 10;
+    public float timer;
     //private float radius = 1.5f;
     
     public BombSim(Bomb b)
     {
         pos = new Vector3(b.transform.position.x,b.transform.position.y, b.transform.position.z);
         power = b.power;
+        timer = b.timer;
     }
     
     public BombSim(Vector3 position, int pow)
     {
         pos = position;
         power = pow;
+        timer = 60;
     }
 
     public bool decreaseTimer()
@@ -100,52 +103,107 @@ public class WallSim
 
 public class mapSimulation
 {
-    public List<PlayerSim> players = new List<PlayerSim>();
+    public PlayerSim firstPlayer;
+    public PlayerSim secondPlayer;
     public List<BombSim> bombs1 = new List<BombSim>();
     public List<BombSim> bombs2 = new List<BombSim>();
     public List<WallSim> walls = new List<WallSim>();
     public float collisionRadius = 1f;
-    public float deltaTime = .05f;
+    public float deltaTime = .016f;
 
-    public mapSimulation(Map map)
+    public mapSimulation(Map map, PlayerBomberman pb1)
     {
-        foreach (var player in map.players)
-        {
-            players.Add(new PlayerSim(player));
-        }
+        firstPlayer = new PlayerSim(pb1);
+        secondPlayer = new PlayerSim(map.players.Where(t => t != pb1).First());
 
         foreach (var wall in map.walls)
         {
             walls.Add(new WallSim(wall));
         }
 
-        foreach (var bomb in map.bombs1)
+        if (pb1.playerNb == 1)
         {
-            bombs1.Add(new BombSim(bomb));
+            foreach (var bomb in map.bombs1)
+            {
+                bombs1.Add(new BombSim(bomb));
+            }
+            foreach (var bomb in map.bombs2)
+            {
+                bombs2.Add(new BombSim(bomb));
+            }
         }
-        
-        foreach (var bomb in map.bombs1)
+        else
         {
-            bombs1.Add(new BombSim(bomb));
+            foreach (var bomb in map.bombs2)
+            {
+                bombs1.Add(new BombSim(bomb));
+            }
+            foreach (var bomb in map.bombs1)
+            {
+                bombs2.Add(new BombSim(bomb));
+            }
         }
+    }
+    public mapSimulation(mapSimulation map)
+    {
+        firstPlayer = map.firstPlayer;
+        secondPlayer = map.secondPlayer;
+        bombs1 = map.bombs1;
+        bombs2 = map.bombs2;
+        walls = map.walls;
     }
 
     public mapSimulation updateMap(move m1, move m2)
     {
-        PlayerSim ps1 = players.GetRange(0, 1).First();
-        PlayerSim ps2 = players.GetRange(1, 1).First();
+        switch (m1)
+        {
+            case move.UP:
+                firstPlayer.pos += firstPlayer.MovePlayerUp() * deltaTime;
+                break;
+            case move.DOWN:
+                firstPlayer.pos += firstPlayer.MovePlayerDown() * deltaTime;
+                break;
+            case move.RIGHT:
+                firstPlayer.pos += firstPlayer.MovePlayerRight() * deltaTime;
+                break;
+            case move.LEFT:
+                firstPlayer.pos += firstPlayer.MovePlayerLeft() * deltaTime;
+                break;
+            case move.BOMB:
+                var bomb = firstPlayer.PlantBomb();
+                bombs1.Add(bomb);
+                break;
+        }
 
+        switch (m2)
+        {
+            case move.UP:
+                secondPlayer.pos += secondPlayer.MovePlayerUp() * deltaTime;
+                break;
+            case move.DOWN:
+                secondPlayer.pos += secondPlayer.MovePlayerDown() * deltaTime;
+                break;
+            case move.RIGHT:
+                secondPlayer.pos += secondPlayer.MovePlayerRight() * deltaTime;
+                break;
+            case move.LEFT:
+                secondPlayer.pos += secondPlayer.MovePlayerLeft() * deltaTime;
+                break;
+            case move.BOMB:
+                var bomb = secondPlayer.PlantBomb();
+                bombs2.Add(bomb);
+                break;
+        }
         List<BombSim> bombToDelete = new List<BombSim>();
         foreach (var b in bombs1)
         {
             if (b.decreaseTimer())
             {
                 explodeBomb(b);
-                ps1.nbBomb++;
+                firstPlayer.nbBomb++;
                 bombToDelete.Add(b);
             }
         }
-
         foreach (var b in bombToDelete)
         {
             bombs1.Remove(b);
@@ -157,7 +215,8 @@ public class mapSimulation
             if (b.decreaseTimer())
             {
                 explodeBomb(b);
-                ps2.nbBomb++;
+                //Debug.Log("explosion ptn " + firstPlayer.isAlive);
+                secondPlayer.nbBomb++;
                 bombToDelete.Add(b);
             }
         }
@@ -165,47 +224,7 @@ public class mapSimulation
         {
             bombs2.Remove(b);
         }
-        
-        switch (m1)
-        {
-            case move.UP:
-                ps1.pos += ps1.MovePlayerUp() * deltaTime;
-                break;
-            case move.DOWN:
-                ps1.pos += ps1.MovePlayerDown() * deltaTime;
-                break;
-            case move.RIGHT:
-                ps1.pos += ps1.MovePlayerRight() * deltaTime;
-                break;
-            case move.LEFT:
-                ps1.pos += ps1.MovePlayerLeft() * deltaTime;
-                break;
-            case move.BOMB:
-                var bomb = ps1.PlantBomb();
-                bombs1.Add(bomb);
-                break;
-        }
-
-        switch (m2)
-        {
-            case move.UP:
-                ps2.pos += ps2.MovePlayerUp() * deltaTime;
-                break;
-            case move.DOWN:
-                ps2.pos += ps2.MovePlayerDown() * deltaTime;
-                break;
-            case move.RIGHT:
-                ps2.pos += ps2.MovePlayerRight() * deltaTime;
-                break;
-            case move.LEFT:
-                ps2.pos += ps2.MovePlayerLeft() * deltaTime;
-                break;
-            case move.BOMB:
-                var bomb = ps2.PlantBomb();
-                bombs2.Add(bomb);
-                break;
-        }
-        return this;
+        return new mapSimulation(this);
     }
 
     public bool checkPossibleMove(move m, PlayerSim ps)
@@ -215,16 +234,16 @@ public class mapSimulation
         {
             case move.UP:
                 dir = ps.MovePlayerUp()*deltaTime;
-                return (!collisionPlayerWalls(ps.pos));
+                return (!collisionPlayerWalls(ps.pos+dir));
             case move.DOWN:
                 dir = ps.MovePlayerDown()*deltaTime;
-                return (!collisionPlayerWalls(ps.pos));                
+                return (!collisionPlayerWalls(ps.pos+dir));                
             case move.RIGHT:
                 dir = ps.MovePlayerRight()*deltaTime;
-                return (!collisionPlayerWalls(ps.pos));
+                return (!collisionPlayerWalls(ps.pos+dir));
             case move.LEFT:
                 dir = ps.MovePlayerLeft()*deltaTime;
-                return (!collisionPlayerWalls(ps.pos));
+                return (!collisionPlayerWalls(ps.pos+dir));
             case move.BOMB:
                 return (ps.nbBomb > 0);
             case move.NOMOVE:
@@ -254,9 +273,9 @@ public class mapSimulation
         var pos = b.pos;
         foreach (var wall in (walls))
         {
-            if (collisionBomb(wall.pos, pos))
+            if (wall.destructible)
             {
-                if (wall.destructible)
+                if (collisionBomb(wall.pos, pos))
                 {
                     wallToRemove.Add(wall);
                     wall.destructible = false;
@@ -269,45 +288,53 @@ public class mapSimulation
             float delta = i * 1.5f;
             foreach (var wall in (walls))
             {
-                var newPos = new Vector2(pos.x, pos.y);
-                newPos.Set(pos.x+delta, pos.y);
-                if (collisionBomb(wall.pos, newPos))
+                if (wall.destructible)
                 {
-                    if (wall.destructible)
+                    var newPos = new Vector2(pos.x, pos.y);
+                    newPos.Set(pos.x + delta, pos.y);
+                    if (collisionBomb(wall.pos, newPos))
                     {
+
                         wallToRemove.Add(wall);
                         wall.destructible = false;
                     }
-                }
-                newPos.Set(pos.x, pos.y+delta);                
-                if (collisionBomb(wall.pos, newPos))
-                {
-                    if (wall.destructible)
+
+                    newPos.Set(pos.x, pos.y + delta);
+                    if (collisionBomb(wall.pos, newPos))
                     {
-                        wallToRemove.Add(wall);
-                        wall.destructible = false;
+                        if (wall.destructible)
+                        {
+                            wallToRemove.Add(wall);
+                            wall.destructible = false;
+                        }
                     }
-                }
-                newPos.Set(pos.x, pos.y-delta);
-                if (collisionBomb(wall.pos, newPos))
-                {
-                    if (wall.destructible)
+
+                    newPos.Set(pos.x, pos.y - delta);
+                    if (collisionBomb(wall.pos, newPos))
                     {
-                        wallToRemove.Add(wall);
-                        wall.destructible = false;
+                        if (wall.destructible)
+                        {
+                            wallToRemove.Add(wall);
+                            wall.destructible = false;
+                        }
                     }
-                }
-                newPos.Set(pos.x-delta, pos.y);
-                if (collisionBomb(wall.pos, newPos))
-                {
-                    if (wall.destructible)
+
+                    newPos.Set(pos.x - delta, pos.y);
+                    if (collisionBomb(wall.pos, newPos))
                     {
-                        wallToRemove.Add(wall);
-                        wall.destructible = false;
+                        if (wall.destructible)
+                        {
+                            wallToRemove.Add(wall);
+                            wall.destructible = false;
+                        }
                     }
                 }
             }
         }
+
+        var players = new List<PlayerSim>(2);
+        players.Add(firstPlayer);
+        players.Add(secondPlayer);
 
         foreach (var player in players)
         {
@@ -363,11 +390,10 @@ public class mapSimulation
 
     public PlayerSim checkWinner()
     {
-        //return 0 si pas de gagnant, 1 si j1 est mort, 2 si j2 est mort 
-        if (!players.GetRange(0, 1).First().isAlive)
-            return players.GetRange(0, 1).First();
-        if (!players.GetRange(1, 1).First().isAlive)
-            return players.GetRange(1, 1).First();
+        if (!firstPlayer.isAlive)
+            return secondPlayer;
+        if (!secondPlayer.isAlive)
+            return firstPlayer;
         return null;
     }
 
@@ -381,6 +407,7 @@ public class mapSimulation
         listMove.Add(move.RIGHT);
         listMove.Add(move.LEFT);
         listMove.Add(move.BOMB);
+        listMove.Add(move.NOMOVE);
 
         foreach (var m1 in listMove)
         {

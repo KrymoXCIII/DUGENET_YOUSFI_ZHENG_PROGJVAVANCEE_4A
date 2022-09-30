@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class MCTS
 {
@@ -11,7 +13,7 @@ public class MCTS
 
     public MCTS(Map map, PlayerBomberman pb1)
     {
-        mapSimulation mapS = new mapSimulation(map);
+        mapSimulation mapS = new mapSimulation(map, pb1);
         NodeMCTS first = new NodeMCTS(mapS);
         listNode = new List<NodeMCTS>();
         listNode.Add(first);
@@ -33,8 +35,7 @@ public class MCTS
             if (selectedNode == null)
                 break;
             NodeMCTS newNode = expansion(selectedNode);
-
-            simulation(newNode, nbTest);
+            simulation(newNode, 10);
             backPropagation(newNode);
         }
 
@@ -44,26 +45,36 @@ public class MCTS
             if (node.parent == root)
                 res.Add(node);
         }
-
         return res;
     }
 
     NodeMCTS selection() // Selection
     {
-        float explo = Random.Range(0, 1); // Random (0,1)
+        float explo = Random.Range(0.0f, 1.0f); // Random (0,1)
         if (explo < .8) //80% exploration
         {
             int rand = Random.Range(0, listNode.Count); //  aléatoire un nombre entre le nombre de node
             var node = listNode.GetRange(rand, 1).First(); //Choisi le node aléatoire
-            int nodeCount = listNode.Count();
-            while (!node.end && nodeCount != 0) // tant que le node n'est pas une feuille
+            var childCount = listNode.Where(t => t.parent == node).Count();
+            var moveCount = node.currrentGameState.getPossibleMove(firstPlayer, secondPlayer).Count;
+
+            List<NodeMCTS> copyList = new List<NodeMCTS>(listNode.Count);
+            foreach (var n in listNode)
             {
-                rand = Random.Range(0, listNode.Count); //aléatoire un nombre entre le nombre de node
+                copyList.Add(n);
+            }
+            while (node.end && copyList.Count > 0 && childCount == moveCount) // tant que le node n'est pas une feuille
+            {
+                rand = Random.Range(0, copyList.Count); //aléatoire un nombre entre le nombre de node
                 node = listNode.GetRange(rand, 1).First(); //Choisi le node aléatoire
-                nodeCount--;
+                childCount = listNode.Where(t => t.parent == node).Count();
+                moveCount = node.currrentGameState.getPossibleMove(firstPlayer, secondPlayer).Count;
+
+                if (node.end || childCount == moveCount)
+                    copyList.Remove(node);
             }
 
-            if (nodeCount == 0)
+            if (copyList.Count == 0)
                 return null;
             return node; // return la feuille de l'arbre
         }
@@ -92,18 +103,16 @@ public class MCTS
     NodeMCTS expansion(NodeMCTS node) // Expension
     {
         var possibleMoves = node.currrentGameState.getPossibleMove(firstPlayer, secondPlayer); //liste de move possible
-        var rand = Random.Range(0, possibleMoves.Count); //aléatoire un node dans la liste de move possible
-        int n = listNode.Where(t =>
-            t.parent == node && t.moveP1 == possibleMoves[rand].Item1 && t.moveP1 == possibleMoves[rand].Item1).Count();
-        //passe dans la listeNode où n prend la valeur du nombre de fois on est passer sur le même node
-        while (n > 0) // tant qu'on a déjà passer une fois
+        var nodeChild = listNode.Where(t=>t.parent == node);
+        foreach (var child in nodeChild)
         {
-            rand = Random.Range(0, possibleMoves.Count); // choisie une random dans la liste possible move
-            n = listNode.Where(t =>
-                    t.parent == node && t.moveP1 == possibleMoves[rand].Item1 && t.moveP1 == possibleMoves[rand].Item1)
-                .Count();
-            // passe dans la listeNode où n prend la valeur du nombre de fois on est passer sur le même node
+            possibleMoves.Remove(new Tuple<move, move>(child.moveP1,child.moveP2));
         }
+
+        if (possibleMoves.Count == 0)
+            return null;
+
+        int rand = Random.Range(0, possibleMoves.Count);
 
         var newGameState = node.currrentGameState.updateMap(possibleMoves[rand].Item1, possibleMoves[rand].Item2);
         var newNode = new NodeMCTS(newGameState, node, possibleMoves[rand].Item1, possibleMoves[rand].Item2);
@@ -118,21 +127,23 @@ public class MCTS
         int nbWin = 0; // initialise le nombre de win
         for (int i = 0; i < itération; i++) //pour chaque test 
         {
-            int step = 10000;
+            int step = 200;
             var curMap = node.currrentGameState; // Temporaire Map
             while (curMap.checkWinner() == null && step > 0) //tant que il y a pas de victoire
             {
                 step--;
                 var listMove =
-                    node.currrentGameState.getPossibleMove(firstPlayer, secondPlayer); // liste de move posible
+                    curMap.getPossibleMove(firstPlayer, secondPlayer); // liste de move posible
                 int rand = Random.Range(0, listMove.Count); //random dans la liste de move possible
                 curMap = curMap.updateMap(listMove[rand].Item1,
                     listMove[rand].Item2); //Map avec un aléatoire move possible
             }
-
-            if (curMap.checkWinner() == firstPlayer) // si il y a un winner
+            if (curMap.checkWinner() == firstPlayer || step == 0) // si il y a un winner
                 nbWin++; // nb de win ++;
         }
+        node.nbWin = nbWin;
+        node.nbMove = itération;
+        //Debug.Log(node.nbWin + " / " + node.nbMove + " step: " + step);
     }
 
     void backPropagation(NodeMCTS node) // backPropagation
@@ -145,26 +156,25 @@ public class MCTS
             parent.nbMove += node.nbMove; // incrémente le nombre de sumulation
             node = parent;
         }
-
-        void checkNodeEnd(NodeMCTS node) // check tous les fils sont end et il a tous ces fils
+    }
+    
+    void checkNodeEnd(NodeMCTS node) // check tous les fils sont end et il a tous ces fils
+    {
+        if (node.end) // si le node est le feuille alors en return
+            return;
+        var Tmoves = node.currrentGameState.getPossibleMove(firstPlayer, secondPlayer);
+        var childList = listNode.Where(t => t.parent == node);
+        if (childList.Count() < Tmoves.Count())
+            return;
+        bool isEnd = true;
+        foreach (var childNode in childList)
         {
-            if (node.end) // si le node est le feuille alors en return
-                return;
-            var Tmoves = node.currrentGameState.getPossibleMove(firstPlayer, secondPlayer);
-            var childList = listNode.Where(t => t.parent == node);
-            if (childList.Count() < Tmoves.Count())
-                return;
-            bool isEnd = true;
-            foreach (var childNode in childList)
+            if (!childNode.end)
             {
-                if (!childNode.end)
-                {
-                    isEnd = false;
-                }
+                isEnd = false;
             }
-
-            node.end = isEnd;
         }
 
+        node.end = isEnd;
     }
 }
