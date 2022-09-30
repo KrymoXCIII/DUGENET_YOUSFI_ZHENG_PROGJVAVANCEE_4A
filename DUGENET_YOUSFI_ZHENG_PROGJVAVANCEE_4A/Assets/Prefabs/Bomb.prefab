@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   power: 2
+  timer: 0
   radius: 1.5
 --- !u!1001 &8719899268484950977
 PrefabInstance:
@@ -168,7 +169,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7899607689449087841, guid: 9503bd3f32d1fb14eaa28021bf2ab755, type: 3}
       propertyPath: startDelay.scalar
-      value: 2
+      value: 2.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9503bd3f32d1fb14eaa28021bf2ab755, type: 3}

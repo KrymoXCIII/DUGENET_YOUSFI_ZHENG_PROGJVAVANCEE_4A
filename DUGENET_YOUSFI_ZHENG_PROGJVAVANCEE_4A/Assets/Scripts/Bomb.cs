@@ -11,7 +11,7 @@ public class Bomb : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        timer = 60;
+        timer = 150;
     }
 
     public bool decreaseTimer()
