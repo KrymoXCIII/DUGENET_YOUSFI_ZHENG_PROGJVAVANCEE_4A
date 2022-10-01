@@ -25,7 +25,7 @@ public class CharacterMovement : MonoBehaviour
         //Player = FindObjectOfType<PlayerBomberman>();
         randomControls = Random.Range(0, 5);
         AgentMode1 = ChooseMode.instance.CM1;
-        AgentMode1 = ChooseMode.instance.CM1;
+        AgentMode2 = ChooseMode.instance.CM2;
     }
 
     private void FixedUpdate()
@@ -34,24 +34,37 @@ public class CharacterMovement : MonoBehaviour
         map.updateMapSingleMove(getMoveJ2());
         map.updateBombs();
         updateScene();
+        if (map.firstPlayer.isAlive == false)
+        {
+            
+        }
+        else if (map.secondPlayer.isAlive == false)
+        {
+            
+        }
+            
     }
 
     public void updateScene()
     {
         Player1.transform.position = Player1.pos;
         Player2.transform.position = Player2.pos;
+        
         foreach (var wall in map.wallsToDestroy)
         {
             Destroy(wall.gameObject);
         }
+        map.wallsToDestroy.Clear();
         foreach (var bomb in map.bombs1ToDestroy)
         {
             Destroy(bomb.gameObject);
         }
+        map.bombs1ToDestroy.Clear();
         foreach (var bomb in map.bombs2ToDestroy)
         {
             Destroy(bomb.gameObject);
         }
+        map.bombs2ToDestroy.Clear();
 
         foreach (var bomb in map.bombsToCreate)
         {
@@ -60,6 +73,7 @@ public class CharacterMovement : MonoBehaviour
             bombScene.timer = bomb.timer;
             bombScene.power = bomb.power;
         }
+        map.bombsToCreate.Clear();
     }
     
     public move getMoveJ1()
