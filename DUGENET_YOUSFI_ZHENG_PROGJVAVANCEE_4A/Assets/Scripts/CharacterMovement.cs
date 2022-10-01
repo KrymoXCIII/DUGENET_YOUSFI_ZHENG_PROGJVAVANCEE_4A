@@ -44,7 +44,6 @@ public class CharacterMovement : MonoBehaviour
             Time.timeScale = 0f;
             ScoreBoard.SetActive(true);
         }
-            
     }
 
     public void updateScene()
@@ -57,25 +56,24 @@ public class CharacterMovement : MonoBehaviour
             Destroy(wall.gameObject);
         }
         map.wallsToDestroy.Clear();
-        foreach (var bomb in map.bombs1ToDestroy)
+        if(map.bombs1 != null && map.bombs1.toCreate) 
         {
-            Destroy(bomb.gameObject);
+            map.bombs1 = Instantiate(bombPrefab).gameObject.GetComponent<BombSim>();
         }
-        map.bombs1ToDestroy.Clear();
-        foreach (var bomb in map.bombs2ToDestroy)
+        if(map.bombs2 != null && map.bombs2.toCreate) 
         {
-            Destroy(bomb.gameObject);
+            map.bombs2 = Instantiate(bombPrefab).gameObject.GetComponent<BombSim>();
         }
-        map.bombs2ToDestroy.Clear();
-
-        foreach (var bomb in map.bombsToCreate)
+        if(map.bombs1 != null && map.bombs1.toDelete) 
         {
-            var bombScene = Instantiate(bombPrefab).gameObject.GetComponent<BombSim>();
-            bombScene.transform.position = bomb.pos;
-            bombScene.timer = bomb.timer;
-            bombScene.power = bomb.power;
+            Destroy(map.bombs1.gameObject);
+            map.bombs1 = null;
         }
-        map.bombsToCreate.Clear();
+        if(map.bombs2 != null && map.bombs2.toDelete) 
+        {
+            Destroy(map.bombs2.gameObject);
+            map.bombs2 = null;
+        }
     }
     
     public move getMoveJ1()
@@ -165,7 +163,7 @@ public class CharacterMovement : MonoBehaviour
     public move MCTS(PlayerSim pb)
     {
         MCTS mcts = new MCTS(map, pb);
-        var listMoves = mcts.computeMCTS(1);
+        var listMoves = mcts.computeMCTS(10);
         float bestRate = 0;
         move bestMove = move.NULL;
         foreach (var move in listMoves)

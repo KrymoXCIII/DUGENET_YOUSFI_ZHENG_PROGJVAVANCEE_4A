@@ -7,6 +7,8 @@ public class BombSim : MonoBehaviour
     public Vector3 pos;
     public int power;
     public float timer;
+    public bool toDelete = false;
+    public bool toCreate = false;
     //private float radius = 1.5f;
     
     public BombSim(BombSim b)
@@ -14,6 +16,7 @@ public class BombSim : MonoBehaviour
         pos = b.pos;
         power = b.power;
         timer = b.timer;
+        toDelete = b.toDelete;
     }
     
     public BombSim(Vector3 position, int pow)

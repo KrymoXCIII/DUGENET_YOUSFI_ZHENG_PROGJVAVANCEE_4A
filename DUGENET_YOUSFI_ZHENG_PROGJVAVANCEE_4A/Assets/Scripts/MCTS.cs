@@ -27,7 +27,7 @@ public class MCTS
             if (selectedNode == null)
                 break;
             NodeMCTS newNode = expansion(selectedNode);
-            simulation(newNode, 30);
+            simulation(newNode, 10);
             backPropagation(newNode);
         }
 
@@ -120,7 +120,7 @@ public class MCTS
         int nbWin = 0; // initialise le nombre de win
         for (int i = 0; i < itération; i++) //pour chaque test 
         {
-            int step = 200;
+            int step = 100;
             var curMap = node.currrentGameState; // Temporaire Map
             while (curMap.checkWinner() == null && step > 0) //tant que il y a pas de victoire
             {
@@ -156,19 +156,21 @@ public class MCTS
     {
         if (node.end) // si le node est le feuille alors en return
             return;
+        //On récupère tous les mouvement possible pour ce noeud
         var Tmoves = node.currrentGameState.getPossibleMove();
+        //On récupére tous ces enfants
         var childList = listNode.Where(t => t.parent == node);
+        //Si il y a moins d'enfants que de movements possibles alors il y'a encore des noeuds inexploré
         if (childList.Count() < Tmoves.Count())
             return;
-        bool isEnd = true;
+        //Si tous les enfants sont fini alors le noeud est aussi fini
         foreach (var childNode in childList)
         {
             if (!childNode.end)
             {
-                isEnd = false;
+                return;
             }
         }
-
-        node.end = isEnd;
+        node.end = true;
     }
 }

@@ -7,11 +7,8 @@ public class MapSimulation : MonoBehaviour
 {
     public PlayerSim firstPlayer;
     public PlayerSim secondPlayer;
-    public List<BombSim> bombs1 = new List<BombSim>();
-    public List<BombSim> bombs2 = new List<BombSim>();
-    public List<BombSim> bombs1ToDestroy = new List<BombSim>();
-    public List<BombSim> bombs2ToDestroy = new List<BombSim>();
-    public List<BombSim> bombsToCreate = new List<BombSim>();
+    public BombSim bombs1;
+    public BombSim bombs2;
     public List<WallSim> walls = new List<WallSim>();
     public List<WallSim> wallsToDestroy = new List<WallSim>();
     public float collisionRadius = 1f;
@@ -30,13 +27,17 @@ public class MapSimulation : MonoBehaviour
         {
             //Cela permet de synchroniser la map avec la scène
             //(le firstPlayer n'est pas toujours le premier agent)
-            bombs1.AddRange(map.bombs1);
-            bombs2.AddRange(map.bombs2);
+            if (map.bombs1 != null)
+                bombs1 = map.bombs1;
+            if (map.bombs2 != null)
+                bombs2 = map.bombs2;
         }
         else
         {
-            bombs1.AddRange(map.bombs2);
-            bombs2.AddRange(map.bombs1);
+            if (map.bombs1 != null)
+                bombs2 = map.bombs1;
+            if (map.bombs2 != null)
+                bombs1 = map.bombs2;
         }
     }
     public MapSimulation(MapSimulation map)
@@ -73,63 +74,53 @@ public class MapSimulation : MonoBehaviour
                 {
                     var bomb = firstPlayer.PlantBomb();
                     if (firstPlayer.nbPlayer == 1)
-                        bombs1.Add(bomb);
+                    {
+                        bombs1 = bomb;
+                        bombs1.toCreate = true;
+                    }
                     else
-                        bombs2.Add(bomb);
-                    bombsToCreate.Add(bomb);
+                    {
+                        bombs2 = bomb;
+                        bombs2.toCreate = true;
+                    }
                 }
                 break;
         }
-
         //Le first player à joué, on inverse donc les premier et deuxième joueurs
         (firstPlayer, secondPlayer) = (secondPlayer, firstPlayer);
     }
 
     public void updateBombs()
     {
-        List<BombSim> bombToDelete = new List<BombSim>();
-        
-        foreach (var b in bombs1)
+        if(bombs1 != null)
         {
-            if (b.decreaseTimer()) //On décrémente le timer des bombes de 1
+            if (bombs1.decreaseTimer()) //On décrémente le timer des bombes de 1
             {
                 //Si le timer est égale à 0 alors la bombe explose
-                explodeBomb(b);
+                explodeBomb(bombs1);
                 ExplosionSound.ExplosionInstance.Audio.PlayOneShot(ExplosionSound.ExplosionInstance.Click);
                 if (firstPlayer.nbPlayer == 1)
                     firstPlayer.nbBomb++;
                 else
                     secondPlayer.nbBomb++;
-                //On retire la bombe de la liste
-                bombToDelete.Add(b);
+                //On set la bombe à delete pour la scène
+                bombs1.toDelete = true;
             }
         }
-        foreach (var b in bombToDelete)
-        {
-            bombs1.Remove(b);
-        }
 
-        bombs1ToDestroy = bombToDelete;
-        bombToDelete.Clear();
-
-        foreach (var b in bombs2) 
+        if(bombs2 != null)
         {
-            if (b.decreaseTimer())
+            if (bombs2.decreaseTimer())
             {
-                explodeBomb(b);
+                explodeBomb(bombs2);
                 ExplosionSound.ExplosionInstance.Audio.PlayOneShot(ExplosionSound.ExplosionInstance.Click);
                 if (firstPlayer.nbPlayer == 1)
                     secondPlayer.nbBomb++;
                 else
-                    firstPlayer.nbBomb++;                
-                bombToDelete.Add(b);
+                    firstPlayer.nbBomb++;
+                bombs2.toDelete = true;
             }
         }
-        foreach (var b in bombToDelete)
-        {
-            bombs2.Remove(b);
-        }
-        bombs2ToDestroy = bombToDelete;
     }
     
     public bool checkPossibleMove(move m, PlayerSim ps)
