@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.1748449, g: 0.21871418, b: 0.3009954, a: 1}
+  m_IndirectSpecularColor: {r: 0.17484549, g: 0.21871477, b: 0.30099645, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4169,6 +4169,7 @@ MonoBehaviour:
   bombPrefab: {fileID: -7803721439495667550, guid: 6527725b3463d874d85aa1c89681166b, type: 3}
   AgentMode1: 1
   AgentMode2: 0
+  ScoreBoard: {fileID: 1942223659}
 --- !u!1 &560790499
 GameObject:
   m_ObjectHideFlags: 0

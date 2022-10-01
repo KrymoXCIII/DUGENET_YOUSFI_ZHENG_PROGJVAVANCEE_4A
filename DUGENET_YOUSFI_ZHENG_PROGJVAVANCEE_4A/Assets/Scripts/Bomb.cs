@@ -18,7 +18,6 @@ public class Bomb : MonoBehaviour
     public bool decreaseTimer()
     {
         timer -= 1;
-        //Debug.Log(timer);
         return (timer == 0);
     }
     

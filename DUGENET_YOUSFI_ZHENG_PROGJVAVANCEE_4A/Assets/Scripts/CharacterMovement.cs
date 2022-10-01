@@ -18,7 +18,7 @@ public class CharacterMovement : MonoBehaviour
     private int randomControls;
     private float randomTimer;
     private bool randomReady;
-
+    [SerializeField] GameObject ScoreBoard;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,11 +36,13 @@ public class CharacterMovement : MonoBehaviour
         updateScene();
         if (map.firstPlayer.isAlive == false)
         {
-            
+            Time.timeScale = 0f;
+            ScoreBoard.SetActive(true);
         }
         else if (map.secondPlayer.isAlive == false)
         {
-            
+            Time.timeScale = 0f;
+            ScoreBoard.SetActive(true);
         }
             
     }
