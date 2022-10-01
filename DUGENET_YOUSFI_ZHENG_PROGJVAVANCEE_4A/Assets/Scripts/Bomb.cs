@@ -1,3 +1,4 @@
+/*
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,3 +27,4 @@ public class Bomb : MonoBehaviour
         power = i;
     }
 }
+*/

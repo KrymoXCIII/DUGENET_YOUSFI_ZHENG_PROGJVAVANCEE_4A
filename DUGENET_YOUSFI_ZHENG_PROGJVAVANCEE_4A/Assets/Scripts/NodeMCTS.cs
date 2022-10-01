@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NodeMCTS 
 {
-    public mapSimulation currrentGameState;
+    public MapSimulation currrentGameState;
 
     public float nbWin = 0;
     public float nbMove = 0;
@@ -16,7 +16,7 @@ public class NodeMCTS
 
     public bool end;
 
-    public NodeMCTS(mapSimulation map, NodeMCTS p = null, move m1=move.NULL, move m2=move.NULL)
+    public NodeMCTS(MapSimulation map, NodeMCTS p = null, move m1=move.NULL, move m2=move.NULL)
     {
         currrentGameState = map;
         parent = p;

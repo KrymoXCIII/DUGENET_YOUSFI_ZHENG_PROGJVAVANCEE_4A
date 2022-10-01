@@ -1,3 +1,4 @@
+/*
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -10,7 +11,7 @@ public class PlayerBomberman : MonoBehaviour
     public int bombPower = 2;
     public bool isAlive = true;
     
-    public Map map;
+    public mapSimulation map;
 
     public Bomb playerBomb;
     public Transform model;
@@ -77,13 +78,14 @@ public class PlayerBomberman : MonoBehaviour
     {
         foreach (var wall in map.walls)
         {
-            if (wall.transform.position.x + collisionRadius > checkPos.x &&
-                wall.transform.position.x - collisionRadius < checkPos.x &&
-                wall.transform.position.z + collisionRadius > checkPos.z &&
-                wall.transform.position.z - collisionRadius < checkPos.z)
+            if (wall.pos.x + collisionRadius > checkPos.x &&
+                wall.pos.x - collisionRadius < checkPos.x &&
+                wall.pos.z + collisionRadius > checkPos.z &&
+                wall.pos.z - collisionRadius < checkPos.z)
                 return true;
         }
         return false;
     }
 }
 
+*/

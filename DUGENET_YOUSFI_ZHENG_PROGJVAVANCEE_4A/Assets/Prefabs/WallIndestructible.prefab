@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2934832877256847524}
   - component: {fileID: 2934832877256847523}
   - component: {fileID: 2934832877256847522}
-  - component: {fileID: 6882711497315267899}
+  - component: {fileID: 7227936008011070330}
   m_Layer: 0
   m_Name: WallIndestructible
   m_TagString: Untagged
@@ -84,7 +84,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &6882711497315267899
+--- !u!114 &7227936008011070330
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,8 +93,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2934832877256847527}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2bbadec53ddec246814ac9e63a0e75c, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c89e94147ea8564eafc717d3b99b6ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pos: {x: 0, y: 0, z: 0}
   destructible: 0
-  percentItem: 0.5
+  percentItem: 0

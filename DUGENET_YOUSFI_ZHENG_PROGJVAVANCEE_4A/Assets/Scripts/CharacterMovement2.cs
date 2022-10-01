@@ -1,3 +1,4 @@
+/*
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -29,28 +30,7 @@ public class CharacterMovement2 : MonoBehaviour
         }
         else if (AgentMode == 1) // Humain
         {
-            if (Input.GetKey(KeyCode.O))
-            {
-                map.updateMap(Player, move.UP);
-            }
-            else if (Input.GetKey(KeyCode.L))
-            {
-                map.updateMap(Player, move.DOWN);
-            }
-            else if (Input.GetKey(KeyCode.K))
-            {
-                map.updateMap(Player, move.LEFT);
-            }
-            else if (Input.GetKey(KeyCode.M))
-            {
-                map.updateMap(Player, move.RIGHT);
-            }
-            else if (Input.GetKey(KeyCode.KeypadEnter))
-            {
-                map.updateMap(Player, move.BOMB);
-            }
-            else
-                map.updateMap(Player, move.NOMOVE);
+            
         }
         else if (AgentMode == 2) // MCTS
         {
@@ -118,3 +98,4 @@ public class CharacterMovement2 : MonoBehaviour
         }
     }
 }
+*/
