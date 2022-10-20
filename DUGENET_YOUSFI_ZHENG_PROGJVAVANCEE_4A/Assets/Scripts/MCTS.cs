@@ -10,7 +10,11 @@ public class MCTS
     public MCTS(MapSimulation map, PlayerSim pb1)
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
         MapSimulation mapS = new MapSimulation(map, pb1);
+=======
+        mapSimulation mapS = new mapSimulation(map);
+>>>>>>> parent of 874aa7f (wip mcts)
 =======
         mapSimulation mapS = new mapSimulation(map);
 >>>>>>> parent of 874aa7f (wip mcts)
@@ -52,6 +56,7 @@ public class MCTS
             int rand = Random.Range(0, listNode.Count); //  aléatoire un nombre entre le nombre de node
             var node = listNode.GetRange(rand, 1).First(); //Choisi le node aléatoire
 <<<<<<< HEAD
+<<<<<<< HEAD
             var childCount = listNode.Where(t => t.parent == node).Count();
             var moveCount = node.currrentGameState.getPossibleMove().Count;
 
@@ -71,6 +76,14 @@ public class MCTS
                 if (node.end || childCount == moveCount)
                     copyList.Remove(node);
 =======
+                nodeCount--;
+>>>>>>> parent of 874aa7f (wip mcts)
+=======
+            int nodeCount = listNode.Count();
+            while (!node.end && nodeCount != 0) // tant que le node n'est pas une feuille
+            {
+                rand = Random.Range(0, listNode.Count); //aléatoire un nombre entre le nombre de node
+                node = listNode.GetRange(rand, 1).First(); //Choisi le node aléatoire
                 nodeCount--;
 >>>>>>> parent of 874aa7f (wip mcts)
             }
@@ -102,16 +115,22 @@ public class MCTS
     NodeMCTS expansion(NodeMCTS node) // Expension
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
         var possibleMoves = node.currrentGameState.getPossibleMove(); //liste de move possible
         var nodeChild = listNode.Where(t=>t.parent == node);
         foreach (var child in nodeChild)
 =======
+=======
+>>>>>>> parent of 874aa7f (wip mcts)
         var possibleMoves = node.currrentGameState.getPossibleMove(firstPlayer, secondPlayer); //liste de move possible
         var rand = Random.Range(0, possibleMoves.Count); //aléatoire un node dans la liste de move possible
         int n = listNode.Where(t =>
             t.parent == node && t.moveP1 == possibleMoves[rand].Item1 && t.moveP1 == possibleMoves[rand].Item1).Count();
         //passe dans la listeNode où n prend la valeur du nombre de fois on est passer sur le même node
         while (n > 0) // tant qu'on a déjà passer une fois
+<<<<<<< HEAD
+>>>>>>> parent of 874aa7f (wip mcts)
+=======
 >>>>>>> parent of 874aa7f (wip mcts)
         {
             rand = Random.Range(0, possibleMoves.Count); // choisie une random dans la liste possible move
@@ -121,6 +140,7 @@ public class MCTS
             // passe dans la listeNode où n prend la valeur du nombre de fois on est passer sur le même node
         }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
         if (possibleMoves.Count == 0)
             return null;
@@ -133,6 +153,8 @@ public class MCTS
         
         var newNode = new NodeMCTS(node.currrentGameState, node, possibleMoves[rand].Item1, possibleMoves[rand].Item2);
 =======
+=======
+>>>>>>> parent of 874aa7f (wip mcts)
         var newGameState = node.currrentGameState.updateMap(possibleMoves[rand].Item1, possibleMoves[rand].Item2);
         var newNode = new NodeMCTS(newGameState, node, possibleMoves[rand].Item1, possibleMoves[rand].Item2);
 >>>>>>> parent of 874aa7f (wip mcts)
@@ -148,7 +170,11 @@ public class MCTS
         for (int i = 0; i < itération; i++) //pour chaque test 
         {
 <<<<<<< HEAD
+<<<<<<< HEAD
             int step = 100;
+=======
+            int step = 10000;
+>>>>>>> parent of 874aa7f (wip mcts)
 =======
             int step = 10000;
 >>>>>>> parent of 874aa7f (wip mcts)
@@ -161,6 +187,9 @@ public class MCTS
 =======
                 var listMove =
                     node.currrentGameState.getPossibleMove(firstPlayer, secondPlayer); // liste de move posible
+<<<<<<< HEAD
+>>>>>>> parent of 874aa7f (wip mcts)
+=======
 >>>>>>> parent of 874aa7f (wip mcts)
                 int rand = Random.Range(0, listMove.Count); //random dans la liste de move possible
                 curMap.updateMapSingleMove(listMove[rand].Item1);
@@ -168,12 +197,19 @@ public class MCTS
                 curMap.updateBombs();
             }
 <<<<<<< HEAD
+<<<<<<< HEAD
             
             if (curMap.checkWinner() == node.currrentGameState.firstPlayer || step == 0) // si il y a un winner
                 nbWin++; // nb de win ++;
         }
         node.nbWin = nbWin;
         node.nbMove = itération;
+=======
+
+            if (curMap.checkWinner() == firstPlayer) // si il y a un winner
+                nbWin++; // nb de win ++;
+        }
+>>>>>>> parent of 874aa7f (wip mcts)
 =======
 
             if (curMap.checkWinner() == firstPlayer) // si il y a un winner
@@ -193,6 +229,7 @@ public class MCTS
             parent.nbMove += node.nbMove; // incrémente le nombre de sumulation
             curNode = parent;
         }
+<<<<<<< HEAD
 <<<<<<< HEAD
     }
     
@@ -238,6 +275,29 @@ public class MCTS
 <<<<<<< HEAD
         node.end = true;
 =======
+
+>>>>>>> parent of 874aa7f (wip mcts)
+=======
+
+        void checkNodeEnd(NodeMCTS node) // check tous les fils sont end et il a tous ces fils
+        {
+            if (node.end) // si le node est le feuille alors en return
+                return;
+            var Tmoves = node.currrentGameState.getPossibleMove(firstPlayer, secondPlayer);
+            var childList = listNode.Where(t => t.parent == node);
+            if (childList.Count() < Tmoves.Count())
+                return;
+            bool isEnd = true;
+            foreach (var childNode in childList)
+            {
+                if (!childNode.end)
+                {
+                    isEnd = false;
+                }
+            }
+
+            node.end = isEnd;
+        }
 
 >>>>>>> parent of 874aa7f (wip mcts)
     }
