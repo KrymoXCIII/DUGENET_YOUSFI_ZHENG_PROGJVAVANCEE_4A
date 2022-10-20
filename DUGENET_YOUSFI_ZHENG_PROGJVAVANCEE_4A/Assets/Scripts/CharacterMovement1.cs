@@ -31,6 +31,7 @@ public class CharacterMovement1 : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Z))
             {
+<<<<<<< HEAD
                 map.updateMap(Player, move.UP);
             }
             else if (Input.GetKey(KeyCode.S))
@@ -44,6 +45,21 @@ public class CharacterMovement1 : MonoBehaviour
             else if (Input.GetKey(KeyCode.D))
             {
                 map.updateMap(Player, move.RIGHT);
+=======
+                Player.MovePlayerUp(gameObject,model1);
+            }
+            else if (Input.GetKey(KeyCode.S))
+            {
+                Player.MovePlayerDown(gameObject,model1);
+            }
+            else if (Input.GetKey(KeyCode.Q))
+            {
+                Player.MovePlayerLeft(gameObject,model1);
+            }
+            else if (Input.GetKey(KeyCode.D))
+            {
+                Player.MovePlayerRight(gameObject,model1);
+>>>>>>> parent of 97f5032 (fix movement)
             }
             else if (Input.GetKey(KeyCode.Space))
             {
